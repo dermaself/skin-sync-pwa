@@ -4,9 +4,10 @@ import { cn } from '@/lib/utils';
 interface ProductCardProps {
   product: Product;
   className?: string;
+  onClick?: (product: Product) => void;
 }
 
-export const ProductCard = ({ product, className }: ProductCardProps) => {
+export const ProductCard = ({ product, className, onClick }: ProductCardProps) => {
   const getFitPillClass = (fitPct: number) => {
     if (fitPct >= 90) return 'fit-pill-violet';
     if (fitPct >= 75) return 'fit-pill-emerald';
@@ -21,7 +22,10 @@ export const ProductCard = ({ product, className }: ProductCardProps) => {
   };
 
   return (
-    <div className={cn("lovi-card relative", className)}>
+    <div 
+      className={cn("lovi-card relative cursor-pointer hover:shadow-md transition-shadow", className)}
+      onClick={() => onClick?.(product)}
+    >
       {/* Fit percentage pill */}
       <div className={cn("inline-flex items-center gap-1 mb-2", getFitPillClass(product.fitPct))}>
         <span className="font-semibold">{product.fitPct}% fit</span>

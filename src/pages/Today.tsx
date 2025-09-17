@@ -6,14 +6,18 @@ import { DiaryCard } from '@/components/DiaryCard';
 import { SectionHeader } from '@/components/SectionHeader';
 import { SegmentedControl } from '@/components/SegmentedControl';
 import { ProductCard } from '@/components/ProductCard';
+import { ProductDetailSheet } from '@/components/ProductDetailSheet';
 import { SuggestionChips } from '@/components/SuggestionChips';
 import { AskBar } from '@/components/AskBar';
 import { AffirmationCard } from '@/components/AffirmationCard';
 import { seedProducts } from '@/lib/seed';
 import { openAICosmetologist } from '@/lib/services/chat';
+import type { Product } from '@/lib/seed';
 
 const Today = () => {
   const [selectedRoutine, setSelectedRoutine] = useState('Morning');
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   
   const routineOptions = [
     { value: 'Morning', label: 'Morning', icon: 'sun' as const },
@@ -22,6 +26,11 @@ const Today = () => {
   ];
 
   const morningProducts = seedProducts['Routine – Morning'] || [];
+
+  const handleProductClick = (product: Product) => {
+    setSelectedProduct(product);
+    setIsSheetOpen(true);
+  };
 
   return (
     <div className="max-w-screen-sm mx-auto px-4 sm:px-5 animate-fade-in">
@@ -67,13 +76,22 @@ const Today = () => {
           />
         </div>
 
-        <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide mb-6">
-          {morningProducts.map((product) => (
-            <div key={product.id} className="flex-shrink-0 w-44">
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
+        <ProductDetailSheet
+          product={selectedProduct}
+          isOpen={isSheetOpen}
+          onOpenChange={setIsSheetOpen}
+        >
+          <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide mb-6">
+            {morningProducts.map((product) => (
+              <div key={product.id} className="flex-shrink-0 w-44">
+                <ProductCard 
+                  product={product} 
+                  onClick={handleProductClick}
+                />
+              </div>
+            ))}
+          </div>
+        </ProductDetailSheet>
 
         <div className="text-center">
           <button className="text-primary font-medium hover:underline">

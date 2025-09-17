@@ -2,11 +2,20 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import { Search, QrCode, Heart, Package } from 'lucide-react';
 import { ProductCard } from '@/components/ProductCard';
+import { ProductDetailSheet } from '@/components/ProductDetailSheet';
 import { getAllSections } from '@/lib/services/catalog';
 import { seedProducts } from '@/lib/seed';
+import type { Product } from '@/lib/seed';
 
 const Products = () => {
   const { data: sections, isLoading } = useSWR('all-sections', getAllSections);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  const handleProductClick = (product: Product) => {
+    setSelectedProduct(product);
+    setIsSheetOpen(true);
+  };
 
   const collectionOrder = [
     'Acne-Safe Ceramides for Fall',
@@ -72,27 +81,38 @@ const Products = () => {
         </div>
       </div>
 
-      {/* Collections */}
-      {collectionOrder.map((collectionName) => {
-        const products = sections?.[collectionName] || seedProducts[collectionName] || [];
-        
-        return (
-          <div key={collectionName} className="mb-12">
-            <h2 className="text-xl font-semibold mb-2">{collectionName}</h2>
-            <p className="text-muted-foreground mb-6">
-              {collectionDescriptions[collectionName as keyof typeof collectionDescriptions]}
-            </p>
+      <ProductDetailSheet
+        product={selectedProduct}
+        isOpen={isSheetOpen}
+        onOpenChange={setIsSheetOpen}
+      >
+        <div>
+          {/* Collections */}
+          {collectionOrder.map((collectionName) => {
+            const products = sections?.[collectionName] || seedProducts[collectionName] || [];
             
-            <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-              {products.map((product) => (
-                <div key={product.id} className="flex-shrink-0 w-44">
-                  <ProductCard product={product} />
+            return (
+              <div key={collectionName} className="mb-12">
+                <h2 className="text-xl font-semibold mb-2">{collectionName}</h2>
+                <p className="text-muted-foreground mb-6">
+                  {collectionDescriptions[collectionName as keyof typeof collectionDescriptions]}
+                </p>
+                
+                <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+                  {products.map((product) => (
+                    <div key={product.id} className="flex-shrink-0 w-44">
+                      <ProductCard 
+                        product={product} 
+                        onClick={handleProductClick}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-        );
-      })}
+              </div>
+            );
+          })}
+        </div>
+      </ProductDetailSheet>
 
       {isLoading && (
         <div className="space-y-8">
