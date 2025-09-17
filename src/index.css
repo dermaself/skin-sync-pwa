@@ -233,6 +233,18 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
   }
 }
 
+/* Scrollbar hide utility */
+.scrollbar-hide {
+  /* IE and Edge */
+  -ms-overflow-style: none;
+  /* Firefox */
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Keyframes */
 @keyframes fadeIn {
   from {

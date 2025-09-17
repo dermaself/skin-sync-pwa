@@ -83,9 +83,11 @@ const Products = () => {
               {collectionDescriptions[collectionName as keyof typeof collectionDescriptions]}
             </p>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
               {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <div key={product.id} className="flex-shrink-0 w-44">
+                  <ProductCard product={product} />
+                </div>
               ))}
             </div>
           </div>
