@@ -5,6 +5,8 @@ import dullSkinImage from '@/assets/dull-vs-glowing-skin.jpg';
 import acneSunImage from '@/assets/acne-sun-myth.jpg';
 import foreheadMassageImage from '@/assets/forehead-massage.jpg';
 import eyeMassageImage from '@/assets/eye-massage.jpg';
+import hairTreatmentImage from '@/assets/hair-treatment-guide.jpg';
+import skincareGuideImage from '@/assets/7day-skincare-guide.jpg';
 
 const academyContent = [
   {
@@ -54,15 +56,14 @@ const skincareGuides = [
     category: 'Hair Care',
     readTime: '27 min',
     locked: true,
-    gradient: 'bg-gradient-to-br from-purple-200 to-purple-300',
-    image: '/images/today_1.png'
+    image: hairTreatmentImage
   },
   {
     title: '7-day Skincare Guide',
     category: 'Basic Care',
     readTime: '25 min',
     locked: false,
-    gradient: 'bg-gradient-to-br from-blue-200 to-blue-300',
+    image: skincareGuideImage,
     description: 'Elevate your daily life with ultimate routines'
   }
 ];
@@ -169,12 +170,19 @@ const Insights = () => {
           {skincareGuides.map((item, index) => (
             <div key={index} className="flex-shrink-0 w-64">
               <div className="lovi-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform">
-                <div className={`aspect-[4/3] ${item.gradient} relative overflow-hidden flex items-end p-6`}>
-                  <div className="text-left">
-                    <h3 className="text-2xl font-bold text-gray-800 mb-2 leading-tight">{item.title}</h3>
-                    {item.description && (
-                      <p className="text-gray-600 text-sm">{item.description}</p>
-                    )}
+                <div className="aspect-[4/3] relative overflow-hidden">
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">
+                    <div className="text-left">
+                      <h3 className="text-2xl font-bold text-white mb-2 leading-tight">{item.title}</h3>
+                      {item.description && (
+                        <p className="text-white/80 text-sm">{item.description}</p>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="p-4">
