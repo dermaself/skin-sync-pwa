@@ -22,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -47,6 +48,12 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Lóvi specific colors
+        "violet-fit": "hsl(var(--violet-fit))",
+        "emerald-fit": "hsl(var(--emerald-fit))",
+        "gray-fit": "hsl(var(--gray-fit))",
+        "price-yellow": "hsl(var(--price-yellow))",
+        "price-yellow-foreground": "hsl(var(--price-yellow-foreground))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

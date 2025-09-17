@@ -1,73 +1,67 @@
-# Welcome to your Lovable project
+# Lóvi - Mobile-First Skincare PWA
 
-## Project info
+A beautiful, mobile-first Progressive Web App for personalized skincare recommendations built with React, TypeScript, and Tailwind CSS.
 
-**URL**: https://lovable.dev/projects/78b00e03-8040-4196-b545-6e5844515ca1
+## 🚀 Getting Started
 
-## How can I edit this code?
+```bash
+# Install dependencies
+npm install
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/78b00e03-8040-4196-b545-6e5844515ca1) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## 🎨 Features
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Mobile-first design** with bottom tab navigation
+- **Beautiful purple gradient theme** matching the splash screen
+- **Smart product recommendations** with fit percentages
+- **Daily routine tracking** with persistent state
+- **Skin diary** with mood tracking
+- **Daily affirmations** for wellness
+- **AI cosmetologist suggestions** (coming soon)
 
-**Use GitHub Codespaces**
+## 📱 Pages
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- **/splash** - Beautiful gradient splash screen with Lóvi branding
+- **/today** - Main dashboard with greeting, day pills, routine, and diary
+- **/products** - Product catalog with collections and search
+- **/new-scan** - Product scanning interface (camera/upload)
+- **/insights** - Analytics and progress tracking
+- **/me** - User profile and settings
 
-## What technologies are used for this project?
+## 🛠 Tech Stack
 
-This project is built with:
+- **React 18** with TypeScript
+- **Tailwind CSS** with custom design system
+- **Zustand** for state management with persistence
+- **SWR** for data fetching
+- **Framer Motion** for animations
+- **Radix UI** components via shadcn/ui
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🎯 Design System
 
-## How can I deploy this project?
+The app uses a comprehensive design system with:
+- **Purple primary color** (HSL 264, 83%, 70%)
+- **Fit pill colors**: Violet (90%+), Emerald (75-89%), Gray (<75%)
+- **Yellow price pills** with retailer icons
+- **Rounded cards** with soft shadows
+- **Consistent spacing** and typography
 
-Simply open [Lovable](https://lovable.dev/projects/78b00e03-8040-4196-b545-6e5844515ca1) and click on Share -> Publish.
+## 📦 Seed Data
 
-## Can I connect a custom domain to my Lovable project?
+Product data is located in `src/lib/seed.ts` with collections:
+- Acne-Safe Ceramides for Fall
+- Acne-Safe Rosehip Oil Blends  
+- Acne-Safe Squalane Cleansers
+- Acne-Safe PHA Serums
 
-Yes, you can!
+## 🖼 Images
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Product images are generated and stored in `public/images/products/`. The splash screen uses the provided gradient background at `public/images/splash-iphone.png`.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Built with ❤️ for beautiful, accessible skincare experiences.
