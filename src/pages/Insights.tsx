@@ -12,6 +12,18 @@ const academyContent = [
     category: 'Basics',
     readTime: '2 min',
     image: '/images/today_2.png'
+  },
+  {
+    title: 'Why Does Skin Become Dull?',
+    category: 'Dullness',
+    readTime: '1 min',
+    image: '/images/today_3.png'
+  },
+  {
+    title: 'Sunbathing won\'t cure acne and here is why',
+    category: 'Acne',
+    readTime: '1 min',
+    image: '/images/today_4.png'
   }
 ];
 
