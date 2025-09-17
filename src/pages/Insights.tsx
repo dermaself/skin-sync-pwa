@@ -1,29 +1,33 @@
 import { Clock, BookOpen, Play } from 'lucide-react';
+import sugarAgingImage from '@/assets/sugar-aging-glycation.jpg';
+import moisturizerImage from '@/assets/moisturizer-application.jpg';
+import dullSkinImage from '@/assets/dull-vs-glowing-skin.jpg';
+import acneSunImage from '@/assets/acne-sun-myth.jpg';
 
 const academyContent = [
   {
     title: 'Sugar And Aging: Why We Need To Fight Glycation',
     category: 'Nutrition',
     readTime: '2 min',
-    image: '/images/today_1.png'
+    image: sugarAgingImage
   },
   {
     title: 'Moisturizing As A Skincare Keystone',
     category: 'Basics',
     readTime: '2 min',
-    image: '/images/today_2.png'
+    image: moisturizerImage
   },
   {
     title: 'Why Does Skin Become Dull?',
     category: 'Dullness',
     readTime: '1 min',
-    image: '/images/today_3.png'
+    image: dullSkinImage
   },
   {
     title: 'Sunbathing won\'t cure acne and here is why',
     category: 'Acne',
     readTime: '1 min',
-    image: '/images/today_4.png'
+    image: acneSunImage
   }
 ];
 
