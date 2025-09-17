@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Product } from '@/lib/seed';
 import { ProductCard } from '@/components/ProductCard';
+import { FitAnalysisSheet } from '@/components/FitAnalysisSheet';
 import { cn } from '@/lib/utils';
 
 interface ProductDetailSheetProps {
@@ -17,6 +18,7 @@ interface ProductDetailSheetProps {
 
 export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: ProductDetailSheetProps) => {
   const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
+  const [isFitAnalysisOpen, setIsFitAnalysisOpen] = useState(false);
 
   if (!product) return children;
 
@@ -119,15 +121,24 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
 
             {/* Fit Percentage */}
             <div className="flex justify-center mb-8">
-              <div className={cn(
-                "inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-semibold",
-                getFitPillClass(product.fitPct)
-              )}>
-                <span>{product.fitPct}% fit for you</span>
-                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold">i</span>
-                </div>
-              </div>
+              <FitAnalysisSheet 
+                product={product}
+                isOpen={isFitAnalysisOpen}
+                onOpenChange={setIsFitAnalysisOpen}
+              >
+                <button
+                  className={cn(
+                    "inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-semibold cursor-pointer hover:opacity-90 transition-opacity",
+                    getFitPillClass(product.fitPct)
+                  )}
+                  onClick={() => setIsFitAnalysisOpen(true)}
+                >
+                  <span>{product.fitPct}% fit for you</span>
+                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                    <span className="text-sm font-bold">i</span>
+                  </div>
+                </button>
+              </FitAnalysisSheet>
             </div>
 
             {/* Rating Indicators */}
