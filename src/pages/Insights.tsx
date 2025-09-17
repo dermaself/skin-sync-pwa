@@ -3,6 +3,8 @@ import sugarAgingImage from '@/assets/sugar-aging-glycation.jpg';
 import moisturizerImage from '@/assets/moisturizer-application.jpg';
 import dullSkinImage from '@/assets/dull-vs-glowing-skin.jpg';
 import acneSunImage from '@/assets/acne-sun-myth.jpg';
+import foreheadMassageImage from '@/assets/forehead-massage.jpg';
+import eyeMassageImage from '@/assets/eye-massage.jpg';
 
 const academyContent = [
   {
@@ -36,13 +38,13 @@ const massageGuides = [
     title: 'Massage Forehead',
     steps: '8 steps',
     duration: '18 min',
-    image: '/images/today_3.png'
+    image: foreheadMassageImage
   },
   {
     title: 'Massage Eyes',
     steps: '7 steps',
     duration: '23 min',
-    image: '/images/today_4.png'
+    image: eyeMassageImage
   }
 ];
 
