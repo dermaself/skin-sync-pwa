@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Product } from '@/lib/seed';
+import { ProductCard } from '@/components/ProductCard';
 import { cn } from '@/lib/utils';
 
 interface ProductDetailSheetProps {
@@ -32,13 +33,15 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
     }).format(price);
   };
 
-  const alternativeProducts = [
+  const alternativeProducts: Product[] = [
     {
       id: 'alt1',
       name: 'Advanced Snail 96 Mucin Power Essence',
       brand: 'COSRX',
+      category: 'Treatment',
       price: 16.70,
       currency: 'EUR',
+      retailer: 'amazon',
       fitPct: 92,
       imageUrl: '/images/products/ordinary-rosehip.png'
     },
@@ -46,8 +49,10 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
       id: 'alt2', 
       name: 'Real Ferment Micro Essence',
       brand: 'Neogen',
+      category: 'Treatment',
       price: 23.99,
       currency: 'EUR',
+      retailer: 'amazon',
       fitPct: 88,
       imageUrl: '/images/products/pai-rosehip.png'
     }
@@ -241,31 +246,18 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
                 </Badge>
               </div>
 
-              <div className="grid grid-cols-2 gap-6 mb-6">
+              <div className="flex gap-4 overflow-x-auto pb-4">
                 {alternativeProducts.map((alt) => (
-                  <div key={alt.id} className="space-y-4">
-                    <div className="bg-muted/30 rounded-2xl p-4 flex items-center justify-center h-40">
-                      <img
-                        src={alt.imageUrl}
-                        alt={`${alt.brand} ${alt.name}`}
-                        className="max-w-full max-h-full object-contain"
-                      />
-                    </div>
-                    <div>
-                      <div className="text-sm text-muted-foreground mb-1">{alt.brand}</div>
-                      <div className="font-semibold text-foreground mb-3 leading-tight">{alt.name}</div>
-                      <div className="flex items-center gap-2">
-                        <ShoppingCart size={16} className="text-muted-foreground" />
-                        <span className="font-bold text-foreground">
-                          {formatPrice(alt.price, alt.currency)}
-                        </span>
-                      </div>
-                    </div>
+                  <div key={alt.id} className="flex-shrink-0">
+                    <ProductCard 
+                      product={alt}
+                      className="w-48"
+                    />
                   </div>
                 ))}
               </div>
 
-              <div className="text-center">
+              <div className="text-center mt-6">
                 <Button variant="ghost" className="text-muted-foreground font-semibold">
                   See All
                 </Button>
