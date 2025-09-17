@@ -72,27 +72,18 @@ const Products = () => {
         </div>
       </div>
 
-      {/* Collections */}
-      {collectionOrder.map((collectionName) => {
-        const products = sections?.[collectionName] || seedProducts[collectionName] || [];
+      {/* All Products in Single Row */}
+      <div className="mb-12">
+        <h2 className="text-xl font-semibold mb-6">All Products</h2>
         
-        return (
-          <div key={collectionName} className="mb-12">
-            <h2 className="text-xl font-semibold mb-2">{collectionName}</h2>
-            <p className="text-muted-foreground mb-6">
-              {collectionDescriptions[collectionName as keyof typeof collectionDescriptions]}
-            </p>
-            
-            <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-              {products.map((product) => (
-                <div key={product.id} className="flex-shrink-0 w-44">
-                  <ProductCard product={product} />
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      })}
+        <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+          {collectionOrder.flatMap((collectionName) => 
+            sections?.[collectionName] || seedProducts[collectionName] || []
+          ).map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </div>
 
       {isLoading && (
         <div className="space-y-8">

@@ -21,7 +21,7 @@ export const ProductCard = ({ product, className }: ProductCardProps) => {
   };
 
   return (
-    <div className={cn("lovi-card relative", className)}>
+    <div className={cn("lovi-card relative w-44 flex-shrink-0", className)}>
       {/* Fit percentage pill */}
       <div className={cn("inline-flex items-center gap-1 mb-2", getFitPillClass(product.fitPct))}>
         <span className="font-semibold">{product.fitPct}% fit</span>
