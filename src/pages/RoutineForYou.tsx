@@ -394,12 +394,12 @@ const RoutineForYou = () => {
     const alternatives = alternativeProducts[stepKey as keyof typeof alternativeProducts] || [];
     
     return (
-      <div key={stepKey} className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="bg-foreground text-background px-3 py-1 rounded-full text-sm font-medium">
+      <div key={stepKey} className="mb-8">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="bg-foreground text-background px-3 py-1.5 rounded-full text-sm font-medium">
             Step {step.step}
           </div>
-          <h3 className="text-xl font-semibold">{step.title}</h3>
+          <h3 className="text-lg font-semibold">{step.title}</h3>
         </div>
 
         <div className="lovi-card">
@@ -407,16 +407,16 @@ const RoutineForYou = () => {
             <img
               src={step.product.image}
               alt={step.product.name}
-              className="w-16 h-16 object-contain rounded-lg"
+              className="w-20 h-20 object-contain rounded-lg shrink-0"
             />
-            <div className="flex-1">
-              <h4 className="font-semibold text-base leading-tight mb-1">
+            <div className="flex-1 min-w-0">
+              <h4 className="font-semibold text-base leading-tight mb-2">
                 {step.product.name}
               </h4>
-              <p className="text-sm text-muted-foreground mb-2">
+              <p className="text-sm text-muted-foreground mb-3">
                 {step.product.brand} · {step.product.price} · {step.product.store}
               </p>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${getFitPillClass(step.product.fitPercent)}`}>
                   <span className="font-semibold">{step.product.fitPercent}% fit</span>
                 </div>
@@ -427,7 +427,7 @@ const RoutineForYou = () => {
                 )}
               </div>
             </div>
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="shrink-0">
               <ShoppingCart className="h-5 w-5" />
             </Button>
           </div>
@@ -440,13 +440,13 @@ const RoutineForYou = () => {
           </div>
 
           <div className="flex items-center gap-3 mb-4">
-            <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-medium px-6">
-              <span className="mr-2 font-bold">a</span>
+            <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-medium px-6 py-2 rounded-full">
+              <span className="mr-2 font-bold text-base">a</span>
               {step.product.price}
             </Button>
             <Button 
               variant="ghost" 
-              className="text-muted-foreground"
+              className="text-muted-foreground px-4 py-2 rounded-full"
               onClick={() => toggleAlternatives(stepKey)}
             >
               {step.product.alternatives} alternatives
@@ -455,7 +455,7 @@ const RoutineForYou = () => {
 
           {isExpanded && alternatives.length > 0 && (
             <div className="border-t pt-4">
-              <h6 className="text-lg font-medium text-muted-foreground mb-4">
+              <h6 className="text-base font-medium text-muted-foreground mb-4">
                 Other great AI-picked options
               </h6>
               <div className="overflow-x-auto overflow-y-hidden">
@@ -479,80 +479,81 @@ const RoutineForYou = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="sticky top-0 bg-background/95 backdrop-blur-sm z-10 px-4 py-4 border-b">
+      <div className="sticky top-0 bg-background/95 backdrop-blur-sm z-10 px-4 py-3 border-b">
         <div className="flex items-center justify-between">
-          <h1 className="text-lg font-semibold">Routine for you</h1>
+          <h1 className="text-xl font-semibold">Routine for you</h1>
           <Button variant="ghost" size="icon" onClick={handleClose}>
-            <X className="h-5 w-5" />
+            <X className="h-6 w-6" />
           </Button>
         </div>
       </div>
 
-      <ScrollArea className="h-[calc(100vh-80px)]">
-        <div className="px-4 py-6">
+      <ScrollArea className="h-[calc(100vh-64px)]">
+        <div className="px-4 py-4">
           {/* Routine Formula Card */}
-          <div className="lovi-card mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className="text-lg font-semibold">{routineFormula.name}</h2>
-                <p className="text-sm text-muted-foreground">{routineFormula.goal}</p>
+          <div className="lovi-card mb-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex-1">
+                <h2 className="text-lg font-semibold leading-tight">{routineFormula.name}</h2>
+                <p className="text-sm text-muted-foreground mt-1">{routineFormula.goal}</p>
               </div>
               <Button 
                 variant="ghost" 
                 size="icon"
                 onClick={() => setExpandedFormula(!expandedFormula)}
+                className="shrink-0"
               >
                 <ChevronUp className={`h-5 w-5 transition-transform ${expandedFormula ? 'rotate-180' : ''}`} />
               </Button>
             </div>
 
             {expandedFormula && (
-              <div className="space-y-3 mb-4">
-                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
-                  <div className="flex justify-between">
+              <div className="space-y-4 mb-4">
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between items-start py-1">
                     <span className="text-muted-foreground">Target Goal</span>
-                    <span className="font-medium">{routineFormula.targetGoal}</span>
+                    <span className="font-medium text-right">{routineFormula.targetGoal}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-start py-1">
                     <span className="text-muted-foreground">Age</span>
-                    <span className="font-medium">{routineFormula.age}</span>
+                    <span className="font-medium text-right">{routineFormula.age}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-start py-1">
                     <span className="text-muted-foreground">Skin type</span>
-                    <span className="font-medium">{routineFormula.skinType}</span>
+                    <span className="font-medium text-right">{routineFormula.skinType}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-start py-1">
                     <span className="text-muted-foreground">Skin sensitivity</span>
-                    <span className="font-medium">{routineFormula.skinSensitivity}</span>
+                    <span className="font-medium text-right">{routineFormula.skinSensitivity}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-start py-1">
                     <span className="text-muted-foreground">Price</span>
-                    <span className="font-medium">{routineFormula.price}</span>
+                    <span className="font-medium text-right">{routineFormula.price}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-start py-1">
                     <span className="text-muted-foreground">Skin concerns</span>
-                    <span className="font-medium">{routineFormula.skinConcerns}</span>
+                    <span className="font-medium text-right flex-1 ml-4">{routineFormula.skinConcerns}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-start py-1">
                     <span className="text-muted-foreground">Skin conditions</span>
-                    <span className="font-medium">{routineFormula.skinConditions}</span>
+                    <span className="font-medium text-right">{routineFormula.skinConditions}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-start py-1">
                     <span className="text-muted-foreground">Health conditions</span>
-                    <span className="font-medium">{routineFormula.healthConditions}</span>
+                    <span className="font-medium text-right">{routineFormula.healthConditions}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-start py-1">
                     <span className="text-muted-foreground">Korean Skincare</span>
-                    <span className="font-medium">{routineFormula.koreanSkincare}</span>
+                    <span className="font-medium text-right">{routineFormula.koreanSkincare}</span>
                   </div>
                 </div>
               </div>
             )}
 
             <div className="bg-muted/30 rounded-lg p-3 mb-4">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
                 <span>Your formula has been updated</span>
-                <span className="ml-auto">🙂</span>
+                <span>🙂</span>
               </div>
               <div className="text-xs text-muted-foreground mt-1">
                 {routineFormula.lastUpdated}
@@ -566,7 +567,7 @@ const RoutineForYou = () => {
           </div>
 
           {/* Routine Selector */}
-          <div className="sticky top-[72px] bg-background/95 backdrop-blur-sm z-20 py-4 mb-4 -mx-4 px-4 border-b">
+          <div className="sticky top-[64px] bg-background/95 backdrop-blur-sm z-20 py-4 mb-6 -mx-4 px-4">
             <div className="flex justify-center">
               <SegmentedControl
                 options={[
@@ -581,38 +582,50 @@ const RoutineForYou = () => {
           </div>
 
           {/* Trust Message */}
-          <div className="text-center mb-8">
+          <div className="mb-8">
             <h3 className="text-xl font-bold mb-3">Your skin is our main focus</h3>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               All the recommendations are unbiased and non-sponsored. Picked by Lovi AI & Reviewed by our MDs.
             </p>
           </div>
 
           {/* Morning Section */}
-          <div ref={morningRef} className="space-y-8 mb-16">
-            <div className="text-center py-8">
-              <div className="text-6xl mb-4">☀️</div>
-              <h2 className="text-2xl font-bold mb-4">Morning</h2>
-            </div>
+          <div ref={morningRef} className="mb-12">
             {routineSteps.morning.map((step) => renderProductStep(step, 'morning'))}
           </div>
 
+          {/* Trust Message Between Sections */}
+          <div className="mb-8 lovi-card p-4">
+            <h3 className="text-lg font-bold mb-2">Your skin is our main focus</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              All the recommendations are unbiased and non-sponsored. Picked by Lovi AI & Reviewed by our MDs.
+            </p>
+          </div>
+
           {/* Evening Section */}
-          <div ref={eveningRef} className="space-y-8 mb-16">
-            <div className="text-center py-8">
-              <div className="text-6xl mb-4">🌙</div>
-              <h2 className="text-2xl font-bold mb-4">Evening</h2>
+          <div ref={eveningRef} className="mb-12">
+            <div className="text-center py-6 mb-6">
+              <div className="text-4xl mb-3">🌙</div>
+              <h2 className="text-2xl font-bold">Evening Routine</h2>
             </div>
             {routineSteps.evening.map((step) => renderProductStep(step, 'evening'))}
           </div>
 
+          {/* Trust Message Between Sections */}
+          <div className="mb-8 lovi-card p-4">
+            <h3 className="text-lg font-bold mb-2">Your skin is our main focus</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              All the recommendations are unbiased and non-sponsored. Picked by Lovi AI & Reviewed by our MDs.
+            </p>
+          </div>
+
           {/* Weekly Section */}
-          <div ref={weeklyRef} className="space-y-8 mb-16">
-            <div className="text-center py-8">
-              <div className="text-6xl mb-4">✨</div>
+          <div ref={weeklyRef} className="mb-12">
+            <div className="text-center py-6 mb-6">
+              <div className="text-4xl mb-3">✨</div>
               <h2 className="text-2xl font-bold mb-4">Weekly</h2>
-              <p className="text-lg mb-6">A weekly treat for your skin 🤗</p>
-              <div className="lovi-card p-6 text-left">
+              <p className="text-base mb-6 text-muted-foreground">A weekly treat for your skin 🤗</p>
+              <div className="lovi-card p-4 text-left">
                 <div className="flex items-start gap-3">
                   <div className="text-2xl">🎁</div>
                   <div>
