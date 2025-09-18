@@ -21,7 +21,7 @@ export const ChecklistItem = ({ task, icon }: ChecklistItemProps) => {
     <button
       onClick={handleToggle}
       className={cn(
-        "lovi-card flex items-center gap-4 w-full text-left transition-all hover:scale-[1.02]",
+        "dermaself-card flex items-center gap-4 w-full text-left transition-all hover:scale-[1.02]",
         completed && "opacity-75"
       )}
     >

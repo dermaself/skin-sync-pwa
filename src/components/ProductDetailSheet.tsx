@@ -186,9 +186,9 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
               </div>
             </div>
 
-            {/* Lóvi Assistant */}
+            {/* Dermaself Assistant */}
             <div className="mb-8 sm:mb-10">
-              <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Lóvi Assistant says:</h3>
+              <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Dermaself Assistant says:</h3>
               
               <div className="space-y-4 sm:space-y-6">
                 <div className="flex gap-3 sm:gap-4">
@@ -217,10 +217,10 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
                 </div>
               </div>
 
-              {/* Ask Lóvi Button */}
+              {/* Ask Dermaself Button */}
               <div className="flex justify-end mt-6 sm:mt-8">
                 <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-full px-6 sm:px-8 py-3 font-semibold text-base sm:text-base min-h-[48px]">
-                  💬 Ask Lóvi...
+                  💬 Ask Dermaself...
                 </Button>
               </div>
 

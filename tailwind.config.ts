@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'anton': ['Anton', 'sans-serif'],
+        'space-grotesk': ['Space Grotesk', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -48,7 +52,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Lóvi specific colors
+        // Dermaself specific colors
         "violet-fit": "hsl(var(--violet-fit))",
         "emerald-fit": "hsl(var(--emerald-fit))",
         "gray-fit": "hsl(var(--gray-fit))",

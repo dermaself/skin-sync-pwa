@@ -24,7 +24,7 @@ export const DiaryCard = () => {
   return (
     <div className="space-y-6">
       {/* Mood selector */}
-      <div className="lovi-card">
+      <div className="dermaself-card">
         <h3 className="font-semibold text-center mb-6">How does your skin feel today?</h3>
         
         <div className="grid grid-cols-5 gap-3">
@@ -49,7 +49,7 @@ export const DiaryCard = () => {
       </div>
 
       {/* K-Beauty routine CTA */}
-      <div className="lovi-card flex items-center gap-4">
+      <div className="dermaself-card flex items-center gap-4">
         <div className="flex-1">
           <h3 className="font-semibold">Try a Tailored K-Beauty Routine</h3>
         </div>

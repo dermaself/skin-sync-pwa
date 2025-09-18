@@ -114,10 +114,10 @@ const Today = () => {
         </div>
       </div>
 
-      {/* Ask Lóvi AI Cosmetologist */}
+      {/* Ask Dermaself AI Cosmetologist */}
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4">
-          Ask Lóvi <span className="text-muted-foreground">AI Cosmetologist</span>
+          Ask Dermaself <span className="text-muted-foreground">AI Cosmetologist</span>
         </h2>
         
         <SuggestionChips onChipClick={handleChatOpen} />

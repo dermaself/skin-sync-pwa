@@ -6,7 +6,7 @@ const Me = () => {
       <h1 className="text-3xl font-bold mb-8">Lorenzo</h1>
       
       {/* Profile Section */}
-      <div className="lovi-card flex items-center gap-4 mb-6">
+      <div className="dermaself-card flex items-center gap-4 mb-6">
         <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
           <User size={32} className="text-primary" />
         </div>
@@ -18,7 +18,7 @@ const Me = () => {
 
       {/* Settings */}
       <div className="space-y-4">
-        <div className="lovi-card flex items-center justify-between">
+        <div className="dermaself-card flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Bell size={20} className="text-muted-foreground" />
             <span className="font-medium">Notifications</span>
@@ -28,7 +28,7 @@ const Me = () => {
           </div>
         </div>
 
-        <div className="lovi-card flex items-center justify-between">
+        <div className="dermaself-card flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Globe size={20} className="text-muted-foreground" />
             <span className="font-medium">Language & Currency</span>
@@ -36,17 +36,17 @@ const Me = () => {
           <span className="text-muted-foreground">EN, EUR</span>
         </div>
 
-        <div className="lovi-card flex items-center justify-between">
+        <div className="dermaself-card flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Shield size={20} className="text-muted-foreground" />
             <span className="font-medium">Privacy & Data</span>
           </div>
         </div>
 
-        <div className="lovi-card flex items-center justify-between">
+        <div className="dermaself-card flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Info size={20} className="text-muted-foreground" />
-            <span className="font-medium">About Lóvi</span>
+            <span className="font-medium">About Dermaself</span>
           </div>
         </div>
       </div>

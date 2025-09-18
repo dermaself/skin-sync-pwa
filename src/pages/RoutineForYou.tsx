@@ -402,7 +402,7 @@ const RoutineForYou = () => {
           <h3 className="text-lg font-semibold">{step.title}</h3>
         </div>
 
-        <div className="lovi-card">
+        <div className="dermaself-card">
           <div className="flex gap-4 mb-4">
             <img
               src={step.product.image}
@@ -422,7 +422,7 @@ const RoutineForYou = () => {
                 </div>
                 {step.product.verified && (
                   <div className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
-                    <span>✓ Lóvi MD Verified</span>
+                    <span>✓ Dermaself MD Verified</span>
                   </div>
                 )}
               </div>
@@ -491,7 +491,7 @@ const RoutineForYou = () => {
       <ScrollArea className="h-[calc(100vh-64px)]">
         <div className="px-4 py-4">
           {/* Routine Formula Card */}
-          <div className="lovi-card mb-4">
+          <div className="dermaself-card mb-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex-1">
                 <h2 className="text-lg font-semibold leading-tight">{routineFormula.name}</h2>
@@ -585,7 +585,7 @@ const RoutineForYou = () => {
           <div className="mb-8">
             <h3 className="text-xl font-bold mb-3">Your skin is our main focus</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              All the recommendations are unbiased and non-sponsored. Picked by Lovi AI & Reviewed by our MDs.
+              All the recommendations are unbiased and non-sponsored. Picked by Dermaself AI & Reviewed by our MDs.
             </p>
           </div>
 
@@ -612,20 +612,20 @@ const RoutineForYou = () => {
           </div>
 
           {/* Trust Message Between Sections */}
-          <div className="mb-8 lovi-card p-4">
-            <h3 className="text-lg font-bold mb-2">Your skin is our main focus</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              All the recommendations are unbiased and non-sponsored. Picked by Lovi AI & Reviewed by our MDs.
+          <div className="mb-8 dermaself-card p-4">
+            <h3 className="text-base font-medium mb-2 text-center">Your skin is our main focus</h3>
+            <p className="text-sm text-muted-foreground text-center">
+              All the recommendations are unbiased and non-sponsored. Picked by Dermaself AI & Reviewed by our MDs.
             </p>
           </div>
 
-          {/* Weekly Section */}
+          {/* Weekly Section */
           <div ref={weeklyRef} className="mb-12">
             <div className="text-center py-6 mb-6">
               <div className="text-4xl mb-3">✨</div>
               <h2 className="text-2xl font-bold mb-4">Weekly</h2>
               <p className="text-base mb-6 text-muted-foreground">A weekly treat for your skin 🤗</p>
-              <div className="lovi-card p-4 text-left">
+              <div className="dermaself-card p-4 text-left">
                 <div className="flex items-start gap-3">
                   <div className="text-2xl">🎁</div>
                   <div>

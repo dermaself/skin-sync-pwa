@@ -23,7 +23,7 @@ export const ProductCard = ({ product, className, onClick }: ProductCardProps) =
 
   return (
     <div 
-      className={cn("lovi-card relative cursor-pointer hover:shadow-md transition-shadow", className)}
+      className={cn("dermaself-card relative cursor-pointer hover:shadow-md transition-shadow", className)}
       onClick={() => onClick?.(product)}
     >
       {/* Fit percentage pill */}

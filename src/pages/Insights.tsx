@@ -150,7 +150,7 @@ const Insights = () => {
           {academyContent.map((item, index) => (
             <div key={index} className="flex-shrink-0 w-64">
               <div 
-                className="lovi-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform"
+                className="dermaself-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform"
                 onClick={() => handleStoryClick(index)}
               >
                 <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
@@ -215,13 +215,13 @@ const Insights = () => {
       <section className="mb-8">
         <div className="mb-4">
           <h2 className="text-xl font-semibold mb-1">Handcrafted Skincare Guides</h2>
-          <p className="text-muted-foreground">by Lovi Medical Team</p>
+          <p className="text-muted-foreground">by Dermaself Medical Team</p>
         </div>
         
         <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
           {skincareGuides.map((item, index) => (
             <div key={index} className="flex-shrink-0 w-64">
-              <div className="lovi-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform">
+              <div className="dermaself-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform">
                 <div className="aspect-[4/3] relative overflow-hidden">
                   <img 
                     src={item.image} 
@@ -268,7 +268,7 @@ const Insights = () => {
           <h2 className="text-xl font-semibold">Step-by-Step Skincare Application Guides</h2>
         </div>
         
-        <div className="lovi-card p-0 overflow-hidden">
+        <div className="dermaself-card p-0 overflow-hidden">
           <div className="aspect-video bg-gradient-to-br from-purple-500 to-blue-600 relative overflow-hidden">
             <img 
               src="/images/skincare-tutorial.jpg" 

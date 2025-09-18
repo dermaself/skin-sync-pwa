@@ -23,7 +23,7 @@ export const ChatbotUI = ({ open, onOpenChange, trigger, initialMessage }: Chatb
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: "Hi! I'm Lóvi, your personal beauty assistant. How can I help you today?",
+      content: "Hi! I'm Dermaself, your personal beauty assistant. How can I help you today?",
       isBot: true,
       timestamp: new Date(),
     },
@@ -112,7 +112,7 @@ export const ChatbotUI = ({ open, onOpenChange, trigger, initialMessage }: Chatb
         <SheetHeader className="p-4 pb-2 flex-shrink-0">
           <SheetTitle className="flex items-center gap-2">
             <Bot className="w-5 h-5 text-primary" />
-            Chat with Lóvi
+            Chat with Dermaself
           </SheetTitle>
         </SheetHeader>
         
@@ -171,7 +171,7 @@ export const ChatbotUI = ({ open, onOpenChange, trigger, initialMessage }: Chatb
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask Lóvi anything..."
+                placeholder="Ask Dermaself anything..."
                 className="flex-1 rounded-full"
               />
               <Button

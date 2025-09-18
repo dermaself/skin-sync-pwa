@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Lóvi Design System - Beautiful skincare app theming
+/* Dermaself Design System - Beautiful skincare app theming
 All colors MUST be HSL. Purple-blue gradient theme with warm accents.
 */
 
 @layer base {
   :root {
     /* Base colors - light clean background */
-    --background: 248 251% 98%;
+    --background: 248 51% 98%;
     --foreground: 240 15% 15%;
 
     /* Cards - pure white with soft shadows */
@@ -20,10 +20,10 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
     --popover: 0 0% 100%;
     --popover-foreground: 240 15% 15%;
 
-    /* Primary - Lóvi purple brand */
-    --primary: 264 83% 70%;
+    /* Primary - Dermaself purple brand */
+    --primary: 258 80% 57%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 264 100% 85%;
+    --primary-glow: 270 50% 75%;
 
     /* Secondary - soft accent */
     --secondary: 248 40% 94%;
@@ -44,23 +44,23 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
     /* Borders and inputs */
     --border: 248 25% 88%;
     --input: 248 25% 88%;
-    --ring: 264 83% 70%;
+    --ring: 258 80% 57%;
 
-    /* Lóvi specific colors */
-    --violet-fit: 264 83% 70%;        /* 90%+ fit */
-    --emerald-fit: 160 84% 65%;       /* 75-89% fit */
+    /* Dermaself specific colors */
+    --violet-fit: 270 50% 75%;        /* 90%+ fit */
+    --emerald-fit: 158 64% 52%;       /* 75-89% fit */
     --gray-fit: 240 8% 70%;           /* <75% fit */
     --price-yellow: 48 100% 67%;      /* Price pills */
     --price-yellow-foreground: 240 15% 15%;
 
     /* Gradients */
-    --gradient-splash: linear-gradient(135deg, hsl(264, 100%, 85%) 0%, hsl(220, 100%, 85%) 100%);
+    --gradient-splash: linear-gradient(135deg, hsl(258, 80%, 57%) 0%, hsl(270, 50%, 75%) 100%);
     --gradient-header: linear-gradient(to bottom, hsl(var(--background)) 0%, hsl(var(--background) / 0.8) 100%);
-    --gradient-affirmation: linear-gradient(135deg, hsl(264, 80%, 85%) 0%, hsl(220, 80%, 90%) 100%);
+    --gradient-affirmation: linear-gradient(135deg, hsl(270, 50%, 75%) 0%, hsl(158, 64%, 52%) 100%);
 
     /* Shadows */
     --shadow-card: 0 6px 20px hsl(240 15% 15% / 0.12);
-    --shadow-float: 0 10px 30px hsl(264 83% 70% / 0.25);
+    --shadow-float: 0 10px 30px hsl(258 80% 57% / 0.25);
 
     /* Radius */
     --radius: 1.5rem;
@@ -127,14 +127,15 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground;
+    font-family: 'Space Grotesk', sans-serif;
   }
 }
 
-/* Lóvi Component Styles */
+/* Dermaself Component Styles */
 @layer components {
   /* Card styles */
-  .lovi-card {
+  .dermaself-card {
     @apply bg-card text-card-foreground rounded-3xl p-5;
     box-shadow: var(--shadow-card);
   }

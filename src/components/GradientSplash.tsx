@@ -31,7 +31,7 @@ export const GradientSplash = () => {
       <div className="absolute inset-0">
         <img
           src="/images/splash-iphone.png"
-          alt="Lóvi splash screen"
+          alt="Dermaself splash screen"
           className="w-full h-full object-cover"
         />
       </div>

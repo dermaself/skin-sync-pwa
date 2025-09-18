@@ -238,7 +238,7 @@ export const FitAnalysisSheet = ({ product, isOpen, onOpenChange, children }: Fi
                 Approved by Nadia Kapleva,
               </h3>
               <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
-                Lóvi Medical Director, PhD,<br />
+                Dermaself Medical Director, PhD,<br />
                 Cosmetic Chemist,<br />
                 Cosmetologist, Aesthetic<br />
                 Products Developer

@@ -23,7 +23,7 @@ export const AskBar = ({ onSubmit }: AskBarProps) => {
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder="Ask Lóvi anything..."
+        placeholder="Ask Dermaself anything..."
         className="flex-1 bg-transparent text-foreground placeholder:text-muted-foreground outline-none"
       />
       {message.trim() && (

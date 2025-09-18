@@ -58,7 +58,7 @@ export const AlternativeProductCard = ({ product, onClick }: AlternativeProductC
         </div>
         {product.verified && (
           <div className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
-            <span>✓ Lóvi MD Verified</span>
+            <span>✓ Dermaself MD Verified</span>
           </div>
         )}
       </div>

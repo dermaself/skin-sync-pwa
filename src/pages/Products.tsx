@@ -55,7 +55,7 @@ const Products = () => {
         {/* Tiles row */}
         <div className="grid grid-cols-3 gap-4 mb-8">
           <div 
-            className="lovi-card text-center cursor-pointer hover:shadow-md transition-shadow"
+            className="dermaself-card text-center cursor-pointer hover:shadow-md transition-shadow"
             onClick={() => navigate('/routine-for-you')}
           >
             <div className="flex flex-col items-center gap-3">
@@ -66,7 +66,7 @@ const Products = () => {
             </div>
           </div>
           
-          <div className="lovi-card text-center">
+          <div className="dermaself-card text-center">
             <div className="flex flex-col items-center gap-3">
               <div className="w-12 h-12 bg-emerald-fit/20 rounded-full flex items-center justify-center">
                 <Package size={20} className="text-emerald-fit" />
@@ -75,7 +75,7 @@ const Products = () => {
             </div>
           </div>
           
-          <div className="lovi-card text-center">
+          <div className="dermaself-card text-center">
             <div className="flex flex-col items-center gap-3">
               <div className="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center">
                 <Heart size={20} className="text-pink-500" />
@@ -126,8 +126,8 @@ const Products = () => {
               <div className="h-6 bg-muted rounded animate-pulse" />
               <div className="h-4 bg-muted rounded w-3/4 animate-pulse" />
               <div className="grid grid-cols-2 gap-4">
-                <div className="lovi-card h-64 animate-pulse bg-muted" />
-                <div className="lovi-card h-64 animate-pulse bg-muted" />
+                <div className="dermaself-card h-64 animate-pulse bg-muted" />
+                <div className="dermaself-card h-64 animate-pulse bg-muted" />
               </div>
             </div>
           ))}
