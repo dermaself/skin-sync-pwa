@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Gift } from 'lucide-react';
 import { DayPills } from '@/components/DayPills';
 import { ChecklistItem } from '@/components/ChecklistItem';
@@ -15,6 +16,7 @@ import { seedProducts } from '@/lib/seed';
 import type { Product } from '@/lib/seed';
 
 const Today = () => {
+  const navigate = useNavigate();
   const [selectedRoutine, setSelectedRoutine] = useState('Morning');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -103,7 +105,10 @@ const Today = () => {
         </ProductDetailSheet>
 
         <div className="text-center">
-          <button className="text-primary font-medium hover:underline">
+          <button 
+            className="text-primary font-medium hover:underline"
+            onClick={() => navigate('/routine-for-you')}
+          >
             Show all
           </button>
         </div>

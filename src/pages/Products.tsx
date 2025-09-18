@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
 import { Search, QrCode, Heart, Package } from 'lucide-react';
 import { ProductCard } from '@/components/ProductCard';
@@ -8,6 +9,7 @@ import { seedProducts } from '@/lib/seed';
 import type { Product } from '@/lib/seed';
 
 const Products = () => {
+  const navigate = useNavigate();
   const { data: sections, isLoading } = useSWR('all-sections', getAllSections);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -52,7 +54,10 @@ const Products = () => {
 
         {/* Tiles row */}
         <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="lovi-card text-center">
+          <div 
+            className="lovi-card text-center cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => navigate('/routine-for-you')}
+          >
             <div className="flex flex-col items-center gap-3">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                 <Package size={20} className="text-primary" />

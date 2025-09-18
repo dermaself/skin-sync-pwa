@@ -1,0 +1,368 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { X, ChevronUp, ShoppingCart, RotateCcw } from 'lucide-react';
+import { SegmentedControl } from '@/components/SegmentedControl';
+import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+
+// Sample routine data based on the uploaded images
+const routineFormula = {
+  name: "Lorenzo's Routine Formula",
+  goal: "Visible Pores, $19 and less",
+  targetGoal: "Visible Pores",
+  age: "35 - 44",
+  skinType: "Normal",
+  skinSensitivity: "Sensitive",
+  price: "Smart Savings ($19 and less)",
+  skinConcerns: "Fine lines and wrinkles, Enlarged Pores",
+  skinConditions: "No, I don't",
+  healthConditions: "No, I don't",
+  koreanSkincare: "Yes",
+  lastUpdated: "17.09.2025 11:28"
+};
+
+const routineSteps = {
+  morning: [
+    {
+      step: 1,
+      title: "Cleanser",
+      product: {
+        name: "The Simple Mild Foam Cleanser",
+        brand: "Scinic",
+        price: "€12.00",
+        store: "K-Beauty ✨",
+        fitPercent: 93,
+        verified: true,
+        image: "/images/products/fab-cleanser.png",
+        whyPicked: "This product gently cleanses your sensitive skin from impurities, leveraging Aloe Barbadensis Leaf Juice and Madecassoside to soothe and hydrate, thereby minimizing irritation and supporting skin comfort.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 2,
+      title: "Soothing Toner",
+      product: {
+        name: "Madagascar Centella Probio-CICA Essence Toner",
+        brand: "SKIN1004",
+        price: "€18.84",
+        store: "K-Beauty ✨",
+        fitPercent: 93,
+        verified: true,
+        image: "/images/products/ren-aha-tonic.png",
+        whyPicked: "As part of your routine, this product calms and re-balances skin, offering exceptional benefits for sensitive skin through its soothing Centella Asiatica Extract and hydrating Sodium Hyaluronate, which work synergistically to enhance skin texture and reduce irritation.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 3,
+      title: "Moisturizer with Sun Protection",
+      product: {
+        name: "Soon Jung Mild Defence Sun Cream",
+        brand: "Etude House",
+        price: "£19.99",
+        store: "K-Beauty ✨",
+        fitPercent: 92,
+        verified: true,
+        image: "/images/products/cerave-pm.png",
+        whyPicked: "As the final step in your morning routine, this product hydrates and defends against UV rays while soothing your sensitive skin with madecassoside and scutellaria baicalensis root extract, promoting a healthy skin barrier with panthenol.",
+        alternatives: 5
+      }
+    }
+  ],
+  evening: [
+    {
+      step: 1,
+      title: "Pre-Cleanser",
+      product: {
+        name: "Deep Cleansing Oil",
+        brand: "Pyunkang Yul",
+        price: "€19.70",
+        store: "K-Beauty ✨",
+        fitPercent: 96,
+        verified: true,
+        image: "/images/products/ordinary-rosehip.png",
+        whyPicked: "As the first step in your evening routine, this product effectively removes oil-based debris, sebum, sunscreen, and makeup while leveraging allantoin and panthenol to soothe your sensitive skin and coptis japonica root extract to visibly minimize pores.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 2,
+      title: "Cleanser",
+      product: {
+        name: "The Simple Mild Foam Cleanser",
+        brand: "Scinic",
+        price: "€12.00",
+        store: "K-Beauty ✨",
+        fitPercent: 93,
+        verified: true,
+        image: "/images/products/fab-cleanser.png",
+        whyPicked: "This product gently cleanses your sensitive skin from impurities, while soothing ingredients like Aloe Barbadensis Leaf Juice and Madecassoside help to calm and hydrate the skin.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 3,
+      title: "Soothing Toner",
+      product: {
+        name: "Madagascar Centella Probio-CICA Essence Toner",
+        brand: "SKIN1004",
+        price: "€18.84",
+        store: "K-Beauty ✨",
+        fitPercent: 93,
+        verified: true,
+        image: "/images/products/ren-aha-tonic.png",
+        whyPicked: "As the third step in your routine, this product effectively calms and re-balances your normal skin with Centella Asiatica Extract and Sodium Hyaluronate, while also addressing sensitivity with its allergen-free formulation.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 4,
+      title: "Serum or Treatment",
+      product: {
+        name: "Centella Unscented Serum",
+        brand: "Purito",
+        price: "€16.59",
+        store: "K-Beauty ✨",
+        fitPercent: 94,
+        verified: true,
+        image: "/images/products/naturium-mandelic.png",
+        whyPicked: "As a treatment, it leverages Centella Asiatica Extract and Ceramide NP to effectively target visible pores and acne for sensitive skin, while enhancing hydration and barrier repair with its synergistic blend of soothing and hydrating ingredients.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 5,
+      title: "Moisturizer",
+      product: {
+        name: "Centella Asiatica Ampoule",
+        brand: "SKIN1004",
+        price: "€18.43",
+        store: "K-Beauty ✨",
+        fitPercent: 96,
+        verified: true,
+        image: "/images/products/pixi-milky.png",
+        whyPicked: "With Centella Asiatica and Sodium Hyaluronate, it moisturizes your sensitive skin while soothing inflammation and promoting hydration, effectively targeting visible pores without causing irritation.",
+        alternatives: 5
+      }
+    }
+  ]
+};
+
+const RoutineForYou = () => {
+  const navigate = useNavigate();
+  const [selectedRoutine, setSelectedRoutine] = useState<'Morning' | 'Evening' | 'Weekly'>('Morning');
+  const [expandedFormula, setExpandedFormula] = useState(false);
+
+  const handleClose = () => {
+    navigate(-1);
+  };
+
+  const getFitPillClass = (fitPct: number) => {
+    if (fitPct >= 90) return 'fit-pill-violet';
+    if (fitPct >= 75) return 'fit-pill-emerald';
+    return 'fit-pill-gray';
+  };
+
+  const currentSteps = selectedRoutine === 'Morning' ? routineSteps.morning : routineSteps.evening;
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="sticky top-0 bg-background/95 backdrop-blur-sm z-10 px-4 py-4 border-b">
+        <div className="flex items-center justify-between">
+          <h1 className="text-lg font-semibold">Routine for you</h1>
+          <Button variant="ghost" size="icon" onClick={handleClose}>
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
+      </div>
+
+      <ScrollArea className="h-[calc(100vh-80px)]">
+        <div className="px-4 py-6">
+          {/* Routine Formula Card */}
+          <div className="lovi-card mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-lg font-semibold">{routineFormula.name}</h2>
+                <p className="text-sm text-muted-foreground">{routineFormula.goal}</p>
+              </div>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => setExpandedFormula(!expandedFormula)}
+              >
+                <ChevronUp className={`h-5 w-5 transition-transform ${expandedFormula ? 'rotate-180' : ''}`} />
+              </Button>
+            </div>
+
+            {expandedFormula && (
+              <div className="space-y-3 mb-4">
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Target Goal</span>
+                    <span className="font-medium">{routineFormula.targetGoal}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Age</span>
+                    <span className="font-medium">{routineFormula.age}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Skin type</span>
+                    <span className="font-medium">{routineFormula.skinType}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Skin sensitivity</span>
+                    <span className="font-medium">{routineFormula.skinSensitivity}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Price</span>
+                    <span className="font-medium">{routineFormula.price}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Skin concerns</span>
+                    <span className="font-medium">{routineFormula.skinConcerns}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Skin conditions</span>
+                    <span className="font-medium">{routineFormula.skinConditions}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Health conditions</span>
+                    <span className="font-medium">{routineFormula.healthConditions}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Korean Skincare</span>
+                    <span className="font-medium">{routineFormula.koreanSkincare}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="bg-muted/30 rounded-lg p-3 mb-4">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <span>Your formula has been updated</span>
+                <span className="ml-auto">🙂</span>
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                {routineFormula.lastUpdated}
+              </div>
+            </div>
+
+            <Button className="w-full" variant="outline">
+              <RotateCcw className="w-4 h-4 mr-2" />
+              Update Formula
+            </Button>
+          </div>
+
+          {/* Routine Selector */}
+          <div className="mb-8">
+            <SegmentedControl
+              options={[
+                { value: 'Morning', label: 'Morning', icon: 'sun' },
+                { value: 'Evening', label: 'Evening', icon: 'moon' },
+                { value: 'Weekly', label: 'Weekly', icon: 'sparkles' }
+              ]}
+              value={selectedRoutine}
+              onChange={(value) => setSelectedRoutine(value as 'Morning' | 'Evening' | 'Weekly')}
+            />
+          </div>
+
+          {/* Weekly Special Section */}
+          {selectedRoutine === 'Weekly' && (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">✨</div>
+              <h2 className="text-2xl font-bold mb-4">Weekly</h2>
+              <p className="text-lg mb-6">A weekly treat for your skin 🤗</p>
+              <div className="lovi-card p-6 text-left">
+                <div className="flex items-start gap-3">
+                  <div className="text-2xl">🎁</div>
+                  <div>
+                    <p className="font-medium mb-2">Enjoy a special program with additional steps to treat your skin in the best way possible!</p>
+                    <p className="text-sm text-muted-foreground">For best results, use these 1-2 times per week and follow with your regular routine.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Routine Steps */}
+          {selectedRoutine !== 'Weekly' && (
+            <>
+              {/* Trust Message */}
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-bold mb-3">Your skin is our main focus</h3>
+                <p className="text-sm text-muted-foreground">
+                  All the recommendations are unbiased and non-sponsored. Picked by Lovi AI & Reviewed by our MDs.
+                </p>
+              </div>
+
+              {/* Product Steps */}
+              <div className="space-y-8">
+                {currentSteps.map((step) => (
+                  <div key={step.step} className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="bg-foreground text-background px-3 py-1 rounded-full text-sm font-medium">
+                        Step {step.step}
+                      </div>
+                      <h3 className="text-xl font-semibold">{step.title}</h3>
+                    </div>
+
+                    <div className="lovi-card">
+                      <div className="flex gap-4 mb-4">
+                        <img
+                          src={step.product.image}
+                          alt={step.product.name}
+                          className="w-16 h-16 object-contain rounded-lg"
+                        />
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-base leading-tight mb-1">
+                            {step.product.name}
+                          </h4>
+                          <p className="text-sm text-muted-foreground mb-2">
+                            {step.product.brand} · {step.product.price} · {step.product.store}
+                          </p>
+                          <div className="flex items-center gap-2">
+                            <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${getFitPillClass(step.product.fitPercent)}`}>
+                              <span className="font-semibold">{step.product.fitPercent}% fit</span>
+                            </div>
+                            {step.product.verified && (
+                              <div className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
+                                <span>✓ Lóvi MD Verified</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <Button variant="ghost" size="icon">
+                          <ShoppingCart className="h-5 w-5" />
+                        </Button>
+                      </div>
+
+                      <div className="bg-muted/30 rounded-lg p-4 mb-4">
+                        <h5 className="font-medium mb-2">Why we picked it</h5>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {step.product.whyPicked}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-medium px-6">
+                          <span className="mr-2 font-bold">a</span>
+                          {step.product.price}
+                        </Button>
+                        <Button variant="ghost" className="text-muted-foreground">
+                          {step.product.alternatives} alternatives
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </ScrollArea>
+    </div>
+  );
+};
+
+export default RoutineForYou;

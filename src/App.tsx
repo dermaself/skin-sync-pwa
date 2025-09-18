@@ -10,6 +10,7 @@ import { FloatingSmiley } from "@/components/FloatingSmiley";
 import Splash from "./pages/Splash";
 import Today from "./pages/Today";
 import Products from "./pages/Products";
+import RoutineForYou from "./pages/RoutineForYou";
 import NewScan from "./pages/NewScan";
 import Insights from "./pages/Insights";
 import Me from "./pages/Me";
@@ -33,6 +34,7 @@ const App = () => {
               <Route path="/splash" element={<Splash />} />
               <Route path="/today" element={<Today />} />
               <Route path="/products" element={<Products />} />
+              <Route path="/routine-for-you" element={<RoutineForYou />} />
               <Route path="/new-scan" element={<NewScan />} />
               <Route path="/insights" element={<Insights />} />
               <Route path="/me" element={<Me />} />
