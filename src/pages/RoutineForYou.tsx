@@ -458,8 +458,8 @@ const RoutineForYou = () => {
               <h6 className="text-lg font-medium text-muted-foreground">
                 Other great AI-picked options
               </h6>
-              <div className="overflow-x-auto">
-                <div className="flex gap-4 pb-2" style={{ width: 'max-content' }}>
+              <div className="overflow-x-auto -mx-4">
+                <div className="flex gap-4 px-4 pb-2 w-max">
                   {alternatives.map((alt, index) => (
                     <AlternativeProductCard
                       key={index}
