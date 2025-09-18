@@ -447,7 +447,7 @@ const RoutineForYou = () => {
           </div>
 
           {/* Routine Selector */}
-          <div className="sticky top-[80px] bg-background/95 backdrop-blur-sm z-20 py-4 mb-4 -mx-4 px-4 border-b">
+          <div className="sticky top-[72px] bg-background/95 backdrop-blur-sm z-20 py-4 mb-4 -mx-4 px-4 border-b">
             <div className="flex justify-center">
               <SegmentedControl
                 options={[
