@@ -19,6 +19,7 @@ const academyContent = [
     category: 'Nutrition',
     readTime: '2 min',
     image: sugarAgingImage,
+    highlightedWord: 'Fight',
     content: [
       'Sugar molecules bind to proteins in your skin through a process called glycation, forming harmful compounds called AGEs.',
       'These AGEs break down collagen and elastin, the proteins that keep your skin firm and elastic.',
@@ -32,6 +33,7 @@ const academyContent = [
     category: 'Basics',
     readTime: '2 min',
     image: moisturizerImage,
+    highlightedWord: 'Keystone',
     content: [
       'Moisturizing is the foundation of healthy skin, maintaining your skin barrier function.',
       'A good moisturizer contains humectants, emollients, and occlusives to hydrate and protect.',
@@ -45,6 +47,7 @@ const academyContent = [
     category: 'Dullness',
     readTime: '1 min',
     image: dullSkinImage,
+    highlightedWord: 'Dull',
     content: [
       'Dull skin is often caused by dead skin cell buildup on the surface.',
       'Environmental factors like pollution and UV damage contribute to skin dullness.',
@@ -58,6 +61,7 @@ const academyContent = [
     category: 'Acne',
     readTime: '1 min',
     image: acneSunImage,
+    highlightedWord: 'cure',
     content: [
       'While sun initially dries out acne, it actually makes the problem worse long-term.',
       'UV exposure thickens the skin and clogs pores, leading to more breakouts.',
