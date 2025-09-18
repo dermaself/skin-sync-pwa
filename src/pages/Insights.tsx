@@ -267,7 +267,7 @@ const Insights = () => {
         <div className="lovi-card p-0 overflow-hidden">
           <div className="aspect-video bg-gradient-to-br from-purple-500 to-blue-600 relative overflow-hidden">
             <img 
-              src="/images/today_2.png" 
+              src="/images/skincare-tutorial.jpg" 
               alt="Skincare Application Guide"
               className="w-full h-full object-cover"
             />
