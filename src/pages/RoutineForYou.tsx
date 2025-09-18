@@ -459,7 +459,7 @@ const RoutineForYou = () => {
                 Other great AI-picked options
               </h6>
               <div className="w-full overflow-x-auto">
-                <div className="flex gap-4 pb-2 min-w-max">
+                <div className="flex gap-4 pb-2">
                   {alternatives.map((alt, index) => (
                     <AlternativeProductCard
                       key={index}

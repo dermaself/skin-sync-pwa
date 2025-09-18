@@ -24,7 +24,7 @@ export const AlternativeProductCard = ({ product, onClick }: AlternativeProductC
 
   return (
     <div 
-      className="flex-shrink-0 w-80 bg-card border rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow"
+      className="flex-shrink-0 w-40 bg-card border rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow"
       onClick={onClick}
     >
       {/* Header with product info and cart */}
