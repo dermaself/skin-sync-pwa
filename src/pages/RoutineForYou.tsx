@@ -411,7 +411,6 @@ const RoutineForYou = () => {
                   <AlternativeProductCard
                     key={alt.id}
                     product={{...alt, fitPercent: alt.fitPct}}
-                    className="w-48 flex-shrink-0"
                   />
                 ))}
               </div>
