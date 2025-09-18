@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, ChevronUp, ShoppingCart, RotateCcw } from 'lucide-react';
 import { SegmentedControl } from '@/components/SegmentedControl';
@@ -145,6 +145,113 @@ const routineSteps = {
         alternatives: 5
       }
     }
+  ],
+  weekly: [
+    {
+      step: 1,
+      title: "Pre-Cleanser",
+      product: {
+        name: "Deep Cleansing Oil",
+        brand: "Pyunkang Yul",
+        price: "€19.70",
+        store: "K-Beauty ✨",
+        fitPercent: 96,
+        verified: true,
+        image: "/images/products/ordinary-rosehip.png",
+        whyPicked: "As the first step in your routine, this product effectively removes oil-based debris, sebum, sunscreen, and makeup, while its formulation, enriched with allantoin and panthenol, provides soothing and hydrating benefits, particularly beneficial for sensitive skin.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 2,
+      title: "Cleanser",
+      product: {
+        name: "The Simple Mild Foam Cleanser",
+        brand: "Scinic",
+        price: "€12.00",
+        store: "K-Beauty ✨",
+        fitPercent: 93,
+        verified: true,
+        image: "/images/products/fab-cleanser.png",
+        whyPicked: "This product gently cleans skin from impurities while soothing sensitive skin with Aloe Barbadensis Leaf Juice and Madecassoside, ensuring a comfortable and hydrating experience.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 3,
+      title: "Enzyme Powder",
+      product: {
+        name: "Phyto Enzyme Powder Wash",
+        brand: "Medimine",
+        price: "€19.95",
+        store: "K-Beauty ✨",
+        fitPercent: 94,
+        verified: true,
+        image: "/images/products/drunk-slaai.png",
+        whyPicked: "With papain and Zea Mays Starch, it digests dull surface cells, gently exfoliating normal skin to visibly minimize pores, while allantoin and licorice root extract soothe acne and blemishes.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 4,
+      title: "Cleansing Mask",
+      product: {
+        name: "Cica Bubble Sparkling Booster",
+        brand: "VT",
+        price: "$21.73",
+        store: "K-Beauty ✨",
+        fitPercent: 83,
+        verified: true,
+        image: "/images/products/lrp-toleriane.png",
+        whyPicked: "Designed for normal skin, this step deep-draws oil and impurities with kaolin and bentonite, while centella asiatica extract and madecassoside soothe and hydrate, promoting a balanced and revitalized complexion.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 5,
+      title: "Soothing Toner",
+      product: {
+        name: "Madagascar Centella Probio-CICA Essence Toner",
+        brand: "SKIN1004",
+        price: "€18.84",
+        store: "K-Beauty ✨",
+        fitPercent: 93,
+        verified: true,
+        image: "/images/products/ren-aha-tonic.png",
+        whyPicked: "As part of your routine, this product effectively calms and re-balances your skin with Centella Asiatica Extract and Sodium Hyaluronate, providing soothing benefits for sensitive skin while maintaining optimal hydration levels.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 6,
+      title: "Serum or Treatment",
+      product: {
+        name: "Centella Unscented Serum",
+        brand: "Purito",
+        price: "€16.59",
+        store: "K-Beauty ✨",
+        fitPercent: 94,
+        verified: true,
+        image: "/images/products/naturium-mandelic.png",
+        whyPicked: "As a treatment, it leverages Centella Asiatica Extract and Ceramide NP to effectively target visible pores and support barrier repair for sensitive skin, while also providing anti-inflammatory benefits and enhanced hydration.",
+        alternatives: 5
+      }
+    },
+    {
+      step: 7,
+      title: "Moisturizer",
+      product: {
+        name: "Centella Asiatica Ampoule",
+        brand: "SKIN1004",
+        price: "€18.43",
+        store: "K-Beauty ✨",
+        fitPercent: 96,
+        verified: true,
+        image: "/images/products/pixi-milky.png",
+        whyPicked: "As the final step in your routine, this product moisturizes the skin with Centella Asiatica and Sodium Hyaluronate, providing soothing hydration ideal for sensitive skin.",
+        alternatives: 5
+      }
+    }
   ]
 };
 
@@ -152,9 +259,37 @@ const RoutineForYou = () => {
   const navigate = useNavigate();
   const [selectedRoutine, setSelectedRoutine] = useState<'Morning' | 'Evening' | 'Weekly'>('Morning');
   const [expandedFormula, setExpandedFormula] = useState(false);
+  
+  // Refs for scrolling to sections
+  const morningRef = useRef<HTMLDivElement>(null);
+  const eveningRef = useRef<HTMLDivElement>(null);
+  const weeklyRef = useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
     navigate(-1);
+  };
+
+  const scrollToSection = (value: 'Morning' | 'Evening' | 'Weekly') => {
+    setSelectedRoutine(value);
+    let targetRef;
+    switch (value) {
+      case 'Morning':
+        targetRef = morningRef;
+        break;
+      case 'Evening':
+        targetRef = eveningRef;
+        break;
+      case 'Weekly':
+        targetRef = weeklyRef;
+        break;
+    }
+    
+    if (targetRef?.current) {
+      targetRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
   };
 
   const getFitPillClass = (fitPct: number) => {
@@ -163,7 +298,64 @@ const RoutineForYou = () => {
     return 'fit-pill-gray';
   };
 
-  const currentSteps = selectedRoutine === 'Morning' ? routineSteps.morning : routineSteps.evening;
+  const renderProductStep = (step: any, routineType: string) => (
+    <div key={`${routineType}-${step.step}`} className="space-y-4">
+      <div className="flex items-center gap-3">
+        <div className="bg-foreground text-background px-3 py-1 rounded-full text-sm font-medium">
+          Step {step.step}
+        </div>
+        <h3 className="text-xl font-semibold">{step.title}</h3>
+      </div>
+
+      <div className="lovi-card">
+        <div className="flex gap-4 mb-4">
+          <img
+            src={step.product.image}
+            alt={step.product.name}
+            className="w-16 h-16 object-contain rounded-lg"
+          />
+          <div className="flex-1">
+            <h4 className="font-semibold text-base leading-tight mb-1">
+              {step.product.name}
+            </h4>
+            <p className="text-sm text-muted-foreground mb-2">
+              {step.product.brand} · {step.product.price} · {step.product.store}
+            </p>
+            <div className="flex items-center gap-2">
+              <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${getFitPillClass(step.product.fitPercent)}`}>
+                <span className="font-semibold">{step.product.fitPercent}% fit</span>
+              </div>
+              {step.product.verified && (
+                <div className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
+                  <span>✓ Lóvi MD Verified</span>
+                </div>
+              )}
+            </div>
+          </div>
+          <Button variant="ghost" size="icon">
+            <ShoppingCart className="h-5 w-5" />
+          </Button>
+        </div>
+
+        <div className="bg-muted/30 rounded-lg p-4 mb-4">
+          <h5 className="font-medium mb-2">Why we picked it</h5>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {step.product.whyPicked}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-medium px-6">
+            <span className="mr-2 font-bold">a</span>
+            {step.product.price}
+          </Button>
+          <Button variant="ghost" className="text-muted-foreground">
+            {step.product.alternatives} alternatives
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -263,13 +455,39 @@ const RoutineForYou = () => {
                 { value: 'Weekly', label: 'Weekly', icon: 'sparkles' }
               ]}
               value={selectedRoutine}
-              onChange={(value) => setSelectedRoutine(value as 'Morning' | 'Evening' | 'Weekly')}
+              onChange={scrollToSection}
             />
           </div>
 
-          {/* Weekly Special Section */}
-          {selectedRoutine === 'Weekly' && (
-            <div className="text-center py-12">
+          {/* Trust Message */}
+          <div className="text-center mb-8">
+            <h3 className="text-xl font-bold mb-3">Your skin is our main focus</h3>
+            <p className="text-sm text-muted-foreground">
+              All the recommendations are unbiased and non-sponsored. Picked by Lovi AI & Reviewed by our MDs.
+            </p>
+          </div>
+
+          {/* Morning Section */}
+          <div ref={morningRef} className="space-y-8 mb-16">
+            <div className="text-center py-8">
+              <div className="text-6xl mb-4">☀️</div>
+              <h2 className="text-2xl font-bold mb-4">Morning</h2>
+            </div>
+            {routineSteps.morning.map((step) => renderProductStep(step, 'morning'))}
+          </div>
+
+          {/* Evening Section */}
+          <div ref={eveningRef} className="space-y-8 mb-16">
+            <div className="text-center py-8">
+              <div className="text-6xl mb-4">🌙</div>
+              <h2 className="text-2xl font-bold mb-4">Evening</h2>
+            </div>
+            {routineSteps.evening.map((step) => renderProductStep(step, 'evening'))}
+          </div>
+
+          {/* Weekly Section */}
+          <div ref={weeklyRef} className="space-y-8 mb-16">
+            <div className="text-center py-8">
               <div className="text-6xl mb-4">✨</div>
               <h2 className="text-2xl font-bold mb-4">Weekly</h2>
               <p className="text-lg mb-6">A weekly treat for your skin 🤗</p>
@@ -278,87 +496,13 @@ const RoutineForYou = () => {
                   <div className="text-2xl">🎁</div>
                   <div>
                     <p className="font-medium mb-2">Enjoy a special program with additional steps to treat your skin in the best way possible!</p>
-                    <p className="text-sm text-muted-foreground">For best results, use these 1-2 times per week and follow with your regular routine.</p>
+                    <p className="text-sm text-muted-foreground">For best results, use these 1-2 times in place of your regular evening routine and enjoy your radiant me-time 👑</p>
                   </div>
                 </div>
               </div>
             </div>
-          )}
-
-          {/* Routine Steps */}
-          {selectedRoutine !== 'Weekly' && (
-            <>
-              {/* Trust Message */}
-              <div className="text-center mb-8">
-                <h3 className="text-xl font-bold mb-3">Your skin is our main focus</h3>
-                <p className="text-sm text-muted-foreground">
-                  All the recommendations are unbiased and non-sponsored. Picked by Lovi AI & Reviewed by our MDs.
-                </p>
-              </div>
-
-              {/* Product Steps */}
-              <div className="space-y-8">
-                {currentSteps.map((step) => (
-                  <div key={step.step} className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="bg-foreground text-background px-3 py-1 rounded-full text-sm font-medium">
-                        Step {step.step}
-                      </div>
-                      <h3 className="text-xl font-semibold">{step.title}</h3>
-                    </div>
-
-                    <div className="lovi-card">
-                      <div className="flex gap-4 mb-4">
-                        <img
-                          src={step.product.image}
-                          alt={step.product.name}
-                          className="w-16 h-16 object-contain rounded-lg"
-                        />
-                        <div className="flex-1">
-                          <h4 className="font-semibold text-base leading-tight mb-1">
-                            {step.product.name}
-                          </h4>
-                          <p className="text-sm text-muted-foreground mb-2">
-                            {step.product.brand} · {step.product.price} · {step.product.store}
-                          </p>
-                          <div className="flex items-center gap-2">
-                            <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${getFitPillClass(step.product.fitPercent)}`}>
-                              <span className="font-semibold">{step.product.fitPercent}% fit</span>
-                            </div>
-                            {step.product.verified && (
-                              <div className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
-                                <span>✓ Lóvi MD Verified</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <Button variant="ghost" size="icon">
-                          <ShoppingCart className="h-5 w-5" />
-                        </Button>
-                      </div>
-
-                      <div className="bg-muted/30 rounded-lg p-4 mb-4">
-                        <h5 className="font-medium mb-2">Why we picked it</h5>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {step.product.whyPicked}
-                        </p>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-medium px-6">
-                          <span className="mr-2 font-bold">a</span>
-                          {step.product.price}
-                        </Button>
-                        <Button variant="ghost" className="text-muted-foreground">
-                          {step.product.alternatives} alternatives
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
+            {routineSteps.weekly.map((step) => renderProductStep(step, 'weekly'))}
+          </div>
         </div>
       </ScrollArea>
     </div>
