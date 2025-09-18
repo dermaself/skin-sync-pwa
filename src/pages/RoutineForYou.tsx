@@ -454,12 +454,12 @@ const RoutineForYou = () => {
           </div>
 
           {isExpanded && alternatives.length > 0 && (
-            <div className="space-y-4 border-t pt-4 w-full">
-              <h6 className="text-lg font-medium text-muted-foreground">
+            <div className="border-t pt-4">
+              <h6 className="text-lg font-medium text-muted-foreground mb-4">
                 Other great AI-picked options
               </h6>
-              <div className="w-full overflow-x-auto">
-                <div className="flex gap-4 pb-2">
+              <div className="overflow-x-auto overflow-y-hidden">
+                <div className="flex gap-4 pb-2" style={{ width: 'max-content' }}>
                   {alternatives.map((alt, index) => (
                     <AlternativeProductCard
                       key={index}
