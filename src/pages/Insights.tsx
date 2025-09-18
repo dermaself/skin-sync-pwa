@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Clock, BookOpen, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import VideoPlayer from '@/components/VideoPlayer';
+import StoriesViewer from '@/components/StoriesViewer';
 import sugarAgingImage from '@/assets/sugar-aging-glycation.jpg';
 import moisturizerImage from '@/assets/moisturizer-application.jpg';
 import dullSkinImage from '@/assets/dull-vs-glowing-skin.jpg';
@@ -13,28 +14,56 @@ import skincareGuideImage from '@/assets/7day-skincare-guide.jpg';
 
 const academyContent = [
   {
+    id: '1',
     title: 'Sugar And Aging: Why We Need To Fight Glycation',
     category: 'Nutrition',
     readTime: '2 min',
-    image: sugarAgingImage
+    image: sugarAgingImage,
+    content: [
+      'Sugar molecules bind to proteins in your skin through a process called glycation, forming harmful compounds called AGEs.',
+      'These AGEs break down collagen and elastin, the proteins that keep your skin firm and elastic.',
+      'To fight glycation, reduce sugar intake and use antioxidant-rich skincare products.',
+      'Regular exercise and a balanced diet can help minimize the effects of glycation on your skin.'
+    ]
   },
   {
+    id: '2',
     title: 'Moisturizing As A Skincare Keystone',
     category: 'Basics',
     readTime: '2 min',
-    image: moisturizerImage
+    image: moisturizerImage,
+    content: [
+      'Moisturizing is the foundation of healthy skin, maintaining your skin barrier function.',
+      'A good moisturizer contains humectants, emollients, and occlusives to hydrate and protect.',
+      'Apply moisturizer to damp skin to lock in hydration for maximum effectiveness.',
+      'Choose products based on your skin type: lightweight for oily skin, richer formulas for dry skin.'
+    ]
   },
   {
+    id: '3',
     title: 'Why Does Skin Become Dull?',
     category: 'Dullness',
     readTime: '1 min',
-    image: dullSkinImage
+    image: dullSkinImage,
+    content: [
+      'Dull skin is often caused by dead skin cell buildup on the surface.',
+      'Environmental factors like pollution and UV damage contribute to skin dullness.',
+      'Lack of sleep and dehydration can make your complexion appear lackluster.',
+      'Regular exfoliation and vitamin C serums can help restore your natural glow.'
+    ]
   },
   {
+    id: '4',
     title: 'Sunbathing won\'t cure acne and here is why',
     category: 'Acne',
     readTime: '1 min',
-    image: acneSunImage
+    image: acneSunImage,
+    content: [
+      'While sun initially dries out acne, it actually makes the problem worse long-term.',
+      'UV exposure thickens the skin and clogs pores, leading to more breakouts.',
+      'Sun damage can cause post-inflammatory hyperpigmentation from acne scars.',
+      'Use non-comedogenic sunscreen daily and treat acne with proven ingredients like salicylic acid.'
+    ]
   }
 ];
 
@@ -90,9 +119,16 @@ const applicationGuides = [
 
 const Insights = () => {
   const [isVideoPlayerOpen, setIsVideoPlayerOpen] = useState(false);
+  const [isStoriesOpen, setIsStoriesOpen] = useState(false);
+  const [selectedStoryIndex, setSelectedStoryIndex] = useState(0);
 
   const handleWatchLearn = () => {
     setIsVideoPlayerOpen(true);
+  };
+
+  const handleStoryClick = (index: number) => {
+    setSelectedStoryIndex(index);
+    setIsStoriesOpen(true);
   };
 
   return (
@@ -109,7 +145,10 @@ const Insights = () => {
         <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
           {academyContent.map((item, index) => (
             <div key={index} className="flex-shrink-0 w-64">
-              <div className="lovi-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform">
+              <div 
+                className="lovi-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform"
+                onClick={() => handleStoryClick(index)}
+              >
                 <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
                   <img 
                     src={item.image} 
@@ -270,6 +309,13 @@ const Insights = () => {
         isOpen={isVideoPlayerOpen}
         onClose={() => setIsVideoPlayerOpen(false)}
         title="Skincare Application Tutorial"
+      />
+
+      <StoriesViewer
+        isOpen={isStoriesOpen}
+        onClose={() => setIsStoriesOpen(false)}
+        stories={academyContent}
+        initialStoryIndex={selectedStoryIndex}
       />
     </div>
   );
