@@ -447,16 +447,18 @@ const RoutineForYou = () => {
           </div>
 
           {/* Routine Selector */}
-          <div className="mb-8">
-            <SegmentedControl
-              options={[
-                { value: 'Morning', label: 'Morning', icon: 'sun' },
-                { value: 'Evening', label: 'Evening', icon: 'moon' },
-                { value: 'Weekly', label: 'Weekly', icon: 'sparkles' }
-              ]}
-              value={selectedRoutine}
-              onChange={scrollToSection}
-            />
+          <div className="sticky top-[80px] bg-background/95 backdrop-blur-sm z-20 py-4 mb-4 -mx-4 px-4 border-b">
+            <div className="flex justify-center">
+              <SegmentedControl
+                options={[
+                  { value: 'Morning', label: 'Morning', icon: 'sun' },
+                  { value: 'Evening', label: 'Evening', icon: 'moon' },
+                  { value: 'Weekly', label: 'Weekly', icon: 'sparkles' }
+                ]}
+                value={selectedRoutine}
+                onChange={scrollToSection}
+              />
+            </div>
           </div>
 
           {/* Trust Message */}
