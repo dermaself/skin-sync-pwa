@@ -44,7 +44,28 @@ export const ChatbotUI = ({ open, onOpenChange, trigger, initialMessage }: Chatb
 
   useEffect(() => {
     if (initialMessage && open) {
-      setInputValue(initialMessage);
+      // Auto-send the initial message
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        content: initialMessage,
+        isBot: false,
+        timestamp: new Date(),
+      };
+
+      setMessages(prev => [...prev, userMessage]);
+      setIsTyping(true);
+
+      // Simulate bot response
+      setTimeout(() => {
+        const botMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          content: "Thanks for your question! I'm here to help with skincare advice, product recommendations, and beauty tips. What specific concern would you like to discuss?",
+          isBot: true,
+          timestamp: new Date(),
+        };
+        setMessages(prev => [...prev, botMessage]);
+        setIsTyping(false);
+      }, 1500);
     }
   }, [initialMessage, open]);
 
