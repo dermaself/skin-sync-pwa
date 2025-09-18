@@ -1,100 +1,86 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { X, ChevronUp, ShoppingCart, RotateCcw } from 'lucide-react';
-import { SegmentedControl } from '@/components/SegmentedControl';
-import { AlternativeProductCard } from '@/components/AlternativeProductCard';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { X, ChevronUp, ChevronDown } from 'lucide-react';
+import { SegmentedControl } from '@/components/SegmentedControl';
+import { AlternativeProductCard } from '@/components/AlternativeProductCard';
 
 // Sample routine data based on the uploaded images
 const routineFormula = {
   name: "Lorenzo's Routine Formula",
-  goal: "Visible Pores, $19 and less",
-  targetGoal: "Visible Pores",
-  age: "35 - 44",
-  skinType: "Normal",
-  skinSensitivity: "Sensitive",
-  price: "Smart Savings ($19 and less)",
-  skinConcerns: "Fine lines and wrinkles, Enlarged Pores",
-  skinConditions: "No, I don't",
-  healthConditions: "No, I don't",
-  koreanSkincare: "Yes",
-  lastUpdated: "17.09.2025 11:28"
+  goal: "Gentle maintenance with calming ingredients for sensitive combination skin",
+  targetGoal: "Maintaining healthy skin with gentle care",
+  age: "28 years old",
+  skinType: "Combination (oily T-zone, normal cheeks)",
+  skinConcerns: "Occasional breakouts, sensitivity",
+  skinConditions: "None reported",
+  sensitivity: "High - reacts to fragranced products",
+  climate: "Temperate urban environment",
+  routineExperience: "Intermediate - has established routine"
 };
 
 // Alternative products for each step - expanded to cover all routine steps
 const alternativeProducts = {
   'morning-1': [
-    { name: "Madagascar Centella Toning Toner", brand: "SKIN1004", price: "€18.39", fitPercent: 93, image: "/images/products/ren-aha-tonic.png", verified: true },
-    { name: "Gentle Low pH Good Morning Cleanser", brand: "CosRX", price: "€15.20", fitPercent: 91, image: "/images/products/fab-cleanser.png", verified: true },
-    { name: "Fresh Soy Cleanser", brand: "Fresh", price: "€22.50", fitPercent: 89, image: "/images/products/pacifica-sea-foam.png", verified: false },
-    { name: "Hydrating Foaming Oil Cleanser", brand: "CeraVe", price: "€11.99", fitPercent: 87, image: "/images/products/cerave-pm.png", verified: true },
+    { id: 'alt1', name: 'CeraVe Foaming Facial Cleanser', brand: 'CeraVe', price: '$12.99', fitPct: 92, image: '/images/products/cerave-pm.png' },
+    { id: 'alt2', name: 'La Roche-Posay Toleriane Cleanser', brand: 'La Roche-Posay', price: '$14.99', fitPct: 88, image: '/images/products/lrp-toleriane.png' }
   ],
   'morning-2': [
-    { name: "Calming Toner", brand: "Dear Klairs", price: "€16.99", fitPercent: 90, image: "/images/products/pixi-milky.png", verified: true },
-    { name: "Be Plain Cicaful Calming Toner", brand: "Be Plain", price: "€14.80", fitPercent: 88, image: "/images/products/lrp-toleriane.png", verified: false },
-    { name: "Glow Tonic", brand: "Pixi", price: "€18.00", fitPercent: 85, image: "/images/products/pixi-milky.png", verified: true },
-    { name: "Toleriane Ultra Dermallergo Serum", brand: "La Roche Posay", price: "€21.95", fitPercent: 92, image: "/images/products/lrp-toleriane.png", verified: true },
+    { id: 'alt3', name: 'Paula\'s Choice CALM Toner', brand: 'Paula\'s Choice', price: '$22.00', fitPct: 94, image: '/images/products/pai-rosehip.png' },
+    { id: 'alt4', name: 'Klairs Supple Preparation Toner', brand: 'Klairs', price: '$18.00', fitPct: 89, image: '/images/products/pixi-milky.png' }
   ],
   'morning-3': [
-    { name: "Ultra Facial Cream SPF 30", brand: "Kiehl's", price: "€27.50", fitPercent: 89, image: "/images/products/cerave-pm.png", verified: true },
-    { name: "Anthelios Ultra Light Fluid SPF 50+", brand: "La Roche Posay", price: "€16.95", fitPercent: 91, image: "/images/products/lrp-toleriane.png", verified: true },
-    { name: "Centella Air-Fit Suncream Plus", brand: "SKIN1004", price: "€12.90", fitPercent: 88, image: "/images/products/ren-aha-tonic.png", verified: false },
+    { id: 'alt5', name: 'EltaMD UV Clear SPF 46', brand: 'EltaMD', price: '$37.00', fitPct: 96, image: '/images/products/fab-cleanser.png' },
+    { id: 'alt6', name: 'Neutrogena Ultra Sheer SPF 60', brand: 'Neutrogena', price: '$8.99', fitPct: 85, image: '/images/products/naturium-mandelic.png' }
   ],
   'evening-1': [
-    { name: "Green Clean Makeup Removing Cleansing Balm", brand: "Farmacy", price: "€24.00", fitPercent: 94, image: "/images/products/ordinary-rosehip.png", verified: true },
-    { name: "Pure Cleansing Oil", brand: "DHC", price: "€28.50", fitPercent: 92, image: "/images/products/naturium-mandelic.png", verified: true },
-    { name: "Cleansing Oil", brand: "The INKEY List", price: "€9.99", fitPercent: 89, image: "/images/products/pai-rosehip.png", verified: false },
-    { name: "Take The Day Off Cleansing Balm", brand: "Clinique", price: "€31.00", fitPercent: 91, image: "/images/products/drunk-slaai.png", verified: true },
+    { id: 'alt7', name: 'Banila Co Clean It Zero', brand: 'Banila Co', price: '$18.00', fitPct: 91, image: '/images/products/ordinary-rosehip.png' },
+    { id: 'alt8', name: 'DHC Deep Cleansing Oil', brand: 'DHC', price: '$28.00', fitPct: 87, image: '/images/products/pacifica-sea-foam.png' }
   ],
   'evening-2': [
-    { name: "Low pH Good Morning Gel Cleanser", brand: "CosRX", price: "€15.20", fitPercent: 91, image: "/images/products/fab-cleanser.png", verified: true },
-    { name: "Hydrating Foaming Oil Cleanser", brand: "CeraVe", price: "€11.99", fitPercent: 89, image: "/images/products/cerave-pm.png", verified: true },
-    { name: "Sea Foam Cleanser", brand: "Pacifica", price: "€14.50", fitPercent: 87, image: "/images/products/pacifica-sea-foam.png", verified: false },
+    { id: 'alt9', name: 'CeraVe Foaming Facial Cleanser', brand: 'CeraVe', price: '$12.99', fitPct: 92, image: '/images/products/cerave-pm.png' },
+    { id: 'alt10', name: 'La Roche-Posay Toleriane Cleanser', brand: 'La Roche-Posay', price: '$14.99', fitPct: 88, image: '/images/products/lrp-toleriane.png' }
   ],
   'evening-3': [
-    { name: "Calming Toner", brand: "Dear Klairs", price: "€16.99", fitPercent: 90, image: "/images/products/pixi-milky.png", verified: true },
-    { name: "Be Plain Cicaful Calming Toner", brand: "Be Plain", price: "€14.80", fitPercent: 88, image: "/images/products/lrp-toleriane.png", verified: false },
-    { name: "Glow Tonic", brand: "Pixi", price: "€18.00", fitPercent: 85, image: "/images/products/pixi-milky.png", verified: true },
+    { id: 'alt11', name: 'Paula\'s Choice CALM Toner', brand: 'Paula\'s Choice', price: '$22.00', fitPct: 94, image: '/images/products/pai-rosehip.png' },
+    { id: 'alt12', name: 'Klairs Supple Preparation Toner', brand: 'Klairs', price: '$18.00', fitPct: 89, image: '/images/products/pixi-milky.png' }
   ],
   'evening-4': [
-    { name: "Niacinamide 10% + Zinc 1%", brand: "The Ordinary", price: "€6.90", fitPercent: 92, image: "/images/products/ordinary-rosehip.png", verified: true },
-    { name: "Good Molecules Hyaluronic Acid Serum", brand: "Good Molecules", price: "€6.00", fitPercent: 89, image: "/images/products/naturium-mandelic.png", verified: false },
-    { name: "BHA Blackhead Power Liquid", brand: "Paula's Choice", price: "€33.00", fitPercent: 91, image: "/images/products/pai-rosehip.png", verified: true },
+    { id: 'alt13', name: 'The Ordinary Niacinamide', brand: 'The Ordinary', price: '$7.20', fitPct: 93, image: '/images/products/ordinary-rosehip.png' },
+    { id: 'alt14', name: 'Paula\'s Choice 2% BHA', brand: 'Paula\'s Choice', price: '$30.00', fitPct: 88, image: '/images/products/ren-aha-tonic.png' }
   ],
   'evening-5': [
-    { name: "PM Facial Moisturising Lotion", brand: "CeraVe", price: "€13.99", fitPercent: 94, image: "/images/products/cerave-pm.png", verified: true },
-    { name: "Ceramide Ato Concentrate Cream", brand: "Holika Holika", price: "€15.50", fitPercent: 91, image: "/images/products/pixi-milky.png", verified: true },
-    { name: "Ultra Facial Cream", brand: "Kiehl's", price: "€27.50", fitPercent: 89, image: "/images/products/lrp-toleriane.png", verified: true },
+    { id: 'alt15', name: 'CeraVe PM Facial Moisturizer', brand: 'CeraVe', price: '$16.99', fitPct: 94, image: '/images/products/cerave-pm.png' },
+    { id: 'alt16', name: 'Neutrogena Hydro Boost', brand: 'Neutrogena', price: '$15.99', fitPct: 86, image: '/images/products/fab-cleanser.png' }
   ],
   'weekly-1': [
-    { name: "Green Clean Makeup Removing Cleansing Balm", brand: "Farmacy", price: "€24.00", fitPercent: 94, image: "/images/products/ordinary-rosehip.png", verified: true },
-    { name: "Pure Cleansing Oil", brand: "DHC", price: "€28.50", fitPercent: 92, image: "/images/products/naturium-mandelic.png", verified: true },
-    { name: "Take The Day Off Cleansing Balm", brand: "Clinique", price: "€31.00", fitPercent: 91, image: "/images/products/drunk-slaai.png", verified: true },
+    { id: 'alt17', name: 'Banila Co Clean It Zero', brand: 'Banila Co', price: '$18.00', fitPct: 91, image: '/images/products/ordinary-rosehip.png' },
+    { id: 'alt18', name: 'DHC Deep Cleansing Oil', brand: 'DHC', price: '$28.00', fitPct: 87, image: '/images/products/pacifica-sea-foam.png' }
   ],
   'weekly-2': [
-    { name: "Low pH Good Morning Gel Cleanser", brand: "CosRX", price: "€15.20", fitPercent: 91, image: "/images/products/fab-cleanser.png", verified: true },
-    { name: "Hydrating Foaming Oil Cleanser", brand: "CeraVe", price: "€11.99", fitPercent: 89, image: "/images/products/cerave-pm.png", verified: true },
+    { id: 'alt19', name: 'CeraVe Foaming Facial Cleanser', brand: 'CeraVe', price: '$12.99', fitPct: 92, image: '/images/products/cerave-pm.png' },
+    { id: 'alt20', name: 'La Roche-Posay Toleriane Cleanser', brand: 'La Roche-Posay', price: '$14.99', fitPct: 88, image: '/images/products/lrp-toleriane.png' }
   ],
   'weekly-3': [
-    { name: "Rice Enzyme Powder", brand: "Tatcha", price: "€65.00", fitPercent: 91, image: "/images/products/drunk-slaai.png", verified: true },
-    { name: "Brightening Enzyme Powder Wash", brand: "Dermalogica", price: "€58.00", fitPercent: 89, image: "/images/products/pai-rosehip.png", verified: true },
+    { id: 'alt21', name: 'Tatcha Rice Enzyme Powder', brand: 'Tatcha', price: '$65.00', fitPct: 89, image: '/images/products/pai-rosehip.png' },
+    { id: 'alt22', name: 'Dermalogica Daily Microfoliant', brand: 'Dermalogica', price: '$59.00', fitPct: 85, image: '/images/products/pixi-milky.png' }
   ],
   'weekly-4': [
-    { name: "Clear Improvement Charcoal Mask", brand: "Origins", price: "€29.00", fitPercent: 81, image: "/images/products/lrp-toleriane.png", verified: false },
-    { name: "Rare Earth Deep Pore Cleansing Masque", brand: "Kiehl's", price: "€32.50", fitPercent: 79, image: "/images/products/ordinary-rosehip.png", verified: true },
+    { id: 'alt23', name: 'Freeman Charcoal & Black Sugar', brand: 'Freeman', price: '$3.99', fitPct: 82, image: '/images/products/naturium-mandelic.png' },
+    { id: 'alt24', name: 'Origins Clear Improvement', brand: 'Origins', price: '$26.00', fitPct: 87, image: '/images/products/ordinary-rosehip.png' }
   ],
   'weekly-5': [
-    { name: "Calming Toner", brand: "Dear Klairs", price: "€16.99", fitPercent: 90, image: "/images/products/pixi-milky.png", verified: true },
-    { name: "Be Plain Cicaful Calming Toner", brand: "Be Plain", price: "€14.80", fitPercent: 88, image: "/images/products/lrp-toleriane.png", verified: false },
+    { id: 'alt25', name: 'Paula\'s Choice CALM Toner', brand: 'Paula\'s Choice', price: '$22.00', fitPct: 94, image: '/images/products/pai-rosehip.png' },
+    { id: 'alt26', name: 'Klairs Supple Preparation Toner', brand: 'Klairs', price: '$18.00', fitPct: 89, image: '/images/products/pixi-milky.png' }
   ],
   'weekly-6': [
-    { name: "Niacinamide 10% + Zinc 1%", brand: "The Ordinary", price: "€6.90", fitPercent: 92, image: "/images/products/ordinary-rosehip.png", verified: true },
-    { name: "Good Molecules Hyaluronic Acid Serum", brand: "Good Molecules", price: "€6.00", fitPercent: 89, image: "/images/products/naturium-mandelic.png", verified: false },
+    { id: 'alt27', name: 'The Ordinary Niacinamide', brand: 'The Ordinary', price: '$7.20', fitPct: 93, image: '/images/products/ordinary-rosehip.png' },
+    { id: 'alt28', name: 'Paula\'s Choice 2% BHA', brand: 'Paula\'s Choice', price: '$30.00', fitPct: 88, image: '/images/products/ren-aha-tonic.png' }
   ],
   'weekly-7': [
-    { name: "PM Facial Moisturising Lotion", brand: "CeraVe", price: "€13.99", fitPercent: 94, image: "/images/products/cerave-pm.png", verified: true },
-    { name: "Ultra Facial Cream", brand: "Kiehl's", price: "€27.50", fitPercent: 89, image: "/images/products/lrp-toleriane.png", verified: true },
+    { id: 'alt29', name: 'CeraVe PM Facial Moisturizer', brand: 'CeraVe', price: '$16.99', fitPct: 94, image: '/images/products/cerave-pm.png' },
+    { id: 'alt30', name: 'Neutrogena Hydro Boost', brand: 'Neutrogena', price: '$15.99', fitPct: 86, image: '/images/products/fab-cleanser.png' }
   ]
 };
 
@@ -105,15 +91,13 @@ const routineSteps = {
       title: "Cleanser",
       product: {
         name: "The Simple Mild Foam Cleanser",
-        brand: "Scinic",
-        price: "€12.00",
-        store: "K-Beauty ✨",
-        fitPercent: 93,
+        brand: "Simple",
+        price: "$6.99",
+        fitPct: 95,
         verified: true,
-        image: "/images/products/fab-cleanser.png",
-        whyPicked: "This product gently cleanses your sensitive skin from impurities, leveraging Aloe Barbadensis Leaf Juice and Madecassoside to soothe and hydrate, thereby minimizing irritation and supporting skin comfort.",
-        alternatives: 5
-      }
+        image: "/images/products/fab-cleanser.png"
+      },
+      whyPicked: "Perfect for sensitive skin with gentle, non-irritating formula. Removes impurities without stripping natural oils."
     },
     {
       step: 2,
@@ -121,14 +105,12 @@ const routineSteps = {
       product: {
         name: "Madagascar Centella Probio-CICA Essence Toner",
         brand: "SKIN1004",
-        price: "€18.84",
-        store: "K-Beauty ✨",
-        fitPercent: 93,
+        price: "$17.90",
+        fitPct: 94,
         verified: true,
-        image: "/images/products/ren-aha-tonic.png",
-        whyPicked: "As part of your routine, this product calms and re-balances skin, offering exceptional benefits for sensitive skin through its soothing Centella Asiatica Extract and hydrating Sodium Hyaluronate, which work synergistically to enhance skin texture and reduce irritation.",
-        alternatives: 5
-      }
+        image: "/images/products/pixi-milky.png"
+      },
+      whyPicked: "Centella asiatica helps calm inflammation and reduce redness. Probiotics support skin barrier health."
     },
     {
       step: 3,
@@ -136,14 +118,12 @@ const routineSteps = {
       product: {
         name: "Soon Jung Mild Defence Sun Cream",
         brand: "Etude House",
-        price: "£19.99",
-        store: "K-Beauty ✨",
-        fitPercent: 92,
+        price: "$15.00",
+        fitPct: 96,
         verified: true,
-        image: "/images/products/cerave-pm.png",
-        whyPicked: "As the final step in your morning routine, this product hydrates and defends against UV rays while soothing your sensitive skin with madecassoside and scutellaria baicalensis root extract, promoting a healthy skin barrier with panthenol.",
-        alternatives: 5
-      }
+        image: "/images/products/cerave-pm.png"
+      },
+      whyPicked: "SPF 50+ provides excellent protection. Panthenol and madecassoside soothe sensitive skin while protecting from UV damage."
     }
   ],
   evening: [
@@ -152,30 +132,26 @@ const routineSteps = {
       title: "Pre-Cleanser",
       product: {
         name: "Deep Cleansing Oil",
-        brand: "Pyunkang Yul",
-        price: "€19.70",
-        store: "K-Beauty ✨",
-        fitPercent: 96,
+        brand: "DHC",
+        price: "$28.00",
+        fitPct: 91,
         verified: true,
-        image: "/images/products/ordinary-rosehip.png",
-        whyPicked: "As the first step in your evening routine, this product effectively removes oil-based debris, sebum, sunscreen, and makeup while leveraging allantoin and panthenol to soothe your sensitive skin and coptis japonica root extract to visibly minimize pores.",
-        alternatives: 5
-      }
+        image: "/images/products/ordinary-rosehip.png"
+      },
+      whyPicked: "Olive oil-based formula dissolves makeup and sunscreen effectively without harsh rubbing."
     },
     {
       step: 2,
       title: "Cleanser",
       product: {
         name: "The Simple Mild Foam Cleanser",
-        brand: "Scinic",
-        price: "€12.00",
-        store: "K-Beauty ✨",
-        fitPercent: 93,
+        brand: "Simple",
+        price: "$6.99",
+        fitPct: 95,
         verified: true,
-        image: "/images/products/fab-cleanser.png",
-        whyPicked: "This product gently cleanses your sensitive skin from impurities, while soothing ingredients like Aloe Barbadensis Leaf Juice and Madecassoside help to calm and hydrate the skin.",
-        alternatives: 5
-      }
+        image: "/images/products/fab-cleanser.png"
+      },
+      whyPicked: "Second cleanse to remove remaining impurities while maintaining skin's natural balance."
     },
     {
       step: 3,
@@ -183,44 +159,38 @@ const routineSteps = {
       product: {
         name: "Madagascar Centella Probio-CICA Essence Toner",
         brand: "SKIN1004",
-        price: "€18.84",
-        store: "K-Beauty ✨",
-        fitPercent: 93,
+        price: "$17.90",
+        fitPct: 94,
         verified: true,
-        image: "/images/products/ren-aha-tonic.png",
-        whyPicked: "As the third step in your routine, this product effectively calms and re-balances your normal skin with Centella Asiatica Extract and Sodium Hyaluronate, while also addressing sensitivity with its allergen-free formulation.",
-        alternatives: 5
-      }
+        image: "/images/products/pixi-milky.png"
+      },
+      whyPicked: "Prepares skin for treatment products while providing calming benefits."
     },
     {
       step: 4,
       title: "Serum or Treatment",
       product: {
         name: "Centella Unscented Serum",
-        brand: "Purito",
-        price: "€16.59",
-        store: "K-Beauty ✨",
-        fitPercent: 94,
+        brand: "Mad Hippie",
+        price: "$24.99",
+        fitPct: 93,
         verified: true,
-        image: "/images/products/naturium-mandelic.png",
-        whyPicked: "As a treatment, it leverages Centella Asiatica Extract and Ceramide NP to effectively target visible pores and acne for sensitive skin, while enhancing hydration and barrier repair with its synergistic blend of soothing and hydrating ingredients.",
-        alternatives: 5
-      }
+        image: "/images/products/naturium-mandelic.png"
+      },
+      whyPicked: "High concentration of centella provides intensive soothing benefits for reactive skin."
     },
     {
       step: 5,
       title: "Moisturizer",
       product: {
         name: "Centella Asiatica Ampoule",
-        brand: "SKIN1004",
-        price: "€18.43",
-        store: "K-Beauty ✨",
-        fitPercent: 96,
+        brand: "PURITO",
+        price: "$16.90",
+        fitPct: 94,
         verified: true,
-        image: "/images/products/pixi-milky.png",
-        whyPicked: "With Centella Asiatica and Sodium Hyaluronate, it moisturizes your sensitive skin while soothing inflammation and promoting hydration, effectively targeting visible pores without causing irritation.",
-        alternatives: 5
-      }
+        image: "/images/products/pai-rosehip.png"
+      },
+      whyPicked: "Lightweight yet nourishing formula with ceramides and centella for overnight skin repair."
     }
   ],
   weekly: [
@@ -229,60 +199,52 @@ const routineSteps = {
       title: "Pre-Cleanser",
       product: {
         name: "Deep Cleansing Oil",
-        brand: "Pyunkang Yul",
-        price: "€19.70",
-        store: "K-Beauty ✨",
-        fitPercent: 96,
+        brand: "DHC",
+        price: "$28.00",
+        fitPct: 91,
         verified: true,
-        image: "/images/products/ordinary-rosehip.png",
-        whyPicked: "As the first step in your routine, this product effectively removes oil-based debris, sebum, sunscreen, and makeup, while its formulation, enriched with allantoin and panthenol, provides soothing and hydrating benefits, particularly beneficial for sensitive skin.",
-        alternatives: 5
-      }
+        image: "/images/products/ordinary-rosehip.png"
+      },
+      whyPicked: "Removes makeup and sunscreen buildup for deeper cleansing."
     },
     {
       step: 2,
       title: "Cleanser",
       product: {
         name: "The Simple Mild Foam Cleanser",
-        brand: "Scinic",
-        price: "€12.00",
-        store: "K-Beauty ✨",
-        fitPercent: 93,
+        brand: "Simple",
+        price: "$6.99",
+        fitPct: 95,
         verified: true,
-        image: "/images/products/fab-cleanser.png",
-        whyPicked: "This product gently cleans skin from impurities while soothing sensitive skin with Aloe Barbadensis Leaf Juice and Madecassoside, ensuring a comfortable and hydrating experience.",
-        alternatives: 5
-      }
+        image: "/images/products/fab-cleanser.png"
+      },
+      whyPicked: "Gentle base cleanse before enzyme treatment."
     },
     {
       step: 3,
       title: "Enzyme Powder",
       product: {
         name: "Phyto Enzyme Powder Wash",
-        brand: "Medimine",
-        price: "€19.95",
-        store: "K-Beauty ✨",
-        fitPercent: 94,
+        brand: "Tatcha",
+        price: "$65.00",
+        fitPct: 89,
         verified: true,
-        image: "/images/products/drunk-slaai.png",
-        whyPicked: "With papain and Zea Mays Starch, it digests dull surface cells, gently exfoliating normal skin to visibly minimize pores, while allantoin and licorice root extract soothe acne and blemishes.",
-        alternatives: 5
-      }
+        image: "/images/products/pixi-milky.png"
+      },
+      whyPicked: "Rice-based enzymes provide gentle exfoliation without physical scrubbing."
     },
     {
       step: 4,
       title: "Cleansing Mask",
       product: {
         name: "Cica Bubble Sparkling Booster",
-        brand: "VT",
-        price: "$21.73",
-        store: "K-Beauty ✨",
-        fitPercent: 83,
+        brand: "VT Cosmetics",
+        price: "$18.00",
+        fitPct: 92,
         verified: true,
-        image: "/images/products/lrp-toleriane.png",
-        whyPicked: "Designed for normal skin, this step deep-draws oil and impurities with kaolin and bentonite, while centella asiatica extract and madecassoside soothe and hydrate, promoting a balanced and revitalized complexion.",
-        alternatives: 5
-      }
+        image: "/images/products/pacifica-sea-foam.png"
+      },
+      whyPicked: "Bubbling action deep cleans pores while centella soothes any irritation."
     },
     {
       step: 5,
@@ -290,44 +252,38 @@ const routineSteps = {
       product: {
         name: "Madagascar Centella Probio-CICA Essence Toner",
         brand: "SKIN1004",
-        price: "€18.84",
-        store: "K-Beauty ✨",
-        fitPercent: 93,
+        price: "$17.90",
+        fitPct: 94,
         verified: true,
-        image: "/images/products/ren-aha-tonic.png",
-        whyPicked: "As part of your routine, this product effectively calms and re-balances your skin with Centella Asiatica Extract and Sodium Hyaluronate, providing soothing benefits for sensitive skin while maintaining optimal hydration levels.",
-        alternatives: 5
-      }
+        image: "/images/products/pixi-milky.png"
+      },
+      whyPicked: "Restores pH balance and prepares skin after intensive cleansing."
     },
     {
       step: 6,
       title: "Serum or Treatment",
       product: {
         name: "Centella Unscented Serum",
-        brand: "Purito",
-        price: "€16.59",
-        store: "K-Beauty ✨",
-        fitPercent: 94,
+        brand: "Mad Hippie",
+        price: "$24.99",
+        fitPct: 93,
         verified: true,
-        image: "/images/products/naturium-mandelic.png",
-        whyPicked: "As a treatment, it leverages Centella Asiatica Extract and Ceramide NP to effectively target visible pores and support barrier repair for sensitive skin, while also providing anti-inflammatory benefits and enhanced hydration.",
-        alternatives: 5
-      }
+        image: "/images/products/naturium-mandelic.png"
+      },
+      whyPicked: "Concentrated treatment to repair and strengthen skin barrier."
     },
     {
       step: 7,
       title: "Moisturizer",
       product: {
         name: "Centella Asiatica Ampoule",
-        brand: "SKIN1004",
-        price: "€18.43",
-        store: "K-Beauty ✨",
-        fitPercent: 96,
+        brand: "PURITO",
+        price: "$16.90",
+        fitPct: 94,
         verified: true,
-        image: "/images/products/pixi-milky.png",
-        whyPicked: "As the final step in your routine, this product moisturizes the skin with Centella Asiatica and Sodium Hyaluronate, providing soothing hydration ideal for sensitive skin.",
-        alternatives: 5
-      }
+        image: "/images/products/pai-rosehip.png"
+      },
+      whyPicked: "Rich, nourishing formula for intensive overnight repair after weekly treatment."
     }
   ]
 };
@@ -335,10 +291,8 @@ const routineSteps = {
 const RoutineForYou = () => {
   const navigate = useNavigate();
   const [selectedRoutine, setSelectedRoutine] = useState<'Morning' | 'Evening' | 'Weekly'>('Morning');
-  const [expandedFormula, setExpandedFormula] = useState(false);
   const [expandedAlternatives, setExpandedAlternatives] = useState<Set<string>>(new Set());
-  
-  // Refs for scrolling to sections
+  const [expandedFormula, setExpandedFormula] = useState(false);
   const morningRef = useRef<HTMLDivElement>(null);
   const eveningRef = useRef<HTMLDivElement>(null);
   const weeklyRef = useRef<HTMLDivElement>(null);
@@ -390,36 +344,22 @@ const RoutineForYou = () => {
 
   const renderProductStep = (step: any, routineType: string) => {
     const stepKey = `${routineType}-${step.step}`;
-    const isExpanded = expandedAlternatives.has(stepKey);
     const alternatives = alternativeProducts[stepKey as keyof typeof alternativeProducts] || [];
-    
+    const isExpanded = expandedAlternatives.has(stepKey);
+
     return (
       <div key={stepKey} className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="bg-foreground text-background px-3 py-1.5 rounded-full text-sm font-medium">
-            Step {step.step}
-          </div>
-          <h3 className="text-lg font-semibold">{step.title}</h3>
-        </div>
-
         <div className="dermaself-card">
-          <div className="flex gap-4 mb-4">
-            <img
-              src={step.product.image}
-              alt={step.product.name}
-              className="w-20 h-20 object-contain rounded-lg shrink-0"
-            />
+          <div className="flex items-start gap-4 mb-4">
+            <div className="flex-shrink-0 w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-semibold">
+              {step.step}
+            </div>
             <div className="flex-1 min-w-0">
-              <h4 className="font-semibold text-base leading-tight mb-2">
-                {step.product.name}
-              </h4>
-              <p className="text-sm text-muted-foreground mb-3">
-                {step.product.brand} · {step.product.price} · {step.product.store}
-              </p>
-              <div className="flex flex-wrap items-center gap-2">
-                <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${getFitPillClass(step.product.fitPercent)}`}>
-                  <span className="font-semibold">{step.product.fitPercent}% fit</span>
-                </div>
+              <h3 className="font-semibold text-lg leading-tight mb-1">{step.title}</h3>
+              <div className="flex items-center gap-2 mb-2">
+                <span className={`${getFitPillClass(step.product.fitPct)} text-xs px-2 py-1 rounded-full`}>
+                  {step.product.fitPct}% fit
+                </span>
                 {step.product.verified && (
                   <div className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
                     <span>✓ Dermaself MD Verified</span>
@@ -427,47 +367,53 @@ const RoutineForYou = () => {
                 )}
               </div>
             </div>
-            <Button variant="ghost" size="icon" className="shrink-0">
-              <ShoppingCart className="h-5 w-5" />
-            </Button>
           </div>
 
-          <div className="bg-muted/30 rounded-lg p-4 mb-4">
-            <h5 className="font-medium mb-2">Why we picked it</h5>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {step.product.whyPicked}
-            </p>
+          <div className="flex gap-4 mb-4">
+            <div className="flex-shrink-0">
+              <img 
+                src={step.product.image} 
+                alt={step.product.name}
+                className="w-16 h-16 rounded-lg object-cover bg-muted"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="font-medium text-base leading-tight mb-1">{step.product.name}</h4>
+              <p className="text-sm text-muted-foreground mb-2">{step.product.brand}</p>
+              <div className="price-pill text-sm">
+                💰 {step.product.price}
+              </div>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3 mb-4">
-            <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-medium px-6 py-2 rounded-full">
-              <span className="mr-2 font-bold text-base">a</span>
-              {step.product.price}
-            </Button>
-            <Button 
-              variant="ghost" 
-              className="text-muted-foreground px-4 py-2 rounded-full"
+          <div className="bg-muted/50 rounded-lg p-3 mb-4">
+            <p className="text-sm leading-relaxed">{step.whyPicked}</p>
+          </div>
+
+          {alternatives.length > 0 && (
+            <Button
+              variant="ghost"
+              className="w-full justify-between text-sm"
               onClick={() => toggleAlternatives(stepKey)}
             >
-              {step.product.alternatives} alternatives
+              <span>View {alternatives.length} alternatives</span>
+              {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
             </Button>
-          </div>
+          )}
 
           {isExpanded && alternatives.length > 0 && (
             <div className="border-t pt-4">
-              <h6 className="text-base font-medium text-muted-foreground mb-4">
-                Other great AI-picked options
-              </h6>
-              <div className="overflow-x-auto overflow-y-hidden">
-                <div className="flex gap-4 pb-2" style={{ width: 'max-content' }}>
-                  {alternatives.map((alt, index) => (
-                    <AlternativeProductCard
-                      key={index}
-                      product={alt}
-                      onClick={() => {/* Handle alternative product click */}}
-                    />
-                  ))}
-                </div>
+              <p className="text-sm text-muted-foreground mb-3">
+                These alternatives also work great for your skin profile:
+              </p>
+              <div className="flex gap-4 pb-2" style={{ width: 'max-content' }}>
+                {alternatives.map((alt, index) => (
+                  <AlternativeProductCard
+                    key={alt.id}
+                    product={{...alt, fitPercent: alt.fitPct}}
+                    className="w-48 flex-shrink-0"
+                  />
+                ))}
               </div>
             </div>
           )}
@@ -519,72 +465,51 @@ const RoutineForYou = () => {
                     <span className="font-medium text-right">{routineFormula.age}</span>
                   </div>
                   <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Skin type</span>
+                    <span className="text-muted-foreground">Skin Type</span>
                     <span className="font-medium text-right">{routineFormula.skinType}</span>
                   </div>
                   <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Skin sensitivity</span>
-                    <span className="font-medium text-right">{routineFormula.skinSensitivity}</span>
+                    <span className="text-muted-foreground">Skin Concerns</span>
+                    <span className="font-medium text-right">{routineFormula.skinConcerns}</span>
                   </div>
                   <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Price</span>
-                    <span className="font-medium text-right">{routineFormula.price}</span>
-                  </div>
-                  <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Skin concerns</span>
-                    <span className="font-medium text-right flex-1 ml-4">{routineFormula.skinConcerns}</span>
-                  </div>
-                  <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Skin conditions</span>
+                    <span className="text-muted-foreground">Skin Conditions</span>
                     <span className="font-medium text-right">{routineFormula.skinConditions}</span>
                   </div>
                   <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Health conditions</span>
-                    <span className="font-medium text-right">{routineFormula.healthConditions}</span>
+                    <span className="text-muted-foreground">Sensitivity</span>
+                    <span className="font-medium text-right">{routineFormula.sensitivity}</span>
                   </div>
                   <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Korean Skincare</span>
-                    <span className="font-medium text-right">{routineFormula.koreanSkincare}</span>
+                    <span className="text-muted-foreground">Climate</span>
+                    <span className="font-medium text-right">{routineFormula.climate}</span>
+                  </div>
+                  <div className="flex justify-between items-start py-1">
+                    <span className="text-muted-foreground">Routine Experience</span>
+                    <span className="font-medium text-right">{routineFormula.routineExperience}</span>
                   </div>
                 </div>
               </div>
             )}
-
-            <div className="bg-muted/30 rounded-lg p-3 mb-4">
-              <div className="flex items-center justify-between text-sm text-muted-foreground">
-                <span>Your formula has been updated</span>
-                <span>🙂</span>
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">
-                {routineFormula.lastUpdated}
-              </div>
-            </div>
-
-            <Button className="w-full" variant="outline">
-              <RotateCcw className="w-4 h-4 mr-2" />
-              Update Formula
-            </Button>
           </div>
 
-          {/* Routine Selector */}
-          <div className="sticky top-[64px] bg-background/95 backdrop-blur-sm z-20 py-4 mb-6 -mx-4 px-4">
-            <div className="flex justify-center">
-              <SegmentedControl
-                options={[
-                  { value: 'Morning', label: 'Morning', icon: 'sun' },
-                  { value: 'Evening', label: 'Evening', icon: 'moon' },
-                  { value: 'Weekly', label: 'Weekly', icon: 'sparkles' }
-                ]}
-                value={selectedRoutine}
-                onChange={scrollToSection}
-              />
-            </div>
+          {/* Routine Selection */}
+          <div className="mb-6">
+            <SegmentedControl
+              options={[
+                { value: 'Morning', label: 'Morning', icon: 'sun' },
+                { value: 'Evening', label: 'Evening', icon: 'moon' },
+                { value: 'Weekly', label: 'Weekly', icon: 'sparkles' }
+              ]}
+              value={selectedRoutine}
+              onChange={scrollToSection}
+            />
           </div>
 
           {/* Trust Message */}
-          <div className="mb-8">
-            <h3 className="text-xl font-bold mb-3">Your skin is our main focus</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+          <div className="mb-8 dermaself-card p-4">
+            <h3 className="text-base font-medium mb-2 text-center">Your skin is our main focus</h3>
+            <p className="text-sm text-muted-foreground text-center">
               All the recommendations are unbiased and non-sponsored. Picked by Dermaself AI & Reviewed by our MDs.
             </p>
           </div>
@@ -595,10 +520,10 @@ const RoutineForYou = () => {
           </div>
 
           {/* Trust Message Between Sections */}
-          <div className="mb-8 lovi-card p-4">
-            <h3 className="text-lg font-bold mb-2">Your skin is our main focus</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              All the recommendations are unbiased and non-sponsored. Picked by Lovi AI & Reviewed by our MDs.
+          <div className="mb-8 dermaself-card p-4">
+            <h3 className="text-base font-medium mb-2 text-center">Your skin is our main focus</h3>
+            <p className="text-sm text-muted-foreground text-center">
+              All the recommendations are unbiased and non-sponsored. Picked by Dermaself AI & Reviewed by our MDs.
             </p>
           </div>
 
@@ -619,7 +544,7 @@ const RoutineForYou = () => {
             </p>
           </div>
 
-          {/* Weekly Section */
+          {/* Weekly Section */}
           <div ref={weeklyRef} className="mb-12">
             <div className="text-center py-6 mb-6">
               <div className="text-4xl mb-3">✨</div>
