@@ -1,14 +1,36 @@
-import { MessageCircle } from 'lucide-react';
-import { openAICosmetologist } from '@/lib/services/chat';
+import { useState } from 'react';
+import { MessageCircle, Send } from 'lucide-react';
 
-export const AskBar = () => {
+interface AskBarProps {
+  onSubmit?: (message: string) => void;
+}
+
+export const AskBar = ({ onSubmit }: AskBarProps) => {
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (message.trim() && onSubmit) {
+      onSubmit(message.trim());
+      setMessage('');
+    }
+  };
+
   return (
-    <button
-      onClick={openAICosmetologist}
-      className="w-full bg-muted rounded-2xl px-4 py-4 flex items-center gap-3 hover:bg-muted/80 transition-colors"
-    >
+    <form onSubmit={handleSubmit} className="w-full bg-muted rounded-2xl px-4 py-4 flex items-center gap-3">
       <MessageCircle size={20} className="text-muted-foreground" />
-      <span className="text-muted-foreground">Ask Lóvi anything...</span>
-    </button>
+      <input
+        type="text"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="Ask Lóvi anything..."
+        className="flex-1 bg-transparent text-foreground placeholder:text-muted-foreground outline-none"
+      />
+      {message.trim() && (
+        <button type="submit" className="text-primary hover:text-primary/80 transition-colors">
+          <Send size={18} />
+        </button>
+      )}
+    </form>
   );
 };

@@ -16,9 +16,10 @@ interface ChatbotUIProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   trigger: React.ReactNode;
+  initialMessage?: string;
 }
 
-export const ChatbotUI = ({ open, onOpenChange, trigger }: ChatbotUIProps) => {
+export const ChatbotUI = ({ open, onOpenChange, trigger, initialMessage }: ChatbotUIProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -40,6 +41,12 @@ export const ChatbotUI = ({ open, onOpenChange, trigger }: ChatbotUIProps) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  useEffect(() => {
+    if (initialMessage && open) {
+      setInputValue(initialMessage);
+    }
+  }, [initialMessage, open]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;

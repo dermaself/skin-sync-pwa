@@ -10,14 +10,16 @@ import { ProductDetailSheet } from '@/components/ProductDetailSheet';
 import { SuggestionChips } from '@/components/SuggestionChips';
 import { AskBar } from '@/components/AskBar';
 import { AffirmationCard } from '@/components/AffirmationCard';
+import { ChatbotUI } from '@/components/ChatbotUI';
 import { seedProducts } from '@/lib/seed';
-import { openAICosmetologist } from '@/lib/services/chat';
 import type { Product } from '@/lib/seed';
 
 const Today = () => {
   const [selectedRoutine, setSelectedRoutine] = useState('Morning');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [initialMessage, setInitialMessage] = useState<string>('');
   
   const routineOptions = [
     { value: 'Morning', label: 'Morning', icon: 'sun' as const },
@@ -30,6 +32,13 @@ const Today = () => {
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
     setIsSheetOpen(true);
+  };
+
+  const handleChatOpen = (message?: string) => {
+    if (message) {
+      setInitialMessage(message);
+    }
+    setChatOpen(true);
   };
 
   return (
@@ -106,14 +115,22 @@ const Today = () => {
           Ask Lóvi <span className="text-muted-foreground">AI Cosmetologist</span>
         </h2>
         
-        <SuggestionChips onChipClick={openAICosmetologist} />
-        <AskBar />
+        <SuggestionChips onChipClick={handleChatOpen} />
+        <AskBar onSubmit={handleChatOpen} />
       </div>
 
       {/* Daily Affirmation */}
       <div className="mb-8">
         <AffirmationCard />
       </div>
+
+      {/* Chatbot UI */}
+      <ChatbotUI 
+        open={chatOpen} 
+        onOpenChange={setChatOpen}
+        initialMessage={initialMessage}
+        trigger={<></>}
+      />
     </div>
   );
 };
