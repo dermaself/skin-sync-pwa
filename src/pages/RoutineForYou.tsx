@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, ChevronUp, ShoppingCart, RotateCcw } from 'lucide-react';
 import { SegmentedControl } from '@/components/SegmentedControl';
+import { AlternativeProductCard } from '@/components/AlternativeProductCard';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -21,19 +22,79 @@ const routineFormula = {
   lastUpdated: "17.09.2025 11:28"
 };
 
-// Alternative products for each step
+// Alternative products for each step - expanded to cover all routine steps
 const alternativeProducts = {
   'morning-1': [
-    { name: "Madagascar Centella Toning Toner", brand: "1004 Skin", price: "€18.39", fitPercent: 93, image: "/images/products/ren-aha-tonic.png" },
-    { name: "Gentle Low pH Good Morning Cleanser", brand: "CosRX", price: "€15.20", fitPercent: 91, image: "/images/products/fab-cleanser.png" },
+    { name: "Madagascar Centella Toning Toner", brand: "SKIN1004", price: "€18.39", fitPercent: 93, image: "/images/products/ren-aha-tonic.png", verified: true },
+    { name: "Gentle Low pH Good Morning Cleanser", brand: "CosRX", price: "€15.20", fitPercent: 91, image: "/images/products/fab-cleanser.png", verified: true },
+    { name: "Fresh Soy Cleanser", brand: "Fresh", price: "€22.50", fitPercent: 89, image: "/images/products/pacifica-sea-foam.png", verified: false },
+    { name: "Hydrating Foaming Oil Cleanser", brand: "CeraVe", price: "€11.99", fitPercent: 87, image: "/images/products/cerave-pm.png", verified: true },
   ],
   'morning-2': [
-    { name: "Calming Toner", brand: "Dear Klairs", price: "€16.99", fitPercent: 90, image: "/images/products/pixi-milky.png" },
-    { name: "Be Plain Cicaful Calming Toner", brand: "Be Plain", price: "€14.80", fitPercent: 88, image: "/images/products/lrp-toleriane.png" },
+    { name: "Calming Toner", brand: "Dear Klairs", price: "€16.99", fitPercent: 90, image: "/images/products/pixi-milky.png", verified: true },
+    { name: "Be Plain Cicaful Calming Toner", brand: "Be Plain", price: "€14.80", fitPercent: 88, image: "/images/products/lrp-toleriane.png", verified: false },
+    { name: "Glow Tonic", brand: "Pixi", price: "€18.00", fitPercent: 85, image: "/images/products/pixi-milky.png", verified: true },
+    { name: "Toleriane Ultra Dermallergo Serum", brand: "La Roche Posay", price: "€21.95", fitPercent: 92, image: "/images/products/lrp-toleriane.png", verified: true },
+  ],
+  'morning-3': [
+    { name: "Ultra Facial Cream SPF 30", brand: "Kiehl's", price: "€27.50", fitPercent: 89, image: "/images/products/cerave-pm.png", verified: true },
+    { name: "Anthelios Ultra Light Fluid SPF 50+", brand: "La Roche Posay", price: "€16.95", fitPercent: 91, image: "/images/products/lrp-toleriane.png", verified: true },
+    { name: "Centella Air-Fit Suncream Plus", brand: "SKIN1004", price: "€12.90", fitPercent: 88, image: "/images/products/ren-aha-tonic.png", verified: false },
   ],
   'evening-1': [
-    { name: "Green Clean Makeup Removing Cleansing Balm", brand: "Farmacy", price: "€24.00", fitPercent: 94, image: "/images/products/ordinary-rosehip.png" },
-    { name: "Pure Cleansing Oil", brand: "DHC", price: "€28.50", fitPercent: 92, image: "/images/products/naturium-mandelic.png" },
+    { name: "Green Clean Makeup Removing Cleansing Balm", brand: "Farmacy", price: "€24.00", fitPercent: 94, image: "/images/products/ordinary-rosehip.png", verified: true },
+    { name: "Pure Cleansing Oil", brand: "DHC", price: "€28.50", fitPercent: 92, image: "/images/products/naturium-mandelic.png", verified: true },
+    { name: "Cleansing Oil", brand: "The INKEY List", price: "€9.99", fitPercent: 89, image: "/images/products/pai-rosehip.png", verified: false },
+    { name: "Take The Day Off Cleansing Balm", brand: "Clinique", price: "€31.00", fitPercent: 91, image: "/images/products/drunk-slaai.png", verified: true },
+  ],
+  'evening-2': [
+    { name: "Low pH Good Morning Gel Cleanser", brand: "CosRX", price: "€15.20", fitPercent: 91, image: "/images/products/fab-cleanser.png", verified: true },
+    { name: "Hydrating Foaming Oil Cleanser", brand: "CeraVe", price: "€11.99", fitPercent: 89, image: "/images/products/cerave-pm.png", verified: true },
+    { name: "Sea Foam Cleanser", brand: "Pacifica", price: "€14.50", fitPercent: 87, image: "/images/products/pacifica-sea-foam.png", verified: false },
+  ],
+  'evening-3': [
+    { name: "Calming Toner", brand: "Dear Klairs", price: "€16.99", fitPercent: 90, image: "/images/products/pixi-milky.png", verified: true },
+    { name: "Be Plain Cicaful Calming Toner", brand: "Be Plain", price: "€14.80", fitPercent: 88, image: "/images/products/lrp-toleriane.png", verified: false },
+    { name: "Glow Tonic", brand: "Pixi", price: "€18.00", fitPercent: 85, image: "/images/products/pixi-milky.png", verified: true },
+  ],
+  'evening-4': [
+    { name: "Niacinamide 10% + Zinc 1%", brand: "The Ordinary", price: "€6.90", fitPercent: 92, image: "/images/products/ordinary-rosehip.png", verified: true },
+    { name: "Good Molecules Hyaluronic Acid Serum", brand: "Good Molecules", price: "€6.00", fitPercent: 89, image: "/images/products/naturium-mandelic.png", verified: false },
+    { name: "BHA Blackhead Power Liquid", brand: "Paula's Choice", price: "€33.00", fitPercent: 91, image: "/images/products/pai-rosehip.png", verified: true },
+  ],
+  'evening-5': [
+    { name: "PM Facial Moisturising Lotion", brand: "CeraVe", price: "€13.99", fitPercent: 94, image: "/images/products/cerave-pm.png", verified: true },
+    { name: "Ceramide Ato Concentrate Cream", brand: "Holika Holika", price: "€15.50", fitPercent: 91, image: "/images/products/pixi-milky.png", verified: true },
+    { name: "Ultra Facial Cream", brand: "Kiehl's", price: "€27.50", fitPercent: 89, image: "/images/products/lrp-toleriane.png", verified: true },
+  ],
+  'weekly-1': [
+    { name: "Green Clean Makeup Removing Cleansing Balm", brand: "Farmacy", price: "€24.00", fitPercent: 94, image: "/images/products/ordinary-rosehip.png", verified: true },
+    { name: "Pure Cleansing Oil", brand: "DHC", price: "€28.50", fitPercent: 92, image: "/images/products/naturium-mandelic.png", verified: true },
+    { name: "Take The Day Off Cleansing Balm", brand: "Clinique", price: "€31.00", fitPercent: 91, image: "/images/products/drunk-slaai.png", verified: true },
+  ],
+  'weekly-2': [
+    { name: "Low pH Good Morning Gel Cleanser", brand: "CosRX", price: "€15.20", fitPercent: 91, image: "/images/products/fab-cleanser.png", verified: true },
+    { name: "Hydrating Foaming Oil Cleanser", brand: "CeraVe", price: "€11.99", fitPercent: 89, image: "/images/products/cerave-pm.png", verified: true },
+  ],
+  'weekly-3': [
+    { name: "Rice Enzyme Powder", brand: "Tatcha", price: "€65.00", fitPercent: 91, image: "/images/products/drunk-slaai.png", verified: true },
+    { name: "Brightening Enzyme Powder Wash", brand: "Dermalogica", price: "€58.00", fitPercent: 89, image: "/images/products/pai-rosehip.png", verified: true },
+  ],
+  'weekly-4': [
+    { name: "Clear Improvement Charcoal Mask", brand: "Origins", price: "€29.00", fitPercent: 81, image: "/images/products/lrp-toleriane.png", verified: false },
+    { name: "Rare Earth Deep Pore Cleansing Masque", brand: "Kiehl's", price: "€32.50", fitPercent: 79, image: "/images/products/ordinary-rosehip.png", verified: true },
+  ],
+  'weekly-5': [
+    { name: "Calming Toner", brand: "Dear Klairs", price: "€16.99", fitPercent: 90, image: "/images/products/pixi-milky.png", verified: true },
+    { name: "Be Plain Cicaful Calming Toner", brand: "Be Plain", price: "€14.80", fitPercent: 88, image: "/images/products/lrp-toleriane.png", verified: false },
+  ],
+  'weekly-6': [
+    { name: "Niacinamide 10% + Zinc 1%", brand: "The Ordinary", price: "€6.90", fitPercent: 92, image: "/images/products/ordinary-rosehip.png", verified: true },
+    { name: "Good Molecules Hyaluronic Acid Serum", brand: "Good Molecules", price: "€6.00", fitPercent: 89, image: "/images/products/naturium-mandelic.png", verified: false },
+  ],
+  'weekly-7': [
+    { name: "PM Facial Moisturising Lotion", brand: "CeraVe", price: "€13.99", fitPercent: 94, image: "/images/products/cerave-pm.png", verified: true },
+    { name: "Ultra Facial Cream", brand: "Kiehl's", price: "€27.50", fitPercent: 89, image: "/images/products/lrp-toleriane.png", verified: true },
   ]
 };
 
@@ -393,38 +454,20 @@ const RoutineForYou = () => {
           </div>
 
           {isExpanded && alternatives.length > 0 && (
-            <div className="space-y-4">
+            <div className="space-y-4 border-t pt-4">
               <h6 className="text-lg font-medium text-muted-foreground">
                 Other great AI-picked options
               </h6>
-              <div className="flex gap-4 overflow-x-auto pb-2">
-                {alternatives.map((alt, index) => (
-                  <div key={index} className="flex-shrink-0 w-72 bg-background border rounded-lg p-4">
-                    <div className="flex gap-3 mb-3">
-                      <img
-                        src={alt.image}
-                        alt={alt.name}
-                        className="w-12 h-12 object-contain rounded-lg"
-                      />
-                      <div className="flex-1">
-                        <h5 className="font-medium text-sm leading-tight mb-1">
-                          {alt.name}
-                        </h5>
-                        <p className="text-xs text-muted-foreground">
-                          {alt.brand} · {alt.price} · K-Beauty ✨
-                        </p>
-                      </div>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <ShoppingCart className="h-4 w-4" />
-                      </Button>
-                    </div>
-                    <div className="mb-3">
-                      <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${getFitPillClass(alt.fitPercent)}`}>
-                        <span className="font-semibold">{alt.fitPercent}% fit</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <div className="overflow-x-auto">
+                <div className="flex gap-4 pb-2" style={{ width: 'max-content' }}>
+                  {alternatives.map((alt, index) => (
+                    <AlternativeProductCard
+                      key={index}
+                      product={alt}
+                      onClick={() => {/* Handle alternative product click */}}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           )}
