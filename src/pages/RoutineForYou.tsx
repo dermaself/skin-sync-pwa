@@ -374,13 +374,13 @@ const RoutineForYou = () => {
               <img 
                 src={step.product.image} 
                 alt={step.product.name}
-                className="w-16 h-16 rounded-lg object-cover bg-muted"
+                className="w-20 h-20 rounded-lg object-cover bg-muted"
               />
             </div>
             <div className="flex-1 min-w-0">
               <h4 className="font-medium text-base leading-tight mb-1">{step.product.name}</h4>
               <p className="text-sm text-muted-foreground mb-2">{step.product.brand}</p>
-              <div className="price-pill text-sm">
+              <div className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-full bg-primary/10 text-primary font-medium">
                 💰 {step.product.price}
               </div>
             </div>
