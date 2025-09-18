@@ -21,6 +21,22 @@ const routineFormula = {
   lastUpdated: "17.09.2025 11:28"
 };
 
+// Alternative products for each step
+const alternativeProducts = {
+  'morning-1': [
+    { name: "Madagascar Centella Toning Toner", brand: "1004 Skin", price: "€18.39", fitPercent: 93, image: "/images/products/ren-aha-tonic.png" },
+    { name: "Gentle Low pH Good Morning Cleanser", brand: "CosRX", price: "€15.20", fitPercent: 91, image: "/images/products/fab-cleanser.png" },
+  ],
+  'morning-2': [
+    { name: "Calming Toner", brand: "Dear Klairs", price: "€16.99", fitPercent: 90, image: "/images/products/pixi-milky.png" },
+    { name: "Be Plain Cicaful Calming Toner", brand: "Be Plain", price: "€14.80", fitPercent: 88, image: "/images/products/lrp-toleriane.png" },
+  ],
+  'evening-1': [
+    { name: "Green Clean Makeup Removing Cleansing Balm", brand: "Farmacy", price: "€24.00", fitPercent: 94, image: "/images/products/ordinary-rosehip.png" },
+    { name: "Pure Cleansing Oil", brand: "DHC", price: "€28.50", fitPercent: 92, image: "/images/products/naturium-mandelic.png" },
+  ]
+};
+
 const routineSteps = {
   morning: [
     {
@@ -259,6 +275,7 @@ const RoutineForYou = () => {
   const navigate = useNavigate();
   const [selectedRoutine, setSelectedRoutine] = useState<'Morning' | 'Evening' | 'Weekly'>('Morning');
   const [expandedFormula, setExpandedFormula] = useState(false);
+  const [expandedAlternatives, setExpandedAlternatives] = useState<Set<string>>(new Set());
   
   // Refs for scrolling to sections
   const morningRef = useRef<HTMLDivElement>(null);
@@ -292,70 +309,129 @@ const RoutineForYou = () => {
     }
   };
 
+  const toggleAlternatives = (stepKey: string) => {
+    setExpandedAlternatives(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(stepKey)) {
+        newSet.delete(stepKey);
+      } else {
+        newSet.add(stepKey);
+      }
+      return newSet;
+    });
+  };
+
   const getFitPillClass = (fitPct: number) => {
     if (fitPct >= 90) return 'fit-pill-violet';
     if (fitPct >= 75) return 'fit-pill-emerald';
     return 'fit-pill-gray';
   };
 
-  const renderProductStep = (step: any, routineType: string) => (
-    <div key={`${routineType}-${step.step}`} className="space-y-4">
-      <div className="flex items-center gap-3">
-        <div className="bg-foreground text-background px-3 py-1 rounded-full text-sm font-medium">
-          Step {step.step}
-        </div>
-        <h3 className="text-xl font-semibold">{step.title}</h3>
-      </div>
-
-      <div className="lovi-card">
-        <div className="flex gap-4 mb-4">
-          <img
-            src={step.product.image}
-            alt={step.product.name}
-            className="w-16 h-16 object-contain rounded-lg"
-          />
-          <div className="flex-1">
-            <h4 className="font-semibold text-base leading-tight mb-1">
-              {step.product.name}
-            </h4>
-            <p className="text-sm text-muted-foreground mb-2">
-              {step.product.brand} · {step.product.price} · {step.product.store}
-            </p>
-            <div className="flex items-center gap-2">
-              <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${getFitPillClass(step.product.fitPercent)}`}>
-                <span className="font-semibold">{step.product.fitPercent}% fit</span>
-              </div>
-              {step.product.verified && (
-                <div className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
-                  <span>✓ Lóvi MD Verified</span>
-                </div>
-              )}
-            </div>
-          </div>
-          <Button variant="ghost" size="icon">
-            <ShoppingCart className="h-5 w-5" />
-          </Button>
-        </div>
-
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h5 className="font-medium mb-2">Why we picked it</h5>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {step.product.whyPicked}
-          </p>
-        </div>
-
+  const renderProductStep = (step: any, routineType: string) => {
+    const stepKey = `${routineType}-${step.step}`;
+    const isExpanded = expandedAlternatives.has(stepKey);
+    const alternatives = alternativeProducts[stepKey as keyof typeof alternativeProducts] || [];
+    
+    return (
+      <div key={stepKey} className="space-y-4">
         <div className="flex items-center gap-3">
-          <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-medium px-6">
-            <span className="mr-2 font-bold">a</span>
-            {step.product.price}
-          </Button>
-          <Button variant="ghost" className="text-muted-foreground">
-            {step.product.alternatives} alternatives
-          </Button>
+          <div className="bg-foreground text-background px-3 py-1 rounded-full text-sm font-medium">
+            Step {step.step}
+          </div>
+          <h3 className="text-xl font-semibold">{step.title}</h3>
+        </div>
+
+        <div className="lovi-card">
+          <div className="flex gap-4 mb-4">
+            <img
+              src={step.product.image}
+              alt={step.product.name}
+              className="w-16 h-16 object-contain rounded-lg"
+            />
+            <div className="flex-1">
+              <h4 className="font-semibold text-base leading-tight mb-1">
+                {step.product.name}
+              </h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                {step.product.brand} · {step.product.price} · {step.product.store}
+              </p>
+              <div className="flex items-center gap-2">
+                <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${getFitPillClass(step.product.fitPercent)}`}>
+                  <span className="font-semibold">{step.product.fitPercent}% fit</span>
+                </div>
+                {step.product.verified && (
+                  <div className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
+                    <span>✓ Lóvi MD Verified</span>
+                  </div>
+                )}
+              </div>
+            </div>
+            <Button variant="ghost" size="icon">
+              <ShoppingCart className="h-5 w-5" />
+            </Button>
+          </div>
+
+          <div className="bg-muted/30 rounded-lg p-4 mb-4">
+            <h5 className="font-medium mb-2">Why we picked it</h5>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {step.product.whyPicked}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 mb-4">
+            <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-medium px-6">
+              <span className="mr-2 font-bold">a</span>
+              {step.product.price}
+            </Button>
+            <Button 
+              variant="ghost" 
+              className="text-muted-foreground"
+              onClick={() => toggleAlternatives(stepKey)}
+            >
+              {step.product.alternatives} alternatives
+            </Button>
+          </div>
+
+          {isExpanded && alternatives.length > 0 && (
+            <div className="space-y-4">
+              <h6 className="text-lg font-medium text-muted-foreground">
+                Other great AI-picked options
+              </h6>
+              <div className="flex gap-4 overflow-x-auto pb-2">
+                {alternatives.map((alt, index) => (
+                  <div key={index} className="flex-shrink-0 w-72 bg-background border rounded-lg p-4">
+                    <div className="flex gap-3 mb-3">
+                      <img
+                        src={alt.image}
+                        alt={alt.name}
+                        className="w-12 h-12 object-contain rounded-lg"
+                      />
+                      <div className="flex-1">
+                        <h5 className="font-medium text-sm leading-tight mb-1">
+                          {alt.name}
+                        </h5>
+                        <p className="text-xs text-muted-foreground">
+                          {alt.brand} · {alt.price} · K-Beauty ✨
+                        </p>
+                      </div>
+                      <Button variant="ghost" size="icon" className="h-8 w-8">
+                        <ShoppingCart className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <div className="mb-3">
+                      <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${getFitPillClass(alt.fitPercent)}`}>
+                        <span className="font-semibold">{alt.fitPercent}% fit</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background">
