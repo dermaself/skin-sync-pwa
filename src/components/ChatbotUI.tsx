@@ -80,16 +80,16 @@ export const ChatbotUI = ({ open, onOpenChange, trigger }: ChatbotUIProps) => {
       <SheetTrigger asChild>
         {trigger}
       </SheetTrigger>
-      <SheetContent side="bottom" className="h-[80vh] rounded-t-3xl p-0">
-        <SheetHeader className="p-6 pb-0">
+      <SheetContent side="bottom" className="h-[85vh] max-h-[600px] rounded-t-3xl p-0 flex flex-col">
+        <SheetHeader className="p-4 pb-2 flex-shrink-0">
           <SheetTitle className="flex items-center gap-2">
             <Bot className="w-5 h-5 text-primary" />
             Chat with Lóvi
           </SheetTitle>
         </SheetHeader>
         
-        <div className="flex flex-col h-full">
-          <ScrollArea className="flex-1 px-6" ref={scrollAreaRef}>
+        <div className="flex flex-col flex-1 min-h-0">
+          <ScrollArea className="flex-1 px-4" ref={scrollAreaRef}>
             <div className="space-y-4 py-4">
               {messages.map((message) => (
                 <div
