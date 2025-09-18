@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import { Clock, BookOpen, Play } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import VideoPlayer from '@/components/VideoPlayer';
 import sugarAgingImage from '@/assets/sugar-aging-glycation.jpg';
 import moisturizerImage from '@/assets/moisturizer-application.jpg';
 import dullSkinImage from '@/assets/dull-vs-glowing-skin.jpg';
@@ -86,6 +89,12 @@ const applicationGuides = [
 ];
 
 const Insights = () => {
+  const [isVideoPlayerOpen, setIsVideoPlayerOpen] = useState(false);
+
+  const handleWatchLearn = () => {
+    setIsVideoPlayerOpen(true);
+  };
+
   return (
     <div className="max-w-screen-sm mx-auto px-4 sm:px-5 pt-12 pb-24 animate-fade-in">
       <h1 className="text-3xl font-bold mb-8">Insights</h1>
@@ -212,44 +221,56 @@ const Insights = () => {
 
       {/* Step-by-Step Skincare Application Guides */}
       <section className="mb-8">
-        <div className="mb-4">
+        <div className="mb-6">
           <h2 className="text-xl font-semibold">Step-by-Step Skincare Application Guides</h2>
         </div>
         
-        <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-          {applicationGuides.map((item, index) => (
-            <div key={index} className="flex-shrink-0 w-48">
-              <div className="relative cursor-pointer hover:scale-[1.02] transition-transform">
-                <div className="aspect-[3/4] bg-gradient-to-br from-purple-200 to-purple-300 rounded-2xl overflow-hidden relative">
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-white text-xl font-bold mb-2">{item.title}</h3>
-                    {item.hasStart && (
-                      <div className="flex items-center gap-2">
-                        <div className="bg-white/20 rounded-full p-2">
-                          <Play size={16} className="text-white fill-white" />
-                        </div>
-                        <span className="text-white text-sm">Start {item.duration}</span>
-                      </div>
-                    )}
+        <div className="lovi-card p-0 overflow-hidden">
+          <div className="aspect-video bg-gradient-to-br from-purple-500 to-blue-600 relative overflow-hidden">
+            <img 
+              src="/images/today_2.png" 
+              alt="Skincare Application Guide"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+              <div className="text-left">
+                <h3 className="text-3xl font-bold text-white mb-3 leading-tight">
+                  Master Your Daily Skincare Routine
+                </h3>
+                <p className="text-white/90 text-lg mb-4">
+                  Learn proper application techniques for optimal results
+                </p>
+                <div className="flex items-center gap-3 text-white/80">
+                  <div className="flex items-center gap-1">
+                    <Clock size={16} />
+                    <span className="text-sm">15 min tutorial</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <BookOpen size={16} />
+                    <span className="text-sm">Step-by-step guide</span>
                   </div>
                 </div>
               </div>
             </div>
-          ))}
+          </div>
+          
+          <div className="p-6 text-center">
+            <Button 
+              onClick={handleWatchLearn}
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg"
+            >
+              <Play size={20} className="mr-2" />
+              Watch & Learn
+            </Button>
+          </div>
         </div>
       </section>
 
-      {/* Watch & Learn */}
-      <section>
-        <div className="text-center py-8">
-          <h2 className="text-2xl font-bold">Watch & Learn</h2>
-        </div>
-      </section>
+      <VideoPlayer 
+        isOpen={isVideoPlayerOpen}
+        onClose={() => setIsVideoPlayerOpen(false)}
+        title="Skincare Application Tutorial"
+      />
     </div>
   );
 };
