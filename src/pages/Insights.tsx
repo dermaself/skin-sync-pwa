@@ -146,39 +146,39 @@ const Insights = () => {
           <p className="text-muted-foreground">for Wrinkles, Enlarged Pores</p>
         </div>
         
-        <div className="mobile-scroll-container pb-4 -mx-4 px-4">
-          <div className="flex gap-3">
-            {academyContent.map((item, index) => (
-              <div key={index} className="mobile-scroll-item">
-              <div 
-                className="dermaself-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform"
-                onClick={() => handleStoryClick(index)}
-              >
-                <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="flex items-center gap-1 text-primary text-sm">
-                      <BookOpen size={16} />
-                      <span>{item.category}</span>
-                    </div>
-                    <div className="flex items-center gap-1 text-muted-foreground text-sm">
-                      <Clock size={16} />
-                      <span>{item.readTime}</span>
-                    </div>
+      <div className="mobile-scroll-container pb-4 -mx-4 px-4">
+        <div className="flex gap-4">
+          {academyContent.map((item, index) => (
+            <div key={index} className="mobile-scroll-item">
+            <div 
+              className="dermaself-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform border border-border/50"
+              onClick={() => handleStoryClick(index)}
+            >
+              <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                <img 
+                  src={item.image} 
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-1 text-primary text-xs">
+                    <BookOpen size={14} />
+                    <span>{item.category}</span>
                   </div>
-                  <h3 className="font-semibold text-sm leading-tight">{item.title}</h3>
+                  <div className="flex items-center gap-1 text-muted-foreground text-xs">
+                    <Clock size={14} />
+                    <span>{item.readTime}</span>
+                  </div>
                 </div>
+                <h3 className="font-semibold text-sm leading-tight">{item.title}</h3>
               </div>
-              </div>
-            ))}
-          </div>
+            </div>
+            </div>
+          ))}
         </div>
+      </div>
       </section>
 
       {/* Massages for your focus area */}
@@ -189,23 +189,23 @@ const Insights = () => {
         </div>
         
         <div className="mobile-scroll-container pb-4 -mx-4 px-4">
-          <div className="flex gap-3">
+          <div className="flex gap-4">
             {massageGuides.map((item, index) => (
               <div key={index} className="mobile-scroll-item">
               <div className="relative cursor-pointer hover:scale-[1.02] transition-transform">
-                <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden relative">
+                <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden relative border border-border/30">
                   <img 
                     src={item.image} 
                     alt={item.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-4 left-4">
-                    <div className="bg-black/50 text-white px-2 py-1 rounded-full text-sm">
+                  <div className="absolute top-3 left-3">
+                    <div className="bg-black/50 text-white px-2 py-1 rounded-full text-xs">
                       {item.steps} {item.duration}
                     </div>
                   </div>
-                  <div className="absolute bottom-4 left-4">
-                    <h3 className="text-white text-2xl font-bold">{item.title}</h3>
+                  <div className="absolute bottom-3 left-3">
+                    <h3 className="text-white text-lg font-bold">{item.title}</h3>
                   </div>
                 </div>
               </div>
@@ -274,8 +274,8 @@ const Insights = () => {
           <h2 className="text-xl font-semibold">Step-by-Step Skincare Application Guides</h2>
         </div>
         
-        <div className="dermaself-card p-0 overflow-hidden">
-          <div className="aspect-video bg-gradient-to-br from-purple-500 to-blue-600 relative overflow-hidden">
+        <div className="dermaself-card p-0 overflow-hidden border border-border/50">
+          <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/10 relative overflow-hidden">
             <img 
               src="/images/skincare-tutorial.jpg" 
               alt="Skincare Application Guide"
@@ -283,19 +283,19 @@ const Insights = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
               <div className="text-left">
-                <h3 className="text-3xl font-bold text-white mb-3 leading-tight">
+                <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
                   Master Your Daily Skincare Routine
                 </h3>
-                <p className="text-white/90 text-lg mb-4">
+                <p className="text-white/90 text-base mb-3">
                   Learn proper application techniques for optimal results
                 </p>
                 <div className="flex items-center gap-3 text-white/80">
                   <div className="flex items-center gap-1">
-                    <Clock size={16} />
+                    <Clock size={14} />
                     <span className="text-sm">15 min tutorial</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <BookOpen size={16} />
+                    <BookOpen size={14} />
                     <span className="text-sm">Step-by-step guide</span>
                   </div>
                 </div>
@@ -306,9 +306,9 @@ const Insights = () => {
           <div className="p-6 text-center">
             <Button 
               onClick={handleWatchLearn}
-              className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg"
+              className="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 text-base font-semibold rounded-xl"
             >
-              <Play size={20} className="mr-2" />
+              <Play size={18} className="mr-2" />
               Watch & Learn
             </Button>
           </div>

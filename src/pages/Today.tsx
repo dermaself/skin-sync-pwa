@@ -47,24 +47,27 @@ const Today = () => {
   return (
     <div className="mobile-content">
       <div className="mobile-main mobile-container animate-fade-in">
-        {/* Header gradient */}
-        <div className="gradient-header -mx-4 px-4 pt-12 pb-6 mb-6">
-        {/* Greeting */}
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold">
-            Morning, <span className="text-primary">Lorenzo</span>
-          </h1>
-          <button 
-            className="min-w-[48px] min-h-[48px] bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors active:scale-95"
-            aria-label="Daily rewards and achievements"
-          >
-            <Gift size={20} className="text-foreground" />
-          </button>
-        </div>
+        {/* Header gradient with better styling */}
+        <div className="gradient-header -mx-4 px-4 pt-12 pb-8 mb-6 rounded-b-3xl">
+          {/* Greeting with better typography */}
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h1 className="text-2xl font-bold text-foreground mb-1">
+                Good morning, <span className="text-primary">Lorenzo</span> ✨
+              </h1>
+              <p className="text-muted-foreground text-sm">Ready to glow today?</p>
+            </div>
+            <button 
+              className="min-w-[48px] min-h-[48px] bg-card/80 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-card transition-colors active:scale-95 shadow-sm"
+              aria-label="Daily rewards and achievements"
+            >
+              <Gift size={20} className="text-primary" />
+            </button>
+          </div>
 
-        {/* Day Pills */}
-        <DayPills />
-      </div>
+          {/* Day Pills */}
+          <DayPills />
+        </div>
 
       {/* Daily Progress */}
       <div className="mb-8">
@@ -85,18 +88,18 @@ const Today = () => {
         <DiaryCard />
       </div>
 
-      {/* Primary CTA - Routine Discovery */}
+      {/* Primary CTA - Enhanced styling */}
       <div className="mb-8">
         <div 
-          className="dermaself-card cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20"
+          className="dermaself-card cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] bg-gradient-to-br from-primary/5 to-primary/10 border-primary/10 p-6"
           onClick={() => navigate('/routine-for-you')}
         >
           <div className="flex items-center justify-between">
             <div className="flex-1">
-              <h3 className="text-lg font-bold mb-2">Discover Your Perfect Routine</h3>
-              <p className="text-sm text-muted-foreground">Personalized skincare recommendations</p>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Discover Your Perfect Routine</h3>
+              <p className="text-sm text-muted-foreground">Personalized skincare recommendations based on your skin profile</p>
             </div>
-            <div className="text-3xl">✨</div>
+            <div className="text-2xl ml-4">✨</div>
           </div>
         </div>
       </div>
@@ -118,7 +121,7 @@ const Today = () => {
           isOpen={isSheetOpen}
           onOpenChange={setIsSheetOpen}
         >
-          <div className="mobile-grid-2">
+          <div className="grid grid-cols-2 gap-4">
             {morningProducts.slice(0, 2).map((product) => (
               <ProductCard 
                 key={product.id}

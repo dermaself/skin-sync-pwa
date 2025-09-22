@@ -22,7 +22,7 @@ export const BottomNav = () => {
 
   const nav = (
     <nav className="bottom-nav" role="navigation" aria-label="Primary">
-      <div className="flex items-center justify-around">
+      <div className="flex items-center justify-around px-2">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = location.pathname === tab.path;
@@ -32,14 +32,17 @@ export const BottomNav = () => {
               key={tab.id}
               to={tab.path}
               className={cn(
-                "flex flex-col items-center gap-1 py-2 px-2 rounded-xl transition-all min-h-[44px] justify-center flex-1",
+                "flex flex-col items-center gap-1 py-2 px-3 rounded-xl transition-all min-h-[48px] justify-center flex-1 max-w-[80px]",
                 isActive 
                   ? "text-primary bg-primary/10 scale-105" 
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
               )}
             >
-              <Icon size={20} />
-              <span className="text-xs font-medium leading-tight">{tab.label}</span>
+              <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+              <span className={cn(
+                "text-xs font-medium leading-tight",
+                isActive ? "font-semibold" : "font-normal"
+              )}>{tab.label}</span>
             </Link>
           );
         })}

@@ -2,9 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Dermaself Design System - Beautiful skincare app theming
-All colors MUST be HSL. Purple-blue gradient theme with warm accents.
+/* Dermaself Design System - Clean skincare app theming
+Modern, mobile-first design with purple gradients and soft shadows.
+All colors MUST be HSL format for consistency.
 */
+
+:root {
+  /* Base Colors - Clean and modern */
+  --background: 248 250 252; /* Almost white with subtle cool tint */
+  --foreground: 15 23 42; /* Dark slate for text */
+  --card: 255 255 255; /* Pure white cards */
+  --card-foreground: 15 23 42;
+  --popover: 255 255 255;
+  --popover-foreground: 15 23 42;
+
+  /* Primary - Purple/Violet theme */
+  --primary: 147 51 234; /* Rich purple for branding */
+  --primary-foreground: 248 250 252;
+  --primary-glow: 168 85 247; /* Lighter purple for glows */
+  
+  /* Secondary */
+  --secondary: 241 245 249; /* Very light gray */
+  --secondary-foreground: 15 23 42;
+  
+  /* Accent */
+  --accent: 241 245 249;
+  --accent-foreground: 15 23 42;
+  
+  /* Muted */
+  --muted: 241 245 249; /* Light gray for backgrounds */
+  --muted-foreground: 100 116 139; /* Medium gray for text */
+  
+  /* Border */
+  --border: 226 232 240; /* Light border */
+  --input: 226 232 240;
+  --ring: 147 51 234; /* Purple focus rings */
+  
+  /* Destructive */
+  --destructive: 239 68 68;
+  --destructive-foreground: 248 250 252;
+  
+  /* Fit percentages - matching the app screenshots */
+  --violet-fit: 147 51 234; /* Purple for 90%+ fit */
+  --emerald-fit: 16 185 129; /* Emerald for 75%+ fit */
+  --gray-fit: 100 116 139; /* Gray for lower fit */
+  
+  /* Price yellow - warm accent */
+  --price-yellow: 251 191 36; /* Warm yellow */
+  --price-yellow-foreground: 15 23 42;
+  
+  /* Sidebar */
+  --sidebar-background: 255 255 255;
+  --sidebar-foreground: 15 23 42;
+  --sidebar-primary: 147 51 234;
+  --sidebar-primary-foreground: 248 250 252;
+  --sidebar-accent: 241 245 249;
+  --sidebar-accent-foreground: 15 23 42;
+  --sidebar-border: 226 232 240;
+  --sidebar-ring: 147 51 234;
+  
+  /* Design system shadows and effects */
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-float: 0 10px 25px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+  
+  /* Gradients */
+  --gradient-splash: linear-gradient(135deg, hsl(147 51 234) 0%, hsl(168 85 247) 100%);
+  --gradient-header: linear-gradient(135deg, hsl(147 51 234 / 0.1) 0%, hsl(168 85 247 / 0.05) 100%);
+  --gradient-affirmation: linear-gradient(135deg, hsl(147 51 234 / 0.15) 0%, hsl(168 85 247 / 0.1) 100%);
+  
+  /* Border radius */
+  --radius: 0.75rem; /* Increased for softer look */
+}
 
 @layer base {
   * {
@@ -49,33 +117,34 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
 
 /* Dermaself Component Styles */
 @layer components {
-  /* Card styles */
+  /* Card styles - Softer shadows and better spacing */
   .dermaself-card {
-    @apply bg-card text-card-foreground rounded-3xl p-5;
+    @apply bg-card text-card-foreground rounded-2xl p-4;
     box-shadow: var(--shadow-card);
+    border: 1px solid hsl(var(--border) / 0.5);
   }
 
-  /* Fit pill variants - Enhanced for touch */
+  /* Fit pill variants - Enhanced with better contrast */
   .fit-pill-violet {
-    @apply bg-violet-fit text-white px-4 py-2 rounded-full text-sm font-medium min-h-[36px] flex items-center;
+    @apply bg-violet-fit text-white px-3 py-1.5 rounded-full text-xs font-semibold min-h-[28px] flex items-center shadow-sm;
   }
 
   .fit-pill-emerald {
-    @apply bg-emerald-fit text-white px-4 py-2 rounded-full text-sm font-medium min-h-[36px] flex items-center;
+    @apply bg-emerald-fit text-white px-3 py-1.5 rounded-full text-xs font-semibold min-h-[28px] flex items-center shadow-sm;
   }
 
   .fit-pill-gray {
-    @apply bg-gray-fit text-white px-4 py-2 rounded-full text-sm font-medium min-h-[36px] flex items-center;
+    @apply bg-gray-fit text-white px-3 py-1.5 rounded-full text-xs font-semibold min-h-[28px] flex items-center shadow-sm;
   }
 
-  /* Price pill */
+  /* Price pill - Enhanced styling */
   .price-pill {
-    @apply bg-price-yellow text-price-yellow-foreground px-4 py-2 rounded-full font-semibold flex items-center gap-2;
+    @apply bg-price-yellow text-price-yellow-foreground px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-sm;
   }
 
-  /* Category chip */
+  /* Category chip - Refined */
   .category-chip {
-    @apply bg-muted text-muted-foreground px-3 py-1 rounded-full text-xs font-medium;
+    @apply bg-muted/60 text-muted-foreground px-3 py-1 rounded-full text-xs font-medium border border-border/30;
   }
 
   /* Day pill - Enhanced for mobile touch */
@@ -119,14 +188,15 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
     background: var(--gradient-affirmation);
   }
 
-  /* Bottom navigation - Always anchored and visible */
+  /* Bottom navigation - Clean modern style */
   .bottom-nav {
-    @apply fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-border px-2 py-3 z-50;
-    /* Ensure always on top and never hidden */
+    @apply fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-sm border-t border-border px-2 py-2 z-50;
+    /* Enhanced visual depth */
+    box-shadow: 0 -4px 20px -2px rgb(0 0 0 / 0.1);
     will-change: transform;
     backface-visibility: hidden;
     /* Mobile safe area insets */
-    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
   }
 
   /* Mobile layout optimization */

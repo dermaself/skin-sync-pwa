@@ -39,48 +39,48 @@ const Products = () => {
       <div className="pt-12 pb-6">
         <h1 className="text-3xl font-bold mb-6">Products</h1>
         
-        {/* Search bar */}
+        {/* Search bar with modern styling */}
         <div className="relative mb-6">
-          <div className="flex items-center gap-3 bg-muted rounded-2xl px-4 py-3">
+          <div className="flex items-center gap-3 bg-muted/50 border border-border rounded-2xl px-4 py-3.5 hover:border-primary/20 transition-colors">
             <Search size={20} className="text-muted-foreground" />
             <input
               type="text"
               placeholder="Search cosmetics (2 left)"
               className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground"
             />
-            <QrCode size={20} className="text-muted-foreground" />
+            <QrCode size={20} className="text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
           </div>
         </div>
 
-        {/* Tiles row */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        {/* Modern category tiles */}
+        <div className="grid grid-cols-3 gap-3 mb-8">
           <div 
-            className="dermaself-card text-center cursor-pointer hover:shadow-md transition-shadow"
+            className="dermaself-card text-center cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[80px] flex flex-col justify-center"
             onClick={() => navigate('/routine-for-you')}
           >
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                <Package size={20} className="text-primary" />
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+                <Package size={18} className="text-primary" />
               </div>
-              <span className="font-medium text-sm">Routine for you</span>
+              <span className="font-medium text-xs">Routine for you</span>
             </div>
           </div>
           
-          <div className="dermaself-card text-center">
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 bg-emerald-fit/20 rounded-full flex items-center justify-center">
-                <Package size={20} className="text-emerald-fit" />
+          <div className="dermaself-card text-center min-h-[80px] flex flex-col justify-center">
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-10 h-10 bg-emerald-fit/10 rounded-xl flex items-center justify-center">
+                <Package size={18} className="text-emerald-fit" />
               </div>
-              <span className="font-medium text-sm">My Shelf</span>
+              <span className="font-medium text-xs">My Shelf</span>
             </div>
           </div>
           
-          <div className="dermaself-card text-center">
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center">
-                <Heart size={20} className="text-pink-500" />
+          <div className="dermaself-card text-center min-h-[80px] flex flex-col justify-center">
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-10 h-10 bg-pink-500/10 rounded-xl flex items-center justify-center">
+                <Heart size={18} className="text-pink-500" />
               </div>
-              <span className="font-medium text-sm">Wishlist</span>
+              <span className="font-medium text-xs">Wishlist</span>
             </div>
           </div>
         </div>
@@ -97,14 +97,14 @@ const Products = () => {
             const products = sections?.[collectionName] || seedProducts[collectionName] || [];
             
             return (
-              <div key={collectionName} className="mb-12">
-                <h2 className="text-xl font-semibold mb-2">{collectionName}</h2>
-                <p className="text-muted-foreground mb-6">
+              <div key={collectionName} className="mb-10">
+                <h2 className="text-xl font-semibold mb-2 text-foreground">{collectionName}</h2>
+                <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
                   {collectionDescriptions[collectionName as keyof typeof collectionDescriptions]}
                 </p>
                 
                 <div className="mobile-scroll-container pb-4 -mx-4 px-4">
-                  <div className="flex gap-3">
+                  <div className="flex gap-4">
                     {products.map((product) => (
                       <div key={product.id} className="mobile-scroll-item">
                         <ProductCard 
