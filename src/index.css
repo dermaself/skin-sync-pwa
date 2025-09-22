@@ -2,80 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Dermaself Brand Identity - Official color system and design tokens
-Based on the official Dermaself brand guidelines with authentic colors and typography.
+/* Dermaself Brand Identity - Official color system
+Based on the official Dermaself brand guidelines with authentic colors.
 All colors use HSL format for consistency and accessibility.
 */
 
 :root {
   /* Base Colors - Clean and modern */
-  --background: 248 248 250; /* Very light background */
-  --foreground: 20 20 23; /* Deep charcoal for text */
-  --card: 255 255 255; /* Pure white cards */
-  --card-foreground: 20 20 23;
-  --popover: 255 255 255;
-  --popover-foreground: 20 20 23;
+  --background: 0 0% 98%;
+  --foreground: 0 0% 9%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 9%;
 
-  /* Primary - Confident Purple #6E4AE9 (from brand identity) */
-  --primary: 260 81% 60%; /* Confident Purple - exact HEX #6E4AE9 */
-  --primary-foreground: 255 255 255;
-  --primary-glow: 254 73% 78%; /* Friendly Lilac #AE9AF2 */
+  /* Primary - Confident Purple #6E4AE9 */
+  --primary: 260 81% 60%;
+  --primary-foreground: 0 0% 100%;
+  --primary-glow: 254 73% 78%;
   
   /* Secondary - Friendly Lilac #AE9AF2 */
-  --secondary: 254 73% 78%; /* Friendly Lilac from brand palette */
-  --secondary-foreground: 20 20 23;
+  --secondary: 254 73% 78%;
+  --secondary-foreground: 0 0% 9%;
   
   /* Accent - Look-at-me Green #9BFFBF */
-  --accent: 144 100% 80%; /* Look-at-me Green from brand palette */
-  --accent-foreground: 20 20 23;
+  --accent: 144 100% 80%;
+  --accent-foreground: 0 0% 9%;
   
   /* Muted backgrounds */
-  --muted: 248 248 250; /* Very light gray */
-  --muted-foreground: 100 116 139; /* Medium gray for text */
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
   
   /* Border and inputs */
-  --border: 228 228 231; /* Light border */
-  --input: 228 228 231;
-  --ring: 260 81% 60%; /* Primary purple focus rings */
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  --ring: 260 81% 60%;
   
   /* Destructive */
-  --destructive: 0 65 65;
-  --destructive-foreground: 255 255 255;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
   
   /* Brand-specific colors for fit percentages */
-  --violet-fit: 260 81% 60%; /* Confident Purple for high fit */
-  --emerald-fit: 144 100% 80%; /* Look-at-me Green for medium fit */
-  --lilac-fit: 254 73% 78%; /* Friendly Lilac for alternative */
-  --gray-fit: 100 116 139; /* Neutral gray for low fit */
+  --violet-fit: 260 81% 60%;
+  --emerald-fit: 144 100% 80%;
+  --lilac-fit: 254 73% 78%;
+  --gray-fit: 0 0% 45%;
   
-  /* Price accent - warm complementary */
-  --price-yellow: 45 93 63; /* Warm yellow that complements purple */
-  --price-yellow-foreground: 20 20 23;
+  /* Price accent */
+  --price-yellow: 45 93% 63%;
+  --price-yellow-foreground: 0 0% 9%;
   
   /* Sidebar theming */
-  --sidebar-background: 255 255 255;
-  --sidebar-foreground: 20 20 23;
+  --sidebar-background: 0 0% 100%;
+  --sidebar-foreground: 0 0% 9%;
   --sidebar-primary: 260 81% 60%;
-  --sidebar-primary-foreground: 255 255 255;
-  --sidebar-accent: 248 248 250;
-  --sidebar-accent-foreground: 20 20 23;
-  --sidebar-border: 228 228 231;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 0 0% 96%;
+  --sidebar-accent-foreground: 0 0% 9%;
+  --sidebar-border: 0 0% 90%;
   --sidebar-ring: 260 81% 60%;
-  
-  /* Enhanced shadows with brand colors - using correct primary color */
-  --shadow-card: 0 1px 3px 0 rgb(110 74 233 / 0.1), 0 1px 2px -1px rgb(110 74 233 / 0.1);
-  --shadow-float: 0 10px 25px -3px rgb(110 74 233 / 0.15), 0 4px 6px -2px rgb(110 74 233 / 0.1);
-  --shadow-glow: 0 0 20px -5px hsl(var(--primary-glow) / 0.3);
-  
-  /* Brand gradients - using official color combinations from brand identity */
-  --gradient-splash: linear-gradient(135deg, hsl(260 81% 60%) 0%, hsl(254 73% 78%) 50%, hsl(144 100% 80%) 100%);
-  --gradient-header: linear-gradient(135deg, hsl(260 81% 60% / 0.08) 0%, hsl(254 73% 78% / 0.05) 100%);
-  --gradient-affirmation: linear-gradient(135deg, hsl(260 81% 60% / 0.12) 0%, hsl(254 73% 78% / 0.08) 100%);
-  --gradient-card: linear-gradient(135deg, hsl(254 73% 78% / 0.03) 0%, hsl(144 100% 80% / 0.02) 100%);
-  --gradient-accent: linear-gradient(135deg, hsl(144 100% 80%) 0%, hsl(254 73% 78%) 100%);
-  
-  /* Border radius - modern and consistent */
-  --radius: 1rem; /* Slightly more rounded for modern feel */
+
+  /* Border radius */
+  --radius: 1rem;
 }
 
 @layer base {
@@ -84,185 +72,159 @@ All colors use HSL format for consistency and accessibility.
   }
 
   html {
-    /* Prevent horizontal scroll on all devices */
     overflow-x: hidden;
-    /* Better mobile font rendering */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Space Grotesk', sans-serif; /* Primary body font from brand guidelines */
-    /* Prevent horizontal scroll */
+    font-family: 'Space Grotesk', sans-serif;
     overflow-x: hidden;
-    /* Better mobile touch handling */
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
-    /* Subtle brand background pattern */
-    background-image: radial-gradient(circle at 20% 80%, hsl(var(--primary) / 0.01) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, hsl(var(--accent) / 0.01) 0%, transparent 50%);
   }
 
-  /* Ensure all containers respect viewport width */
   * {
     box-sizing: border-box;
   }
 
-  /* Prevent horizontal overflow on all elements */
   body, html, #root, .mobile-content, .mobile-main {
     max-width: 100vw;
     overflow-x: hidden;
   }
 
-  /* Mobile-specific root container */
   #root {
     width: 100vw;
     overflow-x: hidden;
   }
 }
 
-/* Dermaself Component Styles */
 @layer components {
-  /* Card styles - Enhanced with brand gradients */
   .dermaself-card {
     @apply bg-card text-card-foreground rounded-2xl p-4;
-    box-shadow: var(--shadow-card);
-    border: 1px solid hsl(var(--border) / 0.6);
-    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--muted) / 0.3) 100%);
+    box-shadow: 0 1px 3px 0 hsl(260 81% 60% / 0.1), 0 1px 2px -1px hsl(260 81% 60% / 0.1);
+    border: 1px solid hsl(0 0% 90% / 0.6);
+    background: hsl(0 0% 100%);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dermaself-card:hover {
-    box-shadow: var(--shadow-float);
-    border-color: hsl(var(--primary) / 0.2);
+    box-shadow: 0 10px 25px -3px hsl(260 81% 60% / 0.15), 0 4px 6px -2px hsl(260 81% 60% / 0.1);
+    border-color: hsl(260 81% 60% / 0.2);
   }
 
-  /* Fit pill variants - Using official brand colors from brand identity */
   .fit-pill-violet {
     @apply text-white px-3 py-1.5 rounded-full text-xs font-bold min-h-[28px] flex items-center shadow-sm;
-    background: linear-gradient(135deg, hsl(260 81% 60%) 0%, hsl(254 73% 78%) 100%);
+    background: hsl(260 81% 60%);
   }
 
   .fit-pill-emerald {
-    @apply text-white px-3 py-1.5 rounded-full text-xs font-bold min-h-[28px] flex items-center shadow-sm;
-    background: linear-gradient(135deg, hsl(144 100% 80%) 0%, hsl(144 100% 85%) 100%);
+    @apply px-3 py-1.5 rounded-full text-xs font-bold min-h-[28px] flex items-center shadow-sm;
+    background: hsl(144 100% 80%);
+    color: hsl(0 0% 9%);
   }
 
   .fit-pill-lilac {
     @apply text-white px-3 py-1.5 rounded-full text-xs font-bold min-h-[28px] flex items-center shadow-sm;
-    background: linear-gradient(135deg, hsl(254 73% 78%) 0%, hsl(254 73% 85%) 100%);
+    background: hsl(254 73% 78%);
   }
 
   .fit-pill-gray {
-    @apply bg-gray-fit text-white px-3 py-1.5 rounded-full text-xs font-bold min-h-[28px] flex items-center shadow-sm;
+    @apply text-white px-3 py-1.5 rounded-full text-xs font-bold min-h-[28px] flex items-center shadow-sm;
+    background: hsl(0 0% 45%);
   }
 
-  /* Price pill - Brand-aligned styling */
   .price-pill {
-    @apply bg-price-yellow text-price-yellow-foreground px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-sm;
-    background: linear-gradient(135deg, hsl(var(--price-yellow)) 0%, hsl(50 95 68) 100%);
+    @apply px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-sm;
+    background: hsl(45 93% 63%);
+    color: hsl(0 0% 9%);
   }
 
-  /* Category chip - Subtle brand tint */
   .category-chip {
     @apply px-3 py-1 rounded-full text-xs font-medium border shadow-sm;
-    background: linear-gradient(135deg, hsl(var(--muted)) 0%, hsl(275 20 95) 100%);
-    color: hsl(var(--muted-foreground));
-    border-color: hsl(var(--border));
+    background: hsl(0 0% 96%);
+    color: hsl(0 0% 45%);
+    border-color: hsl(0 0% 90%);
   }
 
-  /* Day pill - Enhanced for mobile touch */
   .day-pill {
     @apply rounded-full flex items-center justify-center text-sm font-medium transition-all active:scale-95;
-    /* Responsive sizing - smaller on mobile */
     min-width: clamp(44px, 12vw, 56px);
     min-height: clamp(44px, 12vw, 56px);
     padding: 0.5rem;
   }
 
   .day-pill.selected {
-    @apply bg-primary text-primary-foreground;
+    @apply text-white;
+    background: hsl(260 81% 60%);
   }
 
   .day-pill.completed {
-    @apply bg-primary text-primary-foreground;
+    @apply text-white;
+    background: hsl(260 81% 60%);
   }
 
   .day-pill.inactive {
-    @apply bg-muted text-muted-foreground;
+    @apply text-muted-foreground;
+    background: hsl(0 0% 96%);
   }
 
-  /* Floating smiley - Enhanced touch target with safe area */
   .floating-smiley {
     @apply fixed right-4 min-w-[56px] min-h-[56px] bg-white rounded-full flex items-center justify-center text-2xl active:scale-95 transition-transform z-40;
     bottom: calc(5rem + env(safe-area-inset-bottom));
-    box-shadow: var(--shadow-float);
+    box-shadow: 0 10px 25px -3px hsl(260 81% 60% / 0.15), 0 4px 6px -2px hsl(260 81% 60% / 0.1);
   }
 
-  /* Brand gradient backgrounds */
   .gradient-splash {
-    background: var(--gradient-splash);
+    background: linear-gradient(135deg, hsl(260 81% 60%) 0%, hsl(254 73% 78%) 50%, hsl(144 100% 80%) 100%);
     position: relative;
   }
 
-  .gradient-splash::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M30 30l10-10-10 10 10 10-10-10-10 10 10-10-10-10 10 10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
-    opacity: 0.3;
-  }
-
   .gradient-header {
-    background: var(--gradient-header);
+    background: linear-gradient(135deg, hsl(260 81% 60% / 0.08) 0%, hsl(254 73% 78% / 0.05) 100%);
     position: relative;
   }
 
   .gradient-affirmation {
-    background: var(--gradient-affirmation);
+    background: linear-gradient(135deg, hsl(260 81% 60% / 0.12) 0%, hsl(254 73% 78% / 0.08) 100%);
   }
 
   .gradient-card {
-    background: var(--gradient-card);
+    background: linear-gradient(135deg, hsl(254 73% 78% / 0.03) 0%, hsl(144 100% 80% / 0.02) 100%);
   }
 
   .gradient-accent {
-    background: var(--gradient-accent);
+    background: linear-gradient(135deg, hsl(144 100% 80%) 0%, hsl(254 73% 78%) 100%);
   }
 
-  /* Bottom navigation - Brand-enhanced */
   .bottom-nav {
     @apply fixed bottom-0 left-0 right-0 backdrop-blur-md border-t px-2 py-2 z-50;
-    background: linear-gradient(180deg, hsl(var(--card) / 0.95) 0%, hsl(var(--card) / 0.98) 100%);
-    border-color: hsl(var(--border) / 0.8);
-    /* Enhanced visual depth with brand shadow */
-    box-shadow: 0 -4px 20px -2px hsl(var(--primary) / 0.1), 0 -1px 0 0 hsl(var(--border) / 0.5);
+    background: linear-gradient(180deg, hsl(0 0% 100% / 0.95) 0%, hsl(0 0% 100% / 0.98) 100%);
+    border-color: hsl(0 0% 90% / 0.8);
+    box-shadow: 0 -4px 20px -2px hsl(260 81% 60% / 0.1), 0 -1px 0 0 hsl(0 0% 90% / 0.5);
     will-change: transform;
     backface-visibility: hidden;
-    /* Mobile safe area insets */
     padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
   }
 
-  /* Mobile layout optimization */
   @media (max-width: 640px) {
     .bottom-nav {
       @apply px-1 py-2;
     }
   }
 
-  /* Section headers with hairline rules */
   .section-header {
     @apply flex items-center gap-4 mb-6;
   }
 
   .section-header::before,
   .section-header::after {
-    @apply flex-1 h-px bg-border content-[''];
+    @apply flex-1 h-px content-[''];
+    background: hsl(0 0% 90%);
   }
 }
 
-/* Animations and utilities */
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 0.3s ease-out;
@@ -288,7 +250,6 @@ All colors use HSL format for consistency and accessibility.
     animation: pulseSoft 2s ease-in-out infinite;
   }
 
-  /* Enhanced transitions for mobile */
   .transition-mobile {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -297,17 +258,14 @@ All colors use HSL format for consistency and accessibility.
     transition: transform 0.15s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
-  /* Mobile layout utilities */
   .mobile-safe-bottom {
     padding-bottom: calc(5rem + env(safe-area-inset-bottom));
   }
 
   .mobile-content {
     @apply min-h-screen flex flex-col;
-    /* Handle mobile keyboard */
     min-height: 100vh;
-    min-height: 100dvh; /* Dynamic viewport height */
-    /* Prevent horizontal overflow */
+    min-height: 100dvh;
     width: 100vw;
     max-width: 100vw;
     overflow-x: hidden;
@@ -315,39 +273,29 @@ All colors use HSL format for consistency and accessibility.
 
   .mobile-main {
     @apply flex-1 pb-20;
-    /* Ensure content doesn't go under bottom nav */
     min-height: 0;
-    /* Prevent horizontal overflow */
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
   }
 
-  /* Mobile-first container */
   .mobile-container {
     @apply w-full mx-auto px-4;
-    /* Ensure never exceeds viewport - mobile first approach */
     max-width: min(640px, 100vw);
     box-sizing: border-box;
   }
 
-  /* Responsive horizontal scroll fix */
   .mobile-scroll-container {
     @apply overflow-x-auto scrollbar-hide;
-    /* Smooth scrolling on iOS */
     -webkit-overflow-scrolling: touch;
-    /* Ensure container respects viewport */
     max-width: 100vw;
   }
 
-  /* Fix for horizontal scroll items */
   .mobile-scroll-item {
     @apply flex-shrink-0;
-    /* Responsive item width */
-    width: min(11rem, calc(100vw - 6rem)); /* 176px or viewport minus padding */
+    width: min(11rem, calc(100vw - 6rem));
   }
 
-  /* Mobile-optimized grid */
   .mobile-grid-2 {
     @apply grid gap-3;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -358,31 +306,25 @@ All colors use HSL format for consistency and accessibility.
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  /* Additional mobile safety measures */
   .mobile-safe {
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
   }
 
-  /* Responsive image containers */
   .mobile-image-container {
     @apply w-full flex justify-center items-center;
     max-width: min(100%, 320px);
   }
 
-  /* Touch-friendly buttons */
   .mobile-button {
     @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
     touch-action: manipulation;
   }
 }
 
-/* Scrollbar hide utility */
 .scrollbar-hide {
-  /* IE and Edge */
   -ms-overflow-style: none;
-  /* Firefox */
   scrollbar-width: none;
 }
 
@@ -390,7 +332,6 @@ All colors use HSL format for consistency and accessibility.
   display: none;
 }
 
-/* Keyframes */
 @keyframes fadeIn {
   from {
     opacity: 0;
