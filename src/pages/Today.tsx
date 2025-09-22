@@ -47,26 +47,31 @@ const Today = () => {
   return (
     <div className="mobile-content">
       <div className="mobile-main mobile-container animate-fade-in">
-        {/* Header gradient with better styling */}
-        <div className="gradient-header -mx-4 px-4 pt-12 pb-8 mb-6 rounded-b-3xl">
-          {/* Greeting with better typography */}
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-2xl font-bold text-foreground mb-1">
-                Good morning, <span className="text-primary">Lorenzo</span> ✨
-              </h1>
-              <p className="text-muted-foreground text-sm">Ready to glow today?</p>
+        {/* Header gradient with brand enhancement */}
+        <div className="gradient-header -mx-4 px-4 pt-12 pb-8 mb-6 rounded-b-3xl relative overflow-hidden">
+          {/* Brand pattern overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-50"></div>
+          
+          <div className="relative z-10">
+            {/* Greeting with brand typography */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h1 className="text-2xl font-bold text-foreground mb-1">
+                  Good morning, <span className="text-primary font-anton">Lorenzo</span> ✨
+                </h1>
+                <p className="text-muted-foreground text-sm">Ready to glow today?</p>
+              </div>
+              <button 
+                className="min-w-[48px] min-h-[48px] bg-card/90 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-card transition-all active:scale-95 shadow-lg border border-border/50 hover:shadow-xl hover:border-primary/20"
+                aria-label="Daily rewards and achievements"
+              >
+                <Gift size={20} className="text-primary" />
+              </button>
             </div>
-            <button 
-              className="min-w-[48px] min-h-[48px] bg-card/80 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-card transition-colors active:scale-95 shadow-sm"
-              aria-label="Daily rewards and achievements"
-            >
-              <Gift size={20} className="text-primary" />
-            </button>
-          </div>
 
-          {/* Day Pills */}
-          <DayPills />
+            {/* Day Pills */}
+            <DayPills />
+          </div>
         </div>
 
       {/* Daily Progress */}
@@ -88,18 +93,26 @@ const Today = () => {
         <DiaryCard />
       </div>
 
-      {/* Primary CTA - Enhanced styling */}
+      {/* Primary CTA - Brand-enhanced styling */}
       <div className="mb-8">
         <div 
-          className="dermaself-card cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] bg-gradient-to-br from-primary/5 to-primary/10 border-primary/10 p-6"
+          className="dermaself-card cursor-pointer hover:shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98] p-6 relative overflow-hidden"
           onClick={() => navigate('/routine-for-you')}
+          style={{
+            background: 'linear-gradient(135deg, hsl(var(--primary) / 0.05) 0%, hsl(var(--accent) / 0.03) 100%)'
+          }}
         >
-          <div className="flex items-center justify-between">
+          {/* Subtle brand pattern */}
+          <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
+            <div className="w-full h-full bg-gradient-to-br from-primary to-accent transform rotate-12"></div>
+          </div>
+          
+          <div className="flex items-center justify-between relative z-10">
             <div className="flex-1">
-              <h3 className="text-lg font-bold mb-2 text-foreground">Discover Your Perfect Routine</h3>
-              <p className="text-sm text-muted-foreground">Personalized skincare recommendations based on your skin profile</p>
+              <h3 className="text-lg font-anton font-bold mb-2 text-foreground">Discover Your Perfect Routine</h3>
+              <p className="text-sm text-muted-foreground font-space-grotesk">Personalized skincare recommendations based on your skin profile</p>
             </div>
-            <div className="text-2xl ml-4">✨</div>
+            <div className="text-2xl ml-4 animate-brand-pulse">✨</div>
           </div>
         </div>
       </div>

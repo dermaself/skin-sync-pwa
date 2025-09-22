@@ -35,9 +35,9 @@ const Products = () => {
 
   return (
     <div className="mobile-main mobile-container animate-fade-in">
-      {/* Header */}
+      {/* Header with brand typography */}
       <div className="pt-12 pb-6">
-        <h1 className="text-3xl font-bold mb-6">Products</h1>
+        <h1 className="text-3xl font-anton font-bold mb-6 text-foreground">Products</h1>
         
         {/* Search bar with modern styling */}
         <div className="relative mb-6">

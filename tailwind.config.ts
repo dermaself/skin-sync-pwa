@@ -22,8 +22,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        'anton': ['Anton', 'sans-serif'],
-        'space-grotesk': ['Space Grotesk', 'sans-serif'],
+        'anton': ['Anton', 'sans-serif'], // Brand display font
+        'space-grotesk': ['Space Grotesk', 'sans-serif'], // Brand body font
+        'sans': ['Space Grotesk', 'system-ui', 'sans-serif'], // Default sans fallback
       },
       colors: {
         border: "hsl(var(--border))",
@@ -60,9 +61,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Dermaself specific colors
-        "violet-fit": "hsl(var(--violet-fit))",
-        "emerald-fit": "hsl(var(--emerald-fit))",
+        // Brand-specific colors from official Dermaself guidelines
+        "violet-fit": "hsl(var(--violet-fit))", // Confident Purple
+        "emerald-fit": "hsl(var(--emerald-fit))", // Look-at-me Green  
+        "lilac-fit": "hsl(var(--lilac-fit))", // Friendly Lilac
         "gray-fit": "hsl(var(--gray-fit))",
         "price-yellow": "hsl(var(--price-yellow))",
         "price-yellow-foreground": "hsl(var(--price-yellow-foreground))",
@@ -99,10 +101,30 @@ export default {
             height: "0",
           },
         },
+        "brand-pulse": {
+          "0%, 100%": {
+            transform: "scale(1)",
+            opacity: "1",
+          },
+          "50%": {
+            transform: "scale(1.02)",
+            opacity: "0.9",
+          },
+        },
+        "brand-glow": {
+          "0%, 100%": {
+            "box-shadow": "0 0 20px -5px hsl(var(--primary) / 0.2)",
+          },
+          "50%": {
+            "box-shadow": "0 0 30px -5px hsl(var(--primary) / 0.4)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "brand-pulse": "brand-pulse 3s ease-in-out infinite",
+        "brand-glow": "brand-glow 2s ease-in-out infinite",
       },
     },
   },

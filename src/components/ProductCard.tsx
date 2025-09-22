@@ -9,9 +9,10 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product, className, onClick }: ProductCardProps) => {
   const getFitPillClass = (fitPct: number) => {
-    if (fitPct >= 90) return 'fit-pill-violet';
-    if (fitPct >= 75) return 'fit-pill-emerald';
-    return 'fit-pill-gray';
+    if (fitPct >= 95) return 'fit-pill-violet'; // Confident Purple for highest fit
+    if (fitPct >= 85) return 'fit-pill-lilac';  // Friendly Lilac for high fit  
+    if (fitPct >= 75) return 'fit-pill-emerald'; // Look-at-me Green for good fit
+    return 'fit-pill-gray'; // Gray for lower fit
   };
 
   const formatPrice = (price: number, currency: string) => {
