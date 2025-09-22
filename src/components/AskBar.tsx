@@ -27,7 +27,11 @@ export const AskBar = ({ onSubmit }: AskBarProps) => {
         className="flex-1 bg-transparent text-foreground placeholder:text-muted-foreground outline-none"
       />
       {message.trim() && (
-        <button type="submit" className="text-primary hover:text-primary/80 transition-colors">
+        <button 
+          type="submit" 
+          className="text-primary hover:text-primary/80 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full active:scale-95"
+          aria-label="Send message"
+        >
           <Send size={18} />
         </button>
       )}

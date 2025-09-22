@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Gift } from 'lucide-react';
+import { useDayStore } from '@/store/dayStore';
 import { DayPills } from '@/components/DayPills';
 import { ChecklistItem } from '@/components/ChecklistItem';
 import { DiaryCard } from '@/components/DiaryCard';
@@ -44,15 +45,19 @@ const Today = () => {
   };
 
   return (
-    <div className="max-w-screen-sm mx-auto px-4 sm:px-5 animate-fade-in">
-      {/* Header gradient */}
-      <div className="gradient-header -mx-4 px-4 pt-12 pb-6 mb-6">
+    <div className="mobile-content">
+      <div className="mobile-main mobile-container animate-fade-in">
+        {/* Header gradient */}
+        <div className="gradient-header -mx-4 px-4 pt-12 pb-6 mb-6">
         {/* Greeting */}
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold">
             Morning, <span className="text-primary">Lorenzo</span>
           </h1>
-          <button className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+          <button 
+            className="min-w-[48px] min-h-[48px] bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors active:scale-95"
+            aria-label="Daily rewards and achievements"
+          >
             <Gift size={20} className="text-foreground" />
           </button>
         </div>
@@ -61,30 +66,51 @@ const Today = () => {
         <DayPills />
       </div>
 
-      {/* Daily Plan */}
-      <SectionHeader className="mb-6">Daily Plan</SectionHeader>
-      
-      <div className="space-y-4 mb-8">
-        <ChecklistItem task="Morning Routine" icon="sun" />
-        <ChecklistItem task="DIY Super Hydrating Mask" />
-        <ChecklistItem task="What Results to Expect and When?" />
-        <ChecklistItem task="Evening Routine" icon="moon" />
+      {/* Daily Progress */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold">Today's Progress</h2>
+          <span className="text-sm text-muted-foreground">Day {useDayStore.getState().selectedDay}</span>
+        </div>
+        
+        <div className="space-y-3">
+          <ChecklistItem task="Morning Routine" icon="sun" />
+          <ChecklistItem task="Evening Routine" icon="moon" />
+        </div>
       </div>
 
-      {/* Skin Diary */}
-      <SectionHeader className="mb-6">Skin Diary</SectionHeader>
-      <DiaryCard />
+      {/* Skin Diary - Simplified */}
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold mb-4">How does your skin feel?</h2>
+        <DiaryCard />
+      </div>
 
-      {/* Routine for you */}
-      <div className="mt-12 mb-8">
-        <h2 className="text-xl font-semibold mb-4">Routine for you</h2>
-        
-        <div className="mb-6">
-          <SegmentedControl
-            value={selectedRoutine}
-            onChange={setSelectedRoutine}
-            options={routineOptions}
-          />
+      {/* Primary CTA - Routine Discovery */}
+      <div className="mb-8">
+        <div 
+          className="dermaself-card cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20"
+          onClick={() => navigate('/routine-for-you')}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <h3 className="text-lg font-bold mb-2">Discover Your Perfect Routine</h3>
+              <p className="text-sm text-muted-foreground">Personalized skincare recommendations</p>
+            </div>
+            <div className="text-3xl">✨</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Product Preview */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold">Today's Picks</h2>
+          <button 
+            className="text-primary font-medium hover:underline min-h-[44px] px-2"
+            onClick={() => navigate('/routine-for-you')}
+          >
+            View all
+          </button>
         </div>
 
         <ProductDetailSheet
@@ -92,50 +118,32 @@ const Today = () => {
           isOpen={isSheetOpen}
           onOpenChange={setIsSheetOpen}
         >
-          <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide mb-6">
-            {morningProducts.map((product) => (
-              <div key={product.id} className="flex-shrink-0 w-44">
-                <ProductCard 
-                  product={product} 
-                  onClick={handleProductClick}
-                />
-              </div>
+          <div className="mobile-grid-2">
+            {morningProducts.slice(0, 2).map((product) => (
+              <ProductCard 
+                key={product.id}
+                product={product} 
+                onClick={handleProductClick}
+              />
             ))}
           </div>
         </ProductDetailSheet>
-
-        <div className="text-center">
-          <button 
-            className="text-primary font-medium hover:underline"
-            onClick={() => navigate('/routine-for-you')}
-          >
-            Show all
-          </button>
-        </div>
       </div>
 
-      {/* Ask Dermaself AI Cosmetologist */}
+      {/* AI Assistant - Simplified */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">
-          Ask Dermaself <span className="text-muted-foreground">AI Cosmetologist</span>
-        </h2>
-        
-        <SuggestionChips onChipClick={handleChatOpen} />
+        <h2 className="text-xl font-semibold mb-4">Ask Dermaself AI</h2>
         <AskBar onSubmit={handleChatOpen} />
       </div>
 
-      {/* Daily Affirmation */}
-      <div className="mb-8">
-        <AffirmationCard />
+        {/* Chatbot UI */}
+        <ChatbotUI 
+          open={chatOpen} 
+          onOpenChange={setChatOpen}
+          initialMessage={initialMessage}
+          trigger={<></>}
+        />
       </div>
-
-      {/* Chatbot UI */}
-      <ChatbotUI 
-        open={chatOpen} 
-        onOpenChange={setChatOpen}
-        initialMessage={initialMessage}
-        trigger={<></>}
-      />
     </div>
   );
 };

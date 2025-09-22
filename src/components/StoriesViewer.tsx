@@ -145,6 +145,7 @@ const StoriesViewer = ({ isOpen, onClose, stories, initialStoryIndex = 0 }: Stor
         <button
           onClick={onClose}
           className="w-10 h-10 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/40 transition-colors"
+          aria-label="Close stories"
         >
           <X size={20} />
         </button>

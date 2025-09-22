@@ -24,26 +24,16 @@ export const AlternativeProductCard = ({ product, onClick }: AlternativeProductC
 
   return (
     <div 
-      className="flex-shrink-0 w-40 bg-card border rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow"
+      className="w-full bg-card border border-border rounded-2xl p-3 cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[180px] flex flex-col relative z-10"
       onClick={onClick}
     >
-      {/* Header with product info and cart */}
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1 pr-3">
-          <h5 className="font-semibold text-sm leading-tight mb-1 line-clamp-2">
-            {product.name}
-          </h5>
-          <p className="text-xs text-muted-foreground">
-            {product.brand} · {product.price} · K-Beauty ✨
-          </p>
-        </div>
-        <Button variant="ghost" size="icon" className="h-8 w-8 flex-shrink-0">
-          <ShoppingCart className="h-4 w-4" />
-        </Button>
+      {/* Fit percentage pill at top */}
+      <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full font-medium mb-2 w-fit ${getFitPillClass(product.fitPercent)}`}>
+        <span className="font-semibold">{product.fitPercent}% fit</span>
       </div>
 
       {/* Product image centered */}
-      <div className="flex justify-center mb-3">
+      <div className="flex justify-center mb-3 flex-grow items-center">
         <img
           src={product.image}
           alt={`${product.brand} ${product.name}`}
@@ -51,16 +41,22 @@ export const AlternativeProductCard = ({ product, onClick }: AlternativeProductC
         />
       </div>
 
-      {/* Pills */}
-      <div className="flex items-center gap-2 flex-wrap">
-        <div className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${getFitPillClass(product.fitPercent)}`}>
-          <span className="font-semibold">{product.fitPercent}% fit</span>
+      {/* Product info */}
+      <div className="text-center mb-3">
+        <div className="font-bold text-foreground text-sm mb-1">{product.brand}</div>
+        <h5 className="text-xs text-muted-foreground leading-tight line-clamp-2 min-h-[2rem] flex items-center justify-center">
+          {product.name}
+        </h5>
+      </div>
+
+      {/* Bottom row with cart and price */}
+      <div className="flex items-center justify-between mt-auto">
+        <Button variant="ghost" size="icon" className="h-8 w-8 bg-gray-100 hover:bg-gray-200 flex-shrink-0">
+          <ShoppingCart className="h-3 w-3" />
+        </Button>
+        <div className="text-xs font-bold text-muted-foreground">
+          {product.price}
         </div>
-        {product.verified && (
-          <div className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
-            <span>✓ Dermaself MD Verified</span>
-          </div>
-        )}
       </div>
     </div>
   );

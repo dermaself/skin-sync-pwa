@@ -136,7 +136,7 @@ const Insights = () => {
   };
 
   return (
-    <div className="max-w-screen-sm mx-auto px-4 sm:px-5 pt-12 pb-24 animate-fade-in">
+    <div className="mobile-main mobile-container animate-fade-in pt-12">
       <h1 className="text-3xl font-bold mb-8">Insights</h1>
       
       {/* Skincare Academy */}
@@ -146,9 +146,10 @@ const Insights = () => {
           <p className="text-muted-foreground">for Wrinkles, Enlarged Pores</p>
         </div>
         
-        <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-          {academyContent.map((item, index) => (
-            <div key={index} className="flex-shrink-0 w-64">
+        <div className="mobile-scroll-container pb-4 -mx-4 px-4">
+          <div className="flex gap-3">
+            {academyContent.map((item, index) => (
+              <div key={index} className="mobile-scroll-item">
               <div 
                 className="dermaself-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform"
                 onClick={() => handleStoryClick(index)}
@@ -174,8 +175,9 @@ const Insights = () => {
                   <h3 className="font-semibold text-sm leading-tight">{item.title}</h3>
                 </div>
               </div>
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -186,9 +188,10 @@ const Insights = () => {
           <p className="text-muted-foreground">Simple steps to sculpted face</p>
         </div>
         
-        <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-          {massageGuides.map((item, index) => (
-            <div key={index} className="flex-shrink-0 w-64">
+        <div className="mobile-scroll-container pb-4 -mx-4 px-4">
+          <div className="flex gap-3">
+            {massageGuides.map((item, index) => (
+              <div key={index} className="mobile-scroll-item">
               <div className="relative cursor-pointer hover:scale-[1.02] transition-transform">
                 <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden relative">
                   <img 
@@ -206,8 +209,9 @@ const Insights = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -218,9 +222,10 @@ const Insights = () => {
           <p className="text-muted-foreground">by Dermaself Medical Team</p>
         </div>
         
-        <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-          {skincareGuides.map((item, index) => (
-            <div key={index} className="flex-shrink-0 w-64">
+        <div className="mobile-scroll-container pb-4 -mx-4 px-4">
+          <div className="flex gap-3">
+            {skincareGuides.map((item, index) => (
+              <div key={index} className="mobile-scroll-item">
               <div className="dermaself-card p-0 overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform">
                 <div className="aspect-[4/3] relative overflow-hidden">
                   <img 
@@ -257,8 +262,9 @@ const Insights = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

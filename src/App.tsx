@@ -28,7 +28,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="min-h-screen bg-background pb-16 relative">
+          <div className="mobile-content bg-background relative">
             <Routes>
               <Route path="/" element={hasVisited ? <Navigate to="/today" replace /> : <Navigate to="/splash" replace />} />
               <Route path="/splash" element={<Splash />} />

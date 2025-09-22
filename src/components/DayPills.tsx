@@ -8,7 +8,7 @@ export const DayPills = () => {
   const days = [1, 2, 3, 4, 5, 6, 7];
 
   return (
-    <div className="flex items-center justify-between gap-2 mb-8">
+    <div className="flex items-center justify-center gap-1 mb-8 overflow-x-auto scrollbar-hide px-2">
       {days.map((day) => {
         const isSelected = day === selectedDay;
         const isCompleted = completed[day] && completed[day].length > 0;
@@ -19,7 +19,7 @@ export const DayPills = () => {
             key={day}
             onClick={() => setSelectedDay(day)}
             className={cn(
-              "day-pill relative",
+              "day-pill relative flex-shrink-0",
               isSelected && "selected",
               !isSelected && isCompleted && "completed",
               !isSelected && !isCompleted && "inactive"

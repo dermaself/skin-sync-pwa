@@ -2,7 +2,7 @@ import { User, Bell, Globe, Shield, Info } from 'lucide-react';
 
 const Me = () => {
   return (
-    <div className="max-w-screen-sm mx-auto px-4 sm:px-5 pt-12 animate-fade-in">
+    <div className="mobile-main mobile-container animate-fade-in pt-12">
       <h1 className="text-3xl font-bold mb-8">Lorenzo</h1>
       
       {/* Profile Section */}

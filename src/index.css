@@ -7,128 +7,43 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
 */
 
 @layer base {
-  :root {
-    /* Base colors - light clean background */
-    --background: 248 51% 98%;
-    --foreground: 240 15% 15%;
-
-    /* Cards - pure white with soft shadows */
-    --card: 0 0% 100%;
-    --card-foreground: 240 15% 15%;
-
-    /* Popovers */
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 15% 15%;
-
-    /* Primary - Dermaself purple brand */
-    --primary: 258 80% 57%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 270 50% 75%;
-
-    /* Secondary - soft accent */
-    --secondary: 248 40% 94%;
-    --secondary-foreground: 240 15% 25%;
-
-    /* Muted tones */
-    --muted: 248 25% 92%;
-    --muted-foreground: 240 8% 55%;
-
-    /* Accent - emerald for good ratings */
-    --accent: 160 60% 88%;
-    --accent-foreground: 160 95% 25%;
-
-    /* Destructive */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    /* Borders and inputs */
-    --border: 248 25% 88%;
-    --input: 248 25% 88%;
-    --ring: 258 80% 57%;
-
-    /* Dermaself specific colors */
-    --violet-fit: 270 50% 75%;        /* 90%+ fit */
-    --emerald-fit: 158 64% 52%;       /* 75-89% fit */
-    --gray-fit: 240 8% 70%;           /* <75% fit */
-    --price-yellow: 48 100% 67%;      /* Price pills */
-    --price-yellow-foreground: 240 15% 15%;
-
-    /* Gradients */
-    --gradient-splash: linear-gradient(135deg, hsl(258, 80%, 57%) 0%, hsl(270, 50%, 75%) 100%);
-    --gradient-header: linear-gradient(to bottom, hsl(var(--background)) 0%, hsl(var(--background) / 0.8) 100%);
-    --gradient-affirmation: linear-gradient(135deg, hsl(270, 50%, 75%) 0%, hsl(158, 64%, 52%) 100%);
-
-    /* Shadows */
-    --shadow-card: 0 6px 20px hsl(240 15% 15% / 0.12);
-    --shadow-float: 0 10px 30px hsl(258 80% 57% / 0.25);
-
-    /* Radius */
-    --radius: 1.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
+  }
+
+  html {
+    /* Prevent horizontal scroll on all devices */
+    overflow-x: hidden;
+    /* Better mobile font rendering */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
     @apply bg-background text-foreground;
     font-family: 'Space Grotesk', sans-serif;
+    /* Prevent horizontal scroll */
+    overflow-x: hidden;
+    /* Better mobile touch handling */
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Ensure all containers respect viewport width */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Prevent horizontal overflow on all elements */
+  body, html, #root, .mobile-content, .mobile-main {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Mobile-specific root container */
+  #root {
+    width: 100vw;
+    overflow-x: hidden;
   }
 }
 
@@ -140,17 +55,17 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
     box-shadow: var(--shadow-card);
   }
 
-  /* Fit pill variants */
+  /* Fit pill variants - Enhanced for touch */
   .fit-pill-violet {
-    @apply bg-violet-fit text-white px-3 py-1.5 rounded-full text-sm font-medium;
+    @apply bg-violet-fit text-white px-4 py-2 rounded-full text-sm font-medium min-h-[36px] flex items-center;
   }
 
   .fit-pill-emerald {
-    @apply bg-emerald-fit text-white px-3 py-1.5 rounded-full text-sm font-medium;
+    @apply bg-emerald-fit text-white px-4 py-2 rounded-full text-sm font-medium min-h-[36px] flex items-center;
   }
 
   .fit-pill-gray {
-    @apply bg-gray-fit text-white px-3 py-1.5 rounded-full text-sm font-medium;
+    @apply bg-gray-fit text-white px-4 py-2 rounded-full text-sm font-medium min-h-[36px] flex items-center;
   }
 
   /* Price pill */
@@ -163,9 +78,13 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
     @apply bg-muted text-muted-foreground px-3 py-1 rounded-full text-xs font-medium;
   }
 
-  /* Day pill */
+  /* Day pill - Enhanced for mobile touch */
   .day-pill {
-    @apply w-12 h-12 rounded-full flex items-center justify-center text-sm font-medium transition-all;
+    @apply rounded-full flex items-center justify-center text-sm font-medium transition-all active:scale-95;
+    /* Responsive sizing - smaller on mobile */
+    min-width: clamp(44px, 12vw, 56px);
+    min-height: clamp(44px, 12vw, 56px);
+    padding: 0.5rem;
   }
 
   .day-pill.selected {
@@ -180,9 +99,10 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
     @apply bg-muted text-muted-foreground;
   }
 
-  /* Floating smiley */
+  /* Floating smiley - Enhanced touch target with safe area */
   .floating-smiley {
-    @apply fixed bottom-20 right-4 w-14 h-14 bg-white rounded-full flex items-center justify-center text-2xl;
+    @apply fixed right-4 min-w-[56px] min-h-[56px] bg-white rounded-full flex items-center justify-center text-2xl active:scale-95 transition-transform z-40;
+    bottom: calc(5rem + env(safe-area-inset-bottom));
     box-shadow: var(--shadow-float);
   }
 
@@ -199,9 +119,21 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
     background: var(--gradient-affirmation);
   }
 
-  /* Bottom navigation */
+  /* Bottom navigation - Always anchored and visible */
   .bottom-nav {
-    @apply fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-border px-4 py-2;
+    @apply fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-border px-2 py-3 z-50;
+    /* Ensure always on top and never hidden */
+    will-change: transform;
+    backface-visibility: hidden;
+    /* Mobile safe area insets */
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
+  /* Mobile layout optimization */
+  @media (max-width: 640px) {
+    .bottom-nav {
+      @apply px-1 py-2;
+    }
   }
 
   /* Section headers with hairline rules */
@@ -231,6 +163,103 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
 
   .animate-shimmer {
     animation: shimmer 2s linear infinite;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounceSubtle 0.6s ease-out;
+  }
+
+  .animate-pulse-soft {
+    animation: pulseSoft 2s ease-in-out infinite;
+  }
+
+  /* Enhanced transitions for mobile */
+  .transition-mobile {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .transition-bounce {
+    transition: transform 0.15s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* Mobile layout utilities */
+  .mobile-safe-bottom {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+
+  .mobile-content {
+    @apply min-h-screen flex flex-col;
+    /* Handle mobile keyboard */
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height */
+    /* Prevent horizontal overflow */
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .mobile-main {
+    @apply flex-1 pb-20;
+    /* Ensure content doesn't go under bottom nav */
+    min-height: 0;
+    /* Prevent horizontal overflow */
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Mobile-first container */
+  .mobile-container {
+    @apply w-full mx-auto px-4;
+    /* Ensure never exceeds viewport - mobile first approach */
+    max-width: min(640px, 100vw);
+    box-sizing: border-box;
+  }
+
+  /* Responsive horizontal scroll fix */
+  .mobile-scroll-container {
+    @apply overflow-x-auto scrollbar-hide;
+    /* Smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+    /* Ensure container respects viewport */
+    max-width: 100vw;
+  }
+
+  /* Fix for horizontal scroll items */
+  .mobile-scroll-item {
+    @apply flex-shrink-0;
+    /* Responsive item width */
+    width: min(11rem, calc(100vw - 6rem)); /* 176px or viewport minus padding */
+  }
+
+  /* Mobile-optimized grid */
+  .mobile-grid-2 {
+    @apply grid gap-3;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mobile-grid-3 {
+    @apply grid gap-3;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Additional mobile safety measures */
+  .mobile-safe {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Responsive image containers */
+  .mobile-image-container {
+    @apply w-full flex justify-center items-center;
+    max-width: min(100%, 320px);
+  }
+
+  /* Touch-friendly buttons */
+  .mobile-button {
+    @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+    touch-action: manipulation;
   }
 }
 
@@ -286,5 +315,23 @@ All colors MUST be HSL. Purple-blue gradient theme with warm accents.
   }
   100% {
     background-position: calc(200px + 100%) 0;
+  }
+}
+
+@keyframes bounceSubtle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
   }
 }

@@ -26,20 +26,20 @@ export const SegmentedControl = ({ value, onChange, options }: SegmentedControlP
   };
 
   return (
-    <div className="inline-flex bg-muted rounded-full p-1">
+    <div className="inline-flex bg-muted rounded-full p-1 w-full max-w-sm">
       {options.map((option) => (
         <button
           key={option.value}
           onClick={() => onChange(option.value)}
           className={cn(
-            "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all",
+            "flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-medium transition-all min-h-[44px] flex-1",
             value === option.value
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
+              ? "bg-background text-foreground shadow-sm scale-105"
+              : "text-muted-foreground hover:text-foreground hover:bg-background/50"
           )}
         >
           {getIcon(option.icon)}
-          {option.label}
+          <span className="hidden xs:inline">{option.label}</span>
         </button>
       ))}
     </div>

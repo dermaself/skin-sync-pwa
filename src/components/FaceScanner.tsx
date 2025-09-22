@@ -147,13 +147,14 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
         <button 
           onClick={onClose}
           className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white z-10"
+          aria-label="Close scan results"
         >
           <X size={20} />
         </button>
 
         {/* Main Image */}
         <div className="flex-1 flex items-center justify-center px-4">
-          <div className="relative w-80 h-96 rounded-3xl overflow-hidden bg-gray-200">
+          <div className="relative w-full max-w-80 h-96 rounded-3xl overflow-hidden bg-gray-200">
             {capturedImage ? (
               <>
                 <img 
@@ -214,7 +215,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
     return (
       <div className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center">
         {/* Multiple face angles in circle */}
-        <div className="relative w-80 h-80 mb-8">
+        <div className="relative w-full max-w-80 h-80 mb-8 mx-auto">
           {/* Center face */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-32 rounded-2xl overflow-hidden bg-gray-200">
             {capturedImage && (
@@ -254,7 +255,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
           <div className="text-lg font-medium mb-2">
             {processingSteps[Math.min(processingStep, processingSteps.length - 1)]}
           </div>
-          <div className="w-64 h-1 bg-white/20 rounded-full overflow-hidden">
+          <div className="w-full max-w-64 h-1 bg-white/20 rounded-full overflow-hidden">
             <div 
               className="h-full bg-white rounded-full transition-all duration-500"
               style={{ width: `${(processingStep + 1) * 50}%` }}
@@ -278,7 +279,10 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
       
       {/* Header Controls */}
       <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
-        <button className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white">
+        <button 
+          className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white"
+          aria-label="Help and instructions"
+        >
           <HelpCircle size={20} />
         </button>
         
@@ -293,6 +297,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
         <button 
           onClick={onClose}
           className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white"
+          aria-label="Close face scanner"
         >
           <X size={20} />
         </button>
@@ -301,13 +306,13 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
       {/* Face Detection Overlay */}
       {phase === 'positioning' && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-72 h-96 border-2 border-white/50 rounded-3xl" />
+          <div className="w-full max-w-72 h-96 border-2 border-white/50 rounded-3xl" />
         </div>
       )}
 
       {phase === 'detection' && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-72 h-96">
+          <div className="relative w-full max-w-72 h-96">
             {/* Face outline */}
             <div className="w-full h-full border-2 border-white rounded-full" />
             
@@ -329,7 +334,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
 
       {phase === 'scanning' && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-72 h-72">
+          <div className="relative w-full max-w-72 h-72 mx-auto">
             {/* Circular progress */}
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
               {/* Background circle */}

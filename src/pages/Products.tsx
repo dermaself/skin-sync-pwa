@@ -34,7 +34,7 @@ const Products = () => {
   };
 
   return (
-    <div className="max-w-screen-sm mx-auto px-4 sm:px-5 animate-fade-in">
+    <div className="mobile-main mobile-container animate-fade-in">
       {/* Header */}
       <div className="pt-12 pb-6">
         <h1 className="text-3xl font-bold mb-6">Products</h1>
@@ -103,15 +103,17 @@ const Products = () => {
                   {collectionDescriptions[collectionName as keyof typeof collectionDescriptions]}
                 </p>
                 
-                <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-                  {products.map((product) => (
-                    <div key={product.id} className="flex-shrink-0 w-44">
-                      <ProductCard 
-                        product={product} 
-                        onClick={handleProductClick}
-                      />
-                    </div>
-                  ))}
+                <div className="mobile-scroll-container pb-4 -mx-4 px-4">
+                  <div className="flex gap-3">
+                    {products.map((product) => (
+                      <div key={product.id} className="mobile-scroll-item">
+                        <ProductCard 
+                          product={product} 
+                          onClick={handleProductClick}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             );

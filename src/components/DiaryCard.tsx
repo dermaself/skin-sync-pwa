@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDiaryStore } from '@/store/diaryStore';
 import { cn } from '@/lib/utils';
+import { useHaptic } from '@/hooks/use-haptic';
 
 type MoodType = 'bad' | 'not_great' | 'okay' | 'good' | 'awesome';
 
@@ -14,11 +15,13 @@ const moods: { type: MoodType; emoji: string; label: string }[] = [
 
 export const DiaryCard = () => {
   const { setMood, getMood } = useDiaryStore();
+  const { selectionChanged } = useHaptic();
   const today = new Date().toISOString().split('T')[0];
   const currentMood = getMood(today);
 
   const handleMoodSelect = (moodType: MoodType) => {
     setMood(today, moodType);
+    selectionChanged();
   };
 
   return (
@@ -27,20 +30,21 @@ export const DiaryCard = () => {
       <div className="dermaself-card">
         <h3 className="font-semibold text-center mb-6">How does your skin feel today?</h3>
         
-        <div className="grid grid-cols-5 gap-3">
+        <div className="grid grid-cols-5 gap-2 sm:gap-3">
           {moods.map((mood) => (
             <button
               key={mood.type}
               onClick={() => handleMoodSelect(mood.type)}
               className={cn(
-                "flex flex-col items-center gap-2 p-3 rounded-2xl transition-all",
+                "flex flex-col items-center gap-2 p-3 rounded-2xl transition-all min-h-[72px] min-w-[56px] active:scale-95",
                 currentMood === mood.type
-                  ? "bg-primary/10 ring-2 ring-primary transform scale-105"
-                  : "hover:bg-muted"
+                  ? "bg-primary/15 ring-2 ring-primary transform scale-105 shadow-md"
+                  : "hover:bg-muted hover:scale-105"
               )}
+              aria-label={`Set skin feeling to ${mood.label}`}
             >
-              <span className="text-3xl">{mood.emoji}</span>
-              <span className="text-xs text-muted-foreground font-medium">
+              <span className="text-2xl sm:text-3xl">{mood.emoji}</span>
+              <span className="text-xs text-muted-foreground font-medium leading-tight text-center">
                 {mood.label}
               </span>
             </button>

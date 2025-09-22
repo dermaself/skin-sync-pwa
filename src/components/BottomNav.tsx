@@ -7,6 +7,7 @@ import {
   BarChart3, 
   User 
 } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 const tabs = [
   { id: 'today', label: 'Today', icon: Sun, path: '/today' },
@@ -19,8 +20,8 @@ const tabs = [
 export const BottomNav = () => {
   const location = useLocation();
 
-  return (
-    <nav className="bottom-nav">
+  const nav = (
+    <nav className="bottom-nav" role="navigation" aria-label="Primary">
       <div className="flex items-center justify-around">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -31,18 +32,21 @@ export const BottomNav = () => {
               key={tab.id}
               to={tab.path}
               className={cn(
-                "flex flex-col items-center gap-1 py-2 px-3 rounded-lg transition-colors",
+                "flex flex-col items-center gap-1 py-2 px-2 rounded-xl transition-all min-h-[44px] justify-center flex-1",
                 isActive 
-                  ? "text-primary" 
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "text-primary bg-primary/10 scale-105" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
               )}
             >
               <Icon size={20} />
-              <span className="text-xs font-medium">{tab.label}</span>
+              <span className="text-xs font-medium leading-tight">{tab.label}</span>
             </Link>
           );
         })}
       </div>
     </nav>
   );
+
+  // Render via portal to avoid being affected by any ancestor transforms
+  return createPortal(nav, document.body);
 };

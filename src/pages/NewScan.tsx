@@ -32,11 +32,12 @@ const NewScan = () => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="mobile-content bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       {/* Close button */}
       <button 
         onClick={() => window.history.back()}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg transition-transform active:scale-95"
+        aria-label="Close scan selection"
       >
         <X size={20} />
       </button>

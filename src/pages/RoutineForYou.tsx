@@ -2,9 +2,38 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { X, ChevronUp, ChevronDown } from 'lucide-react';
+import { X, ChevronUp, ChevronDown, Star } from 'lucide-react';
 import { SegmentedControl } from '@/components/SegmentedControl';
 import { AlternativeProductCard } from '@/components/AlternativeProductCard';
+import { ProductDetailSheet } from '@/components/ProductDetailSheet';
+import { Product } from '@/lib/seed';
+import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
+
+interface RoutineStepProduct {
+  name: string;
+  brand: string;
+  price: string; // formatted with currency symbol
+  fitPct: number;
+  verified?: boolean;
+  image: string;
+}
+
+interface RoutineStep {
+  step: number;
+  title: string;
+  product: RoutineStepProduct;
+  whyPicked: string;
+}
+
+interface AlternativeItem {
+  id: string;
+  name: string;
+  brand: string;
+  price: string; // formatted with currency symbol
+  fitPct: number;
+  image: string;
+}
 
 // Sample routine data based on the uploaded images
 const routineFormula = {
@@ -293,6 +322,8 @@ const RoutineForYou = () => {
   const [selectedRoutine, setSelectedRoutine] = useState<'Morning' | 'Evening' | 'Weekly'>('Morning');
   const [expandedAlternatives, setExpandedAlternatives] = useState<Set<string>>(new Set());
   const [expandedFormula, setExpandedFormula] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isProductSheetOpen, setIsProductSheetOpen] = useState(false);
   const morningRef = useRef<HTMLDivElement>(null);
   const eveningRef = useRef<HTMLDivElement>(null);
   const weeklyRef = useRef<HTMLDivElement>(null);
@@ -336,40 +367,87 @@ const RoutineForYou = () => {
     });
   };
 
+  const handleProductClick = (step: RoutineStep) => {
+    const product: Product = {
+      id: `routine-${step.step}`,
+      name: step.product.name,
+      brand: step.product.brand,
+      category: 'Treatment',
+      price: parseFloat(step.product.price.replace('$', '')),
+      currency: 'EUR',
+      retailer: 'amazon',
+      fitPct: step.product.fitPct,
+      imageUrl: step.product.image,
+    } as Product;
+    setSelectedProduct(product);
+    setIsProductSheetOpen(true);
+  };
+
+  const handleAlternativeClick = (alt: AlternativeItem) => {
+    const product: Product = {
+      id: alt.id,
+      name: alt.name,
+      brand: alt.brand,
+      category: 'Treatment',
+      price: parseFloat(alt.price.replace('$', '')),
+      currency: 'EUR',
+      retailer: 'amazon',
+      fitPct: alt.fitPct,
+      imageUrl: alt.image,
+    } as Product;
+    setSelectedProduct(product);
+    setIsProductSheetOpen(true);
+  };
+
   const getFitPillClass = (fitPct: number) => {
     if (fitPct >= 90) return 'fit-pill-violet';
     if (fitPct >= 75) return 'fit-pill-emerald';
     return 'fit-pill-gray';
   };
 
-  const renderProductStep = (step: any, routineType: string) => {
+  const renderProductStep = (step: RoutineStep, routineType: 'morning' | 'evening' | 'weekly') => {
     const stepKey = `${routineType}-${step.step}`;
-    const alternatives = alternativeProducts[stepKey as keyof typeof alternativeProducts] || [];
+    const alternatives = (alternativeProducts as Record<string, AlternativeItem[]>)[stepKey] || [];
     const isExpanded = expandedAlternatives.has(stepKey);
+
+    const starCount = Math.max(1, Math.min(5, Math.round(step.product.fitPct / 20)));
 
     return (
       <div key={stepKey} className="mb-8">
         <div className="dermaself-card">
-          <div className="flex items-start gap-4 mb-4">
+          {/* Header */}
+          <div className="flex items-start gap-4 mb-3">
             <div className="flex-shrink-0 w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-semibold">
               {step.step}
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="font-semibold text-lg leading-tight mb-1">{step.title}</h3>
-              <div className="flex items-center gap-2 mb-2">
-                <span className={`${getFitPillClass(step.product.fitPct)} text-xs px-2 py-1 rounded-full`}>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className={`inline-flex items-center gap-1 text-xs px-3 py-1.5 rounded-full font-semibold ${getFitPillClass(step.product.fitPct)}`}>
                   {step.product.fitPct}% fit
                 </span>
                 {step.product.verified && (
-                  <div className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
-                    <span>✓ Dermaself MD Verified</span>
-                  </div>
+                  <span className="inline-flex items-center gap-1 text-xs px-3 py-1.5 rounded-full bg-primary text-primary-foreground font-medium">
+                    ✓ MD Verified
+                  </span>
                 )}
+                {/* Star rating from fit */}
+                <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className={cn('h-3.5 w-3.5', i < starCount ? 'text-yellow-500 fill-yellow-500' : 'text-muted-foreground/40')} />
+                  ))}
+                </span>
               </div>
             </div>
           </div>
 
-          <div className="flex gap-4 mb-4">
+          <Separator className="my-3" />
+
+          {/* Product content */}
+          <button 
+            className="flex gap-4 mb-4 w-full text-left hover:bg-muted/30 rounded-2xl p-3 transition-all active:scale-[0.98]"
+            onClick={() => handleProductClick(step)}
+          >
             <div className="flex-shrink-0">
               <img 
                 src={step.product.image} 
@@ -378,13 +456,15 @@ const RoutineForYou = () => {
               />
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="font-medium text-base leading-tight mb-1">{step.product.name}</h4>
-              <p className="text-sm text-muted-foreground mb-2">{step.product.brand}</p>
+              <div className="mb-1">
+                <span className="category-chip">{step.product.brand}</span>
+              </div>
+              <h4 className="font-medium text-base leading-tight mb-2 line-clamp-2">{step.product.name}</h4>
               <div className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-full bg-primary/10 text-primary font-medium">
                 💰 {step.product.price}
               </div>
             </div>
-          </div>
+          </button>
 
           <div className="bg-muted/50 rounded-lg p-3 mb-4">
             <p className="text-sm leading-relaxed">{step.whyPicked}</p>
@@ -402,17 +482,22 @@ const RoutineForYou = () => {
           )}
 
           {isExpanded && alternatives.length > 0 && (
-            <div className="border-t pt-4">
-              <p className="text-sm text-muted-foreground mb-3">
+            <div className="border-t pt-4 mt-4">
+              <p className="text-sm text-muted-foreground mb-4">
                 These alternatives also work great for your skin profile:
               </p>
-              <div className="flex gap-4 pb-2" style={{ width: 'max-content' }}>
-                {alternatives.map((alt, index) => (
-                  <AlternativeProductCard
-                    key={alt.id}
-                    product={{...alt, fitPercent: alt.fitPct}}
-                  />
-                ))}
+              {/* Horizontal scrolling alternatives */}
+              <div className="mobile-scroll-container pb-4 -mx-4 px-4">
+                <div className="flex gap-3">
+                  {alternatives.map((alt) => (
+                    <div key={alt.id} className="mobile-scroll-item max-w-40">
+                      <AlternativeProductCard
+                        product={{...alt, fitPercent: alt.fitPct}}
+                        onClick={() => handleAlternativeClick(alt)}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
@@ -422,78 +507,20 @@ const RoutineForYou = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="sticky top-0 bg-background/95 backdrop-blur-sm z-10 px-4 py-3 border-b">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold">Routine for you</h1>
-          <Button variant="ghost" size="icon" onClick={handleClose}>
-            <X className="h-6 w-6" />
-          </Button>
-        </div>
-      </div>
-
-      <ScrollArea className="h-[calc(100vh-64px)]">
-        <div className="px-4 py-4">
-          {/* Routine Formula Card */}
-          <div className="dermaself-card mb-4">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex-1">
-                <h2 className="text-lg font-semibold leading-tight">{routineFormula.name}</h2>
-                <p className="text-sm text-muted-foreground mt-1">{routineFormula.goal}</p>
-              </div>
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={() => setExpandedFormula(!expandedFormula)}
-                className="shrink-0"
-              >
-                <ChevronUp className={`h-5 w-5 transition-transform ${expandedFormula ? 'rotate-180' : ''}`} />
-              </Button>
-            </div>
-
-            {expandedFormula && (
-              <div className="space-y-4 mb-4">
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Target Goal</span>
-                    <span className="font-medium text-right">{routineFormula.targetGoal}</span>
-                  </div>
-                  <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Age</span>
-                    <span className="font-medium text-right">{routineFormula.age}</span>
-                  </div>
-                  <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Skin Type</span>
-                    <span className="font-medium text-right">{routineFormula.skinType}</span>
-                  </div>
-                  <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Skin Concerns</span>
-                    <span className="font-medium text-right">{routineFormula.skinConcerns}</span>
-                  </div>
-                  <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Skin Conditions</span>
-                    <span className="font-medium text-right">{routineFormula.skinConditions}</span>
-                  </div>
-                  <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Sensitivity</span>
-                    <span className="font-medium text-right">{routineFormula.sensitivity}</span>
-                  </div>
-                  <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Climate</span>
-                    <span className="font-medium text-right">{routineFormula.climate}</span>
-                  </div>
-                  <div className="flex justify-between items-start py-1">
-                    <span className="text-muted-foreground">Routine Experience</span>
-                    <span className="font-medium text-right">{routineFormula.routineExperience}</span>
-                  </div>
-                </div>
-              </div>
-            )}
+    <>
+      <div className="mobile-content bg-background">
+        {/* Enhanced Sticky Header with Navigation */}
+        <div className="sticky top-0 bg-background/95 backdrop-blur-sm z-20 border-b">
+          {/* Top bar with title and close */}
+          <div className="flex items-center justify-between px-4 py-3">
+            <h1 className="text-xl font-semibold">Routine for you</h1>
+            <Button variant="ghost" size="icon" onClick={handleClose} className="min-w-[44px] min-h-[44px]">
+              <X className="h-6 w-6" />
+            </Button>
           </div>
-
-          {/* Routine Selection */}
-          <div className="mb-6">
+          
+          {/* Sticky Routine Navigation */}
+          <div className="px-4 pb-3 flex justify-center">
             <SegmentedControl
               options={[
                 { value: 'Morning', label: 'Morning', icon: 'sun' },
@@ -503,6 +530,66 @@ const RoutineForYou = () => {
               value={selectedRoutine}
               onChange={scrollToSection}
             />
+          </div>
+        </div>
+
+        <ScrollArea className="h-[calc(100vh-120px)]">
+        <div className="px-4 py-4">
+          {/* Routine Formula Card */}
+          <div className="dermaself-card mb-6">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex-1">
+                <h2 className="text-lg font-semibold leading-tight">{routineFormula.name}</h2>
+                <p className="text-sm text-muted-foreground mt-1">{routineFormula.goal}</p>
+              </div>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => setExpandedFormula(!expandedFormula)}
+                className="shrink-0 min-w-[44px] min-h-[44px]"
+              >
+                <ChevronUp className={`h-5 w-5 transition-transform ${expandedFormula ? 'rotate-180' : ''}`} />
+              </Button>
+            </div>
+
+            {expandedFormula && (
+              <div className="space-y-4 mb-4">
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between items-start py-2">
+                    <span className="text-muted-foreground">Target Goal</span>
+                    <span className="font-medium text-right max-w-[60%]">{routineFormula.targetGoal}</span>
+                  </div>
+                  <div className="flex justify-between items-start py-2">
+                    <span className="text-muted-foreground">Age</span>
+                    <span className="font-medium text-right">{routineFormula.age}</span>
+                  </div>
+                  <div className="flex justify-between items-start py-2">
+                    <span className="text-muted-foreground">Skin Type</span>
+                    <span className="font-medium text-right max-w-[60%]">{routineFormula.skinType}</span>
+                  </div>
+                  <div className="flex justify-between items-start py-2">
+                    <span className="text-muted-foreground">Skin Concerns</span>
+                    <span className="font-medium text-right max-w-[60%]">{routineFormula.skinConcerns}</span>
+                  </div>
+                  <div className="flex justify-between items-start py-2">
+                    <span className="text-muted-foreground">Skin Conditions</span>
+                    <span className="font-medium text-right max-w-[60%]">{routineFormula.skinConditions}</span>
+                  </div>
+                  <div className="flex justify-between items-start py-2">
+                    <span className="text-muted-foreground">Sensitivity</span>
+                    <span className="font-medium text-right max-w-[60%]">{routineFormula.sensitivity}</span>
+                  </div>
+                  <div className="flex justify-between items-start py-2">
+                    <span className="text-muted-foreground">Climate</span>
+                    <span className="font-medium text-right max-w-[60%]">{routineFormula.climate}</span>
+                  </div>
+                  <div className="flex justify-between items-start py-2">
+                    <span className="text-muted-foreground">Routine Experience</span>
+                    <span className="font-medium text-right max-w-[60%]">{routineFormula.routineExperience}</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Trust Message */}
@@ -515,6 +602,10 @@ const RoutineForYou = () => {
 
           {/* Morning Section */}
           <div ref={morningRef} className="mb-12">
+            <div className="text-center py-6 mb-6">
+              <div className="text-4xl mb-3">🌅</div>
+              <h2 className="text-2xl font-bold">Morning Routine</h2>
+            </div>
             {routineSteps.morning.map((step) => renderProductStep(step, 'morning'))}
           </div>
 
@@ -564,6 +655,16 @@ const RoutineForYou = () => {
         </div>
       </ScrollArea>
     </div>
+
+    {/* Product Detail Sheet - Only opens on specific clicks */}
+    <ProductDetailSheet
+      product={selectedProduct}
+      isOpen={isProductSheetOpen}
+      onOpenChange={setIsProductSheetOpen}
+    >
+      <></>
+    </ProductDetailSheet>
+    </>
   );
 };
 
