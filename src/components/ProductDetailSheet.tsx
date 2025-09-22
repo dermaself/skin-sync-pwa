@@ -79,14 +79,45 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
       </SheetTrigger>
       <SheetContent side="bottom" className="h-[95vh] p-0 bg-background rounded-t-3xl">
         <ScrollArea className="h-full">
-          <div className="px-4 pt-6 pb-20">
+          {/* Swipe handle area */}
+          <div 
+            className="sticky top-0 z-10 flex justify-center py-4 bg-background rounded-t-3xl"
+            onTouchStart={(e) => {
+              const startY = e.touches[0].clientY;
+              const element = e.currentTarget;
+              
+              const handleTouchMove = (e: TouchEvent) => {
+                const currentY = e.touches[0].clientY;
+                const deltaY = currentY - startY;
+                
+                // If swipe down more than 100px, close the sheet
+                if (deltaY > 100) {
+                  onOpenChange(false);
+                  element.removeEventListener('touchmove', handleTouchMove);
+                  element.removeEventListener('touchend', handleTouchEnd);
+                }
+              };
+              
+              const handleTouchEnd = () => {
+                element.removeEventListener('touchmove', handleTouchMove);
+                element.removeEventListener('touchend', handleTouchEnd);
+              };
+              
+              element.addEventListener('touchmove', handleTouchMove);
+              element.addEventListener('touchend', handleTouchEnd);
+            }}
+          >
+            <div className="w-12 h-1.5 bg-muted-foreground/30 rounded-full cursor-pointer" />
+          </div>
+          
+          <div className="px-4 pb-20 -mt-4">
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-8 pt-6">
               <Button variant="ghost" className="flex items-center gap-2 text-foreground min-h-[44px] px-4">
                 <Share size={18} />
                 <span>Share</span>
               </Button>
-              <div className="w-12 h-1.5 bg-muted-foreground/30 rounded-full" />
+              <div className="w-12 h-1.5 bg-transparent rounded-full" />
               <Button variant="ghost" className="flex items-center gap-2 text-foreground min-h-[44px] px-4">
                 <AlertTriangle size={18} />
                 <span>Wrong?</span>
