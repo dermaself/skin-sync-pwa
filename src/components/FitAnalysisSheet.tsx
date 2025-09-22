@@ -80,9 +80,40 @@ export const FitAnalysisSheet = ({ product, isOpen, onOpenChange, children }: Fi
       </SheetTrigger>
       <SheetContent side="bottom" className="h-[95vh] p-0 bg-background rounded-t-3xl">
         <ScrollArea className="h-full">
-          <div className="px-4 pt-6 pb-20">
+          {/* Swipe handle area */}
+          <div 
+            className="sticky top-0 z-10 flex justify-center py-4 bg-background rounded-t-3xl"
+            onTouchStart={(e) => {
+              const startY = e.touches[0].clientY;
+              const element = e.currentTarget;
+              
+              const handleTouchMove = (e: TouchEvent) => {
+                const currentY = e.touches[0].clientY;
+                const deltaY = currentY - startY;
+                
+                // If swipe down more than 100px, close the sheet
+                if (deltaY > 100) {
+                  onOpenChange(false);
+                  element.removeEventListener('touchmove', handleTouchMove);
+                  element.removeEventListener('touchend', handleTouchEnd);
+                }
+              };
+              
+              const handleTouchEnd = () => {
+                element.removeEventListener('touchmove', handleTouchMove);
+                element.removeEventListener('touchend', handleTouchEnd);
+              };
+              
+              element.addEventListener('touchmove', handleTouchMove);
+              element.addEventListener('touchend', handleTouchEnd);
+            }}
+          >
+            <div className="w-12 h-1.5 bg-muted-foreground/30 rounded-full cursor-pointer" />
+          </div>
+          
+          <div className="px-4 pb-20 -mt-4">
             {/* Header - Clean design without close button */}
-            <div className="flex items-center gap-3 mb-8">
+            <div className="flex items-center gap-3 mb-8 pt-6">
               <div className="w-8 h-8 bg-muted/30 rounded-lg flex items-center justify-center flex-shrink-0">
                 <img
                   src={product.imageUrl}
