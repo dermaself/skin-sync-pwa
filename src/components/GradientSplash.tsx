@@ -32,27 +32,13 @@ export const GradientSplash = () => {
       
       {/* Logo Container */}
       <div className="relative z-10 flex flex-col items-center justify-center">
-        {/* White Square Outline */}
-        <div className="relative w-32 h-32 border-2 border-white rounded-lg flex items-center justify-center mb-8">
-          {/* Logo Text */}
-          <div className="text-white text-center">
-            <div className="text-4xl font-bold">D</div>
-            <div className="text-2xl font-medium ml-1">səlf</div>
-          </div>
-          
-          {/* Green Starburst */}
-          <div className="absolute -bottom-2 -left-2 w-6 h-6">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              className="w-full h-full text-green-400"
-            >
-              <path
-                d="M12 2L13.09 8.26L19 7L14.74 12L19 17L13.09 15.74L12 22L10.91 15.74L5 17L9.26 12L5 7L10.91 8.26L12 2Z"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
+        {/* Logo Image */}
+        <div className="mb-8">
+          <img
+            src="/images/android-chrome-512x512.png"
+            alt="Dermaself Logo"
+            className="w-32 h-32 object-contain"
+          />
         </div>
         
         {/* App Name */}
