@@ -36,7 +36,8 @@ const NewScan = () => {
       {/* Close button */}
       <button 
         onClick={() => window.history.back()}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg transition-transform active:scale-95"
+        className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg transition-transform active:scale-95"
+        style={{ bottom: `calc(5rem + env(safe-area-inset-bottom) + 1rem)` }}
         aria-label="Close scan selection"
       >
         <X size={20} />
