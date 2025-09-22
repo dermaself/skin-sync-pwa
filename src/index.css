@@ -149,10 +149,10 @@ All colors use HSL format for consistency and accessibility.
   }
 
   .day-pill {
-    @apply rounded-full flex items-center justify-center text-sm font-medium transition-all active:scale-95;
-    min-width: clamp(44px, 12vw, 56px);
-    min-height: clamp(44px, 12vw, 56px);
-    padding: 0.5rem;
+    @apply rounded-full flex items-center justify-center text-sm font-medium transition-all active:scale-95 flex-shrink-0;
+    width: clamp(60px, 13vw, 72px);
+    height: clamp(44px, 11vw, 56px);
+    padding: 0.5rem 0.75rem;
   }
 
   .day-pill.selected {
