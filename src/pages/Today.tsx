@@ -57,7 +57,7 @@ const Today = () => {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h1 className="text-2xl font-bold text-foreground mb-1">
-                  Buongiorno, <span className="text-primary font-anton">Lorenzo</span> ✨
+                  Buongiorno, <span className="text-primary font-obviously">Lorenzo</span> ✨
                 </h1>
                 <p className="text-muted-foreground text-sm">Pronto a splendere oggi?</p>
               </div>
@@ -109,7 +109,7 @@ const Today = () => {
           
           <div className="flex items-center justify-between relative z-10">
             <div className="flex-1">
-              <h3 className="text-lg font-anton font-bold mb-2 text-foreground">Scopri la Tua Routine Perfetta</h3>
+              <h3 className="text-lg font-obviously font-bold mb-2 text-foreground">Scopri la Tua Routine Perfetta</h3>
               <p className="text-sm text-muted-foreground font-space-grotesk">Raccomandazioni di skincare personalizzate basate sul tuo profilo cutaneo</p>
             </div>
             <div className="text-2xl ml-4 animate-brand-pulse">✨</div>

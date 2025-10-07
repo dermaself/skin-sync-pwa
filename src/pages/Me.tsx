@@ -3,7 +3,7 @@ import { User, Bell, Globe, Shield, Info } from 'lucide-react';
 const Me = () => {
   return (
     <div className="mobile-main mobile-container animate-fade-in pt-12">
-      <h1 className="text-3xl font-anton font-bold mb-8 text-foreground">Lorenzo</h1>
+      <h1 className="text-3xl font-obviously font-bold mb-8 text-foreground">Lorenzo</h1>
       
       {/* Profile Section */}
         <div className="dermaself-card flex items-center gap-4 mb-6 border border-border/50 p-6">

@@ -22,7 +22,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        'anton': ['Anton', 'sans-serif'], // Brand display font
+        'obviously': ['Obviously', 'sans-serif'], // Brand display font
         'space-grotesk': ['Space Grotesk', 'sans-serif'], // Brand body font
         'sans': ['Space Grotesk', 'system-ui', 'sans-serif'], // Default sans fallback
       },

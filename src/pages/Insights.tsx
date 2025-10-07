@@ -137,7 +137,7 @@ const Insights = () => {
 
   return (
     <div className="mobile-main mobile-container animate-fade-in pt-12">
-      <h1 className="text-3xl font-anton font-bold mb-8 text-foreground">Consigli</h1>
+      <h1 className="text-3xl font-obviously font-bold mb-8 text-foreground">Consigli</h1>
       
       {/* Skincare Academy */}
       <section className="mb-8">

@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Obviously';
+  src: url('/fonts/ObviouslyDemo-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Obviously';
+  src: url('/fonts/ObviouslyDemo-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Obviously';
+  src: url('/fonts/ObviouslyDemo-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Dermaself Brand Identity - Official color system
 Based on the official Dermaself brand guidelines with authentic colors.
 All colors use HSL format for consistency and accessibility.
