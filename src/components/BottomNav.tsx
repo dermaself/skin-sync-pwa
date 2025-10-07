@@ -12,7 +12,7 @@ import { createPortal } from 'react-dom';
 const tabs = [
   { id: 'today', label: 'Oggi', icon: Sun, path: '/today' },
   { id: 'products', label: 'Prodotti', icon: Package, path: '/products' },
-  { id: 'new-scan', label: 'Scan', icon: Camera, path: '/new-scan' },
+  { id: 'new-scan', label: 'Tutorial', icon: Camera, path: '/new-scan' },
   { id: 'insights', label: 'Consigli', icon: BarChart3, path: '/insights' },
   { id: 'lorenzo', label: 'Lorenzo', icon: User, path: '/me' },
 ];
