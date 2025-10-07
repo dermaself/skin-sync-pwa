@@ -67,8 +67,8 @@ const NewScan = () => {
               {/* Image/Icon */}
               <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gray-100 flex items-center justify-center text-2xl">
                 {option.id === 'face' ? (
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-b from-orange-200 to-orange-300 flex items-center justify-center">
-                    <User size={24} className="text-orange-800" />
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-b from-primary/20 to-primary/30 flex items-center justify-center">
+                    <User size={24} className="text-primary" />
                   </div>
                 ) : (
                   <div className="w-12 h-12 rounded-full bg-gradient-to-b from-green-200 to-green-300 flex items-center justify-center">
