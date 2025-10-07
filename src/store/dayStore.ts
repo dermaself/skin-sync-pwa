@@ -13,10 +13,7 @@ export const useDayStore = create<DayStore>()(
   persist(
     (set, get) => ({
       selectedDay: 2,
-      completed: {
-        1: ["Morning Routine", "DIY Super Hydrating Mask"],
-        2: ["Morning Routine", "DIY Super Hydrating Mask"]
-      },
+      completed: {},
       setSelectedDay: (day) => set({ selectedDay: day }),
       toggleTask: (day, task) => set((state) => {
         const dayTasks = state.completed[day] || [];
