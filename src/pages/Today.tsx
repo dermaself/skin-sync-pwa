@@ -145,12 +145,13 @@ const Today = () => {
           isOpen={isSheetOpen}
           onOpenChange={setIsSheetOpen}
         >
-          <div className="grid grid-cols-3 gap-3">
+          <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 snap-x snap-mandatory">
             {morningProducts.slice(0, 3).map((product) => (
               <ProductCard 
                 key={product.id}
                 product={product} 
                 onClick={handleProductClick}
+                className="flex-shrink-0 w-[160px] snap-center"
               />
             ))}
           </div>
