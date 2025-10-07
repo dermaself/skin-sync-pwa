@@ -88,7 +88,7 @@ const Today = () => {
       {/* Daily Progress */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Progressi</h2>
+          <h2 className="text-xl font-semibold">Hai skincherato oggi?</h2>
           <span className="text-sm text-muted-foreground capitalize">{formattedDate}</span>
         </div>
         
