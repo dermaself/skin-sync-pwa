@@ -103,34 +103,29 @@ const Today = () => {
         </div>
       </div>
 
+      {/* Primary CTA - Green variant */}
+      <div className="mb-8">
+        <div 
+          className="cursor-pointer transition-all hover:scale-[1.02] active:scale-[0.98] p-6 rounded-3xl relative overflow-hidden border border-[#9cffbc]/30"
+          onClick={() => navigate('/routine-for-you')}
+          style={{
+            backgroundColor: 'rgba(156, 255, 188, 0.74)'
+          }}
+        >
+          <div className="flex items-center justify-between relative z-10">
+            <div className="flex-1">
+              <h3 className="text-lg font-space-grotesk font-bold mb-1 text-foreground">Scopri la TUA skincare routine</h3>
+              <p className="text-sm text-foreground/80 font-space-grotesk">Consigli personalizzati in base al tuo tipo di pelle</p>
+            </div>
+            <div className="text-3xl ml-4">✨</div>
+          </div>
+        </div>
+      </div>
+
       {/* Skin Diary - Simplified */}
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Come si sente la tua pelle?</h2>
         <DiaryCard />
-      </div>
-
-      {/* Primary CTA - Brand-enhanced styling */}
-      <div className="mb-8">
-        <div 
-          className="dermaself-card cursor-pointer hover:shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98] p-6 relative overflow-hidden"
-          onClick={() => navigate('/routine-for-you')}
-          style={{
-            background: 'linear-gradient(135deg, hsl(var(--primary) / 0.05) 0%, hsl(var(--accent) / 0.03) 100%)'
-          }}
-        >
-          {/* Subtle brand pattern */}
-          <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
-            <div className="w-full h-full bg-gradient-to-br from-primary to-accent transform rotate-12"></div>
-          </div>
-          
-          <div className="flex items-center justify-between relative z-10">
-            <div className="flex-1">
-              <h3 className="text-lg font-obviously font-bold mb-2 text-foreground">Scopri la Tua Routine Perfetta</h3>
-              <p className="text-sm text-muted-foreground font-space-grotesk">Raccomandazioni di skincare personalizzate basate sul tuo profilo cutaneo</p>
-            </div>
-            <div className="text-2xl ml-4 animate-brand-pulse">✨</div>
-          </div>
-        </div>
       </div>
 
       {/* Quick Product Preview */}
