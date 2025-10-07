@@ -115,17 +115,17 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
         <div className="overflow-y-auto overflow-x-hidden h-full pb-32 px-1">
           {/* Stats Summary */}
           <div className="grid grid-cols-3 gap-3 mb-6">
-            <div className="dermaself-card text-center p-4">
+            <div className="dermaself-card text-center p-4 overflow-hidden">
               <div className="text-2xl font-bold text-primary">{stats.completedDays}</div>
-              <div className="text-xs text-muted-foreground">Giorni completati</div>
+              <div className="text-xs text-muted-foreground break-words">Giorni completati</div>
             </div>
-            <div className="dermaself-card text-center p-4">
+            <div className="dermaself-card text-center p-4 overflow-hidden">
               <div className="text-2xl font-bold text-destructive">{stats.missedDays}</div>
-              <div className="text-xs text-muted-foreground">Giorni saltati</div>
+              <div className="text-xs text-muted-foreground break-words">Giorni saltati</div>
             </div>
-            <div className="dermaself-card text-center p-4">
+            <div className="dermaself-card text-center p-4 overflow-hidden">
               <div className="text-2xl font-bold">{Math.round((stats.completedDays / stats.totalDays) * 100)}%</div>
-              <div className="text-xs text-muted-foreground">Completamento</div>
+              <div className="text-xs text-muted-foreground break-words">Completamento</div>
             </div>
           </div>
 
