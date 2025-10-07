@@ -72,10 +72,6 @@ All colors use HSL format for consistency and accessibility.
   --lilac-fit: 254 73% 78%;
   --gray-fit: 0 0% 45%;
   
-  /* Price accent */
-  --price-yellow: 45 93% 63%;
-  --price-yellow-foreground: 0 0% 20%;
-  
   /* Sidebar theming */
   --sidebar-background: 0 0% 100%;
   --sidebar-foreground: 0 0% 20%;
@@ -161,7 +157,7 @@ All colors use HSL format for consistency and accessibility.
 
   .price-pill {
     @apply px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-sm;
-    background: hsl(45 93% 63%);
+    background: hsl(144 100% 80%);
     color: hsl(0 0% 9%);
   }
 

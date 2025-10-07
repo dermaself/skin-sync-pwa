@@ -40,7 +40,7 @@ export const FitAnalysisSheet = ({ product, isOpen, onOpenChange, children }: Fi
       name: "European Chemicals Agency",
       url: "https://echa.europa.eu/",
       logo: "ECHA",
-      bgColor: "bg-yellow-500",
+      bgColor: "bg-emerald-fit",
       textColor: "text-black"
     },
     {

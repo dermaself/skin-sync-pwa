@@ -219,7 +219,7 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
                   </div>
                   <span className="font-semibold text-foreground">from Amazon</span>
                 </div>
-                <div className="bg-yellow-400 text-black px-6 py-3 rounded-full font-bold text-lg min-h-[48px] flex items-center">
+                <div className="bg-emerald-fit text-black px-6 py-3 rounded-full font-bold text-lg min-h-[48px] flex items-center">
                   {formatPrice(product.price, product.currency)}
                 </div>
               </div>
@@ -416,7 +416,7 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
                         <div className="text-sm text-muted-foreground">{option.domain}</div>
                       </div>
                     </div>
-                    <div className="bg-yellow-400 text-black px-6 py-3 rounded-full font-bold min-h-[48px] flex items-center">
+                    <div className="bg-emerald-fit text-black px-6 py-3 rounded-full font-bold min-h-[48px] flex items-center">
                       {formatPrice(option.price, option.currency)}
                     </div>
                   </div>

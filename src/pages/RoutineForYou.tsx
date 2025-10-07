@@ -434,7 +434,7 @@ const RoutineForYou = () => {
                 {/* Star rating from fit */}
                 <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className={cn('h-3.5 w-3.5', i < starCount ? 'text-yellow-500 fill-yellow-500' : 'text-muted-foreground/40')} />
+                    <Star key={i} className={cn('h-3.5 w-3.5', i < starCount ? 'text-emerald-fit fill-emerald-fit' : 'text-muted-foreground/40')} />
                   ))}
                 </span>
               </div>

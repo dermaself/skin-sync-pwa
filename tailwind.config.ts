@@ -66,8 +66,6 @@ export default {
         "emerald-fit": "hsl(var(--emerald-fit))", // Look-at-me Green  
         "lilac-fit": "hsl(var(--lilac-fit))", // Friendly Lilac
         "gray-fit": "hsl(var(--gray-fit))",
-        "price-yellow": "hsl(var(--price-yellow))",
-        "price-yellow-foreground": "hsl(var(--price-yellow-foreground))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
