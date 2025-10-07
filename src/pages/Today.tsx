@@ -41,6 +41,42 @@ const Today = () => {
 
   const morningProducts = seedProducts['Routine – Morning'] || [];
 
+  // Different routines for each day of the week
+  const dailyRoutines: Record<number, Array<{ task: string; icon?: 'sun' | 'moon' }>> = {
+    1: [
+      { task: 'Routine Mattutina', icon: 'sun' },
+      { task: 'Routine Serale', icon: 'moon' },
+    ],
+    2: [
+      { task: 'Routine Mattutina', icon: 'sun' },
+      { task: 'Routine Serale', icon: 'moon' },
+      { task: 'Maschera Idratante' },
+    ],
+    3: [
+      { task: 'Routine Mattutina', icon: 'sun' },
+      { task: 'Routine Serale', icon: 'moon' },
+    ],
+    4: [
+      { task: 'Routine Mattutina', icon: 'sun' },
+      { task: 'Routine Serale', icon: 'moon' },
+      { task: 'Esfoliazione Delicata' },
+    ],
+    5: [
+      { task: 'Routine Mattutina', icon: 'sun' },
+      { task: 'Routine Serale', icon: 'moon' },
+    ],
+    6: [
+      { task: 'Routine Mattutina', icon: 'sun' },
+      { task: 'Trattamento Viso Settimanale' },
+    ],
+    7: [
+      { task: 'Routine Serale', icon: 'moon' },
+      { task: 'Relax & Self-Care' },
+    ],
+  };
+
+  const currentDayRoutines = dailyRoutines[selectedDay] || dailyRoutines[1];
+
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
     setIsSheetOpen(true);
@@ -91,8 +127,13 @@ const Today = () => {
         </div>
         
         <div className="space-y-3">
-          <ChecklistItem task="Routine Mattutina" icon="sun" />
-          <ChecklistItem task="Routine Serale" icon="moon" />
+          {currentDayRoutines.map((routine, index) => (
+            <ChecklistItem 
+              key={`${selectedDay}-${routine.task}-${index}`}
+              task={routine.task} 
+              icon={routine.icon} 
+            />
+          ))}
         </div>
       </div>
 
