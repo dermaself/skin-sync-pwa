@@ -17,7 +17,7 @@ export const DayPills = () => {
 
   return (
     <div className="mb-8 px-4">
-      <div className="flex items-center justify-between gap-1 mb-2">
+      <div className="flex items-center justify-center gap-1.5 mb-3">
         {days.map((date, index) => {
           const dayNumber = index + 1; // Maps to 1-7 in the store
           const isSelected = dayNumber === selectedDay;
@@ -31,19 +31,19 @@ export const DayPills = () => {
               key={dayNumber}
               onClick={() => setSelectedDay(dayNumber)}
               className={cn(
-                "flex flex-col items-center gap-1 px-2 py-2 rounded-full min-w-[40px] transition-all relative",
-                isSelected && "bg-foreground",
-                !isSelected && "hover:bg-accent"
+                "flex flex-col items-center gap-1.5 px-3 py-2.5 rounded-2xl min-w-[44px] transition-all duration-200 relative font-obviously",
+                isSelected && "bg-foreground shadow-lg scale-105",
+                !isSelected && "bg-accent/30 hover:bg-accent/50 hover:scale-102"
               )}
             >
               <span className={cn(
-                "text-[10px] font-medium uppercase",
-                isSelected ? "text-background" : "text-muted-foreground"
+                "text-[9px] font-medium uppercase tracking-wider",
+                isSelected ? "text-background" : "text-muted-foreground/70"
               )}>
                 {dayInitial}
               </span>
               <span className={cn(
-                "text-base font-medium",
+                "text-lg font-bold",
                 isSelected ? "text-background" : isCompleted ? "text-primary" : "text-foreground"
               )}>
                 {dateNumber}
@@ -51,7 +51,7 @@ export const DayPills = () => {
               
               {/* Completion badge */}
               {hasFullCompletions && !isSelected && (
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center">
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center shadow-md">
                   <Check size={10} className="text-primary-foreground" />
                 </div>
               )}
@@ -59,7 +59,7 @@ export const DayPills = () => {
           );
         })}
       </div>
-      <p className="text-center text-xs text-muted-foreground/60 capitalize">
+      <p className="text-center text-xs font-medium text-muted-foreground/50 capitalize tracking-wide">
         {monthName}
       </p>
     </div>
