@@ -37,7 +37,7 @@ const Products = () => {
     <div className="mobile-main mobile-container animate-fade-in">
       {/* Header with brand typography */}
       <div className="pt-12 pb-6">
-        <h1 className="text-3xl font-anton font-bold mb-6 text-foreground">Products</h1>
+        <h1 className="text-3xl font-anton font-bold mb-6 text-foreground">Prodotti</h1>
         
         {/* Search bar with modern styling */}
         <div className="relative mb-6">
@@ -45,7 +45,7 @@ const Products = () => {
             <Search size={20} className="text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search cosmetics (2 left)"
+              placeholder="Cerca cosmetici (2 rimasti)"
               className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground"
             />
             <QrCode size={20} className="text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
@@ -62,7 +62,7 @@ const Products = () => {
               <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
                 <Package size={18} className="text-primary" />
               </div>
-              <span className="font-medium text-xs">Routine for you</span>
+              <span className="font-medium text-xs">Routine per te</span>
             </div>
           </div>
           
@@ -71,7 +71,7 @@ const Products = () => {
               <div className="w-10 h-10 bg-emerald-fit/10 rounded-xl flex items-center justify-center">
                 <Package size={18} className="text-emerald-fit" />
               </div>
-              <span className="font-medium text-xs">My Shelf</span>
+              <span className="font-medium text-xs">La Mia Mensola</span>
             </div>
           </div>
           
@@ -80,7 +80,7 @@ const Products = () => {
               <div className="w-10 h-10 bg-pink-500/10 rounded-xl flex items-center justify-center">
                 <Heart size={18} className="text-pink-500" />
               </div>
-              <span className="font-medium text-xs">Wishlist</span>
+              <span className="font-medium text-xs">Lista Desideri</span>
             </div>
           </div>
         </div>

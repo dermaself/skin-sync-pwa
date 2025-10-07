@@ -10,11 +10,11 @@ All colors use HSL format for consistency and accessibility.
 :root {
   /* Base Colors - Clean and modern */
   --background: 0 0% 98%;
-  --foreground: 0 0% 9%;
+  --foreground: 0 0% 20%;
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 9%;
+  --card-foreground: 0 0% 20%;
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 9%;
+  --popover-foreground: 0 0% 20%;
 
   /* Primary - Confident Purple #6E4AE9 */
   --primary: 260 81% 60%;
@@ -23,11 +23,11 @@ All colors use HSL format for consistency and accessibility.
   
   /* Secondary - Friendly Lilac #AE9AF2 */
   --secondary: 254 73% 78%;
-  --secondary-foreground: 0 0% 9%;
+  --secondary-foreground: 0 0% 20%;
   
   /* Accent - Look-at-me Green #9BFFBF */
   --accent: 144 100% 80%;
-  --accent-foreground: 0 0% 9%;
+  --accent-foreground: 0 0% 20%;
   
   /* Muted backgrounds */
   --muted: 0 0% 96%;
@@ -50,15 +50,15 @@ All colors use HSL format for consistency and accessibility.
   
   /* Price accent */
   --price-yellow: 45 93% 63%;
-  --price-yellow-foreground: 0 0% 9%;
+  --price-yellow-foreground: 0 0% 20%;
   
   /* Sidebar theming */
   --sidebar-background: 0 0% 100%;
-  --sidebar-foreground: 0 0% 9%;
+  --sidebar-foreground: 0 0% 20%;
   --sidebar-primary: 260 81% 60%;
   --sidebar-primary-foreground: 0 0% 100%;
   --sidebar-accent: 0 0% 96%;
-  --sidebar-accent-foreground: 0 0% 9%;
+  --sidebar-accent-foreground: 0 0% 20%;
   --sidebar-border: 0 0% 90%;
   --sidebar-ring: 260 81% 60%;
 

@@ -37,16 +37,16 @@ interface AlternativeItem {
 
 // Sample routine data based on the uploaded images
 const routineFormula = {
-  name: "Lorenzo's Routine Formula",
-  goal: "Gentle maintenance with calming ingredients for sensitive combination skin",
-  targetGoal: "Maintaining healthy skin with gentle care",
-  age: "28 years old",
-  skinType: "Combination (oily T-zone, normal cheeks)",
-  skinConcerns: "Occasional breakouts, sensitivity",
-  skinConditions: "None reported",
-  sensitivity: "High - reacts to fragranced products",
-  climate: "Temperate urban environment",
-  routineExperience: "Intermediate - has established routine"
+  name: "La Formula Routine di Lorenzo",
+  goal: "Mantenimento delicato con ingredienti calmanti per pelle mista sensibile",
+  targetGoal: "Mantenere una pelle sana con cure delicate",
+  age: "28 anni",
+  skinType: "Mista (zona T grassa, guance normali)",
+  skinConcerns: "Imperfezioni occasionali, sensibilità",
+  skinConditions: "Nessuna segnalata",
+  sensitivity: "Alta - reagisce ai prodotti profumati",
+  climate: "Ambiente urbano temperato",
+  routineExperience: "Intermedio - ha una routine consolidata"
 };
 
 // Alternative products for each step - expanded to cover all routine steps
@@ -126,11 +126,11 @@ const routineSteps = {
         verified: true,
         image: "/images/products/fab-cleanser.png"
       },
-      whyPicked: "Perfect for sensitive skin with gentle, non-irritating formula. Removes impurities without stripping natural oils."
+      whyPicked: "Perfetto per pelle sensibile con formula delicata e non irritante. Rimuove le impurità senza eliminare gli oli naturali."
     },
     {
       step: 2,
-      title: "Soothing Toner",
+      title: "Tonico Lenitivo",
       product: {
         name: "Madagascar Centella Probio-CICA Essence Toner",
         brand: "SKIN1004",
@@ -139,11 +139,11 @@ const routineSteps = {
         verified: true,
         image: "/images/products/pixi-milky.png"
       },
-      whyPicked: "Centella asiatica helps calm inflammation and reduce redness. Probiotics support skin barrier health."
+      whyPicked: "La Centella asiatica aiuta a calmare l'infiammazione e ridurre il rossore. I probiotici supportano la salute della barriera cutanea."
     },
     {
       step: 3,
-      title: "Moisturizer with Sun Protection",
+      title: "Crema Idratante con Protezione Solare",
       product: {
         name: "Soon Jung Mild Defence Sun Cream",
         brand: "Etude House",
@@ -152,13 +152,13 @@ const routineSteps = {
         verified: true,
         image: "/images/products/cerave-pm.png"
       },
-      whyPicked: "SPF 50+ provides excellent protection. Panthenol and madecassoside soothe sensitive skin while protecting from UV damage."
+      whyPicked: "SPF 50+ fornisce un'eccellente protezione. Pantenolo e madecassoside leniscono la pelle sensibile mentre proteggono dai danni UV."
     }
   ],
   evening: [
     {
       step: 1,
-      title: "Pre-Cleanser",
+      title: "Pre-Detergente",
       product: {
         name: "Deep Cleansing Oil",
         brand: "DHC",
@@ -167,11 +167,11 @@ const routineSteps = {
         verified: true,
         image: "/images/products/ordinary-rosehip.png"
       },
-      whyPicked: "Olive oil-based formula dissolves makeup and sunscreen effectively without harsh rubbing."
+      whyPicked: "La formula a base di olio d'oliva scioglie trucco e protezione solare efficacemente senza sfregamenti aggressivi."
     },
     {
       step: 2,
-      title: "Cleanser",
+      title: "Detergente",
       product: {
         name: "The Simple Mild Foam Cleanser",
         brand: "Simple",
@@ -180,11 +180,11 @@ const routineSteps = {
         verified: true,
         image: "/images/products/fab-cleanser.png"
       },
-      whyPicked: "Second cleanse to remove remaining impurities while maintaining skin's natural balance."
+      whyPicked: "Seconda detersione per rimuovere le impurità rimanenti mantenendo l'equilibrio naturale della pelle."
     },
     {
       step: 3,
-      title: "Soothing Toner",
+      title: "Tonico Lenitivo",
       product: {
         name: "Madagascar Centella Probio-CICA Essence Toner",
         brand: "SKIN1004",
@@ -193,11 +193,11 @@ const routineSteps = {
         verified: true,
         image: "/images/products/pixi-milky.png"
       },
-      whyPicked: "Prepares skin for treatment products while providing calming benefits."
+      whyPicked: "Prepara la pelle per i prodotti trattanti fornendo benefici calmanti."
     },
     {
       step: 4,
-      title: "Serum or Treatment",
+      title: "Siero o Trattamento",
       product: {
         name: "Centella Unscented Serum",
         brand: "Mad Hippie",
@@ -206,11 +206,11 @@ const routineSteps = {
         verified: true,
         image: "/images/products/naturium-mandelic.png"
       },
-      whyPicked: "High concentration of centella provides intensive soothing benefits for reactive skin."
+      whyPicked: "Alta concentrazione di centella fornisce benefici lenitivi intensivi per la pelle reattiva."
     },
     {
       step: 5,
-      title: "Moisturizer",
+      title: "Crema Idratante",
       product: {
         name: "Centella Asiatica Ampoule",
         brand: "PURITO",
@@ -219,7 +219,7 @@ const routineSteps = {
         verified: true,
         image: "/images/products/pai-rosehip.png"
       },
-      whyPicked: "Lightweight yet nourishing formula with ceramides and centella for overnight skin repair."
+      whyPicked: "Formula leggera ma nutriente con ceramidi e centella per la riparazione notturna della pelle."
     }
   ],
   weekly: [
@@ -476,7 +476,7 @@ const RoutineForYou = () => {
               className="w-full justify-between text-sm"
               onClick={() => toggleAlternatives(stepKey)}
             >
-              <span>View {alternatives.length} alternatives</span>
+              <span>Visualizza {alternatives.length} alternative</span>
               {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
             </Button>
           )}
@@ -484,7 +484,7 @@ const RoutineForYou = () => {
           {isExpanded && alternatives.length > 0 && (
             <div className="border-t pt-4 mt-4">
               <p className="text-sm text-muted-foreground mb-4">
-                These alternatives also work great for your skin profile:
+                Queste alternative funzionano benissimo anche per il tuo profilo cutaneo:
               </p>
               {/* Horizontal scrolling alternatives */}
               <div className="mobile-scroll-container pb-4 -mx-4 px-4">
@@ -513,7 +513,7 @@ const RoutineForYou = () => {
         <div className="sticky top-0 bg-background/95 backdrop-blur-sm z-20 border-b">
           {/* Top bar with title and close */}
           <div className="flex items-center justify-between px-4 py-3">
-            <h1 className="text-xl font-semibold">Routine for you</h1>
+            <h1 className="text-xl font-semibold">Routine per te</h1>
             <Button variant="ghost" size="icon" onClick={handleClose} className="min-w-[44px] min-h-[44px]">
               <X className="h-6 w-6" />
             </Button>
@@ -523,9 +523,9 @@ const RoutineForYou = () => {
           <div className="px-4 pb-3 flex justify-center">
             <SegmentedControl
               options={[
-                { value: 'Morning', label: 'Morning', icon: 'sun' },
-                { value: 'Evening', label: 'Evening', icon: 'moon' },
-                { value: 'Weekly', label: 'Weekly', icon: 'sparkles' }
+                { value: 'Morning', label: 'Mattina', icon: 'sun' },
+                { value: 'Evening', label: 'Sera', icon: 'moon' },
+                { value: 'Weekly', label: 'Settimanale', icon: 'sparkles' }
               ]}
               value={selectedRoutine}
               onChange={scrollToSection}
@@ -556,35 +556,35 @@ const RoutineForYou = () => {
               <div className="space-y-4 mb-4">
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between items-start py-2">
-                    <span className="text-muted-foreground">Target Goal</span>
+                    <span className="text-muted-foreground">Obiettivo</span>
                     <span className="font-medium text-right max-w-[60%]">{routineFormula.targetGoal}</span>
                   </div>
                   <div className="flex justify-between items-start py-2">
-                    <span className="text-muted-foreground">Age</span>
+                    <span className="text-muted-foreground">Età</span>
                     <span className="font-medium text-right">{routineFormula.age}</span>
                   </div>
                   <div className="flex justify-between items-start py-2">
-                    <span className="text-muted-foreground">Skin Type</span>
+                    <span className="text-muted-foreground">Tipo di Pelle</span>
                     <span className="font-medium text-right max-w-[60%]">{routineFormula.skinType}</span>
                   </div>
                   <div className="flex justify-between items-start py-2">
-                    <span className="text-muted-foreground">Skin Concerns</span>
+                    <span className="text-muted-foreground">Problematiche</span>
                     <span className="font-medium text-right max-w-[60%]">{routineFormula.skinConcerns}</span>
                   </div>
                   <div className="flex justify-between items-start py-2">
-                    <span className="text-muted-foreground">Skin Conditions</span>
+                    <span className="text-muted-foreground">Condizioni</span>
                     <span className="font-medium text-right max-w-[60%]">{routineFormula.skinConditions}</span>
                   </div>
                   <div className="flex justify-between items-start py-2">
-                    <span className="text-muted-foreground">Sensitivity</span>
+                    <span className="text-muted-foreground">Sensibilità</span>
                     <span className="font-medium text-right max-w-[60%]">{routineFormula.sensitivity}</span>
                   </div>
                   <div className="flex justify-between items-start py-2">
-                    <span className="text-muted-foreground">Climate</span>
+                    <span className="text-muted-foreground">Clima</span>
                     <span className="font-medium text-right max-w-[60%]">{routineFormula.climate}</span>
                   </div>
                   <div className="flex justify-between items-start py-2">
-                    <span className="text-muted-foreground">Routine Experience</span>
+                    <span className="text-muted-foreground">Esperienza Routine</span>
                     <span className="font-medium text-right max-w-[60%]">{routineFormula.routineExperience}</span>
                   </div>
                 </div>
@@ -594,9 +594,9 @@ const RoutineForYou = () => {
 
           {/* Trust Message */}
           <div className="mb-8 dermaself-card p-4">
-            <h3 className="text-base font-medium mb-2 text-center">Your skin is our main focus</h3>
+            <h3 className="text-base font-medium mb-2 text-center">La tua pelle è il nostro obiettivo principale</h3>
             <p className="text-sm text-muted-foreground text-center">
-              All the recommendations are unbiased and non-sponsored. Picked by Dermaself AI & Reviewed by our MDs.
+              Tutte le raccomandazioni sono imparziali e non sponsorizzate. Scelte dall'AI di Dermaself e Revisionate dai nostri Medici.
             </p>
           </div>
 
@@ -604,16 +604,16 @@ const RoutineForYou = () => {
           <div ref={morningRef} className="mb-12">
             <div className="text-center py-6 mb-6">
               <div className="text-4xl mb-3">🌅</div>
-              <h2 className="text-2xl font-bold">Morning Routine</h2>
+              <h2 className="text-2xl font-bold">Routine Mattutina</h2>
             </div>
             {routineSteps.morning.map((step) => renderProductStep(step, 'morning'))}
           </div>
 
           {/* Trust Message Between Sections */}
           <div className="mb-8 dermaself-card p-4">
-            <h3 className="text-base font-medium mb-2 text-center">Your skin is our main focus</h3>
+            <h3 className="text-base font-medium mb-2 text-center">La tua pelle è il nostro obiettivo principale</h3>
             <p className="text-sm text-muted-foreground text-center">
-              All the recommendations are unbiased and non-sponsored. Picked by Dermaself AI & Reviewed by our MDs.
+              Tutte le raccomandazioni sono imparziali e non sponsorizzate. Scelte dall'AI di Dermaself e Revisionate dai nostri Medici.
             </p>
           </div>
 
@@ -621,16 +621,16 @@ const RoutineForYou = () => {
           <div ref={eveningRef} className="mb-12">
             <div className="text-center py-6 mb-6">
               <div className="text-4xl mb-3">🌙</div>
-              <h2 className="text-2xl font-bold">Evening Routine</h2>
+              <h2 className="text-2xl font-bold">Routine Serale</h2>
             </div>
             {routineSteps.evening.map((step) => renderProductStep(step, 'evening'))}
           </div>
 
           {/* Trust Message Between Sections */}
           <div className="mb-8 dermaself-card p-4">
-            <h3 className="text-base font-medium mb-2 text-center">Your skin is our main focus</h3>
+            <h3 className="text-base font-medium mb-2 text-center">La tua pelle è il nostro obiettivo principale</h3>
             <p className="text-sm text-muted-foreground text-center">
-              All the recommendations are unbiased and non-sponsored. Picked by Dermaself AI & Reviewed by our MDs.
+              Tutte le raccomandazioni sono imparziali e non sponsorizzate. Scelte dall'AI di Dermaself e Revisionate dai nostri Medici.
             </p>
           </div>
 
@@ -638,14 +638,14 @@ const RoutineForYou = () => {
           <div ref={weeklyRef} className="mb-12">
             <div className="text-center py-6 mb-6">
               <div className="text-4xl mb-3">✨</div>
-              <h2 className="text-2xl font-bold mb-4">Weekly</h2>
-              <p className="text-base mb-6 text-muted-foreground">A weekly treat for your skin 🤗</p>
+              <h2 className="text-2xl font-bold mb-4">Settimanale</h2>
+              <p className="text-base mb-6 text-muted-foreground">Un trattamento settimanale per la tua pelle 🤗</p>
               <div className="dermaself-card p-4 text-left">
                 <div className="flex items-start gap-3">
                   <div className="text-2xl">🎁</div>
                   <div>
-                    <p className="font-medium mb-2">Enjoy a special program with additional steps to treat your skin in the best way possible!</p>
-                    <p className="text-sm text-muted-foreground">For best results, use these 1-2 times in place of your regular evening routine and enjoy your radiant me-time 👑</p>
+                    <p className="font-medium mb-2">Goditi un programma speciale con passaggi aggiuntivi per trattare la tua pelle nel miglior modo possibile!</p>
+                    <p className="text-sm text-muted-foreground">Per risultati ottimali, usa questi 1-2 volte al posto della tua routine serale regolare e goditi il tuo tempo per te radiosa 👑</p>
                   </div>
                 </div>
               </div>

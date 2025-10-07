@@ -25,9 +25,9 @@ const Today = () => {
   const [initialMessage, setInitialMessage] = useState<string>('');
   
   const routineOptions = [
-    { value: 'Morning', label: 'Morning', icon: 'sun' as const },
-    { value: 'Evening', label: 'Evening', icon: 'moon' as const },
-    { value: 'Weekly', label: 'Weekly', icon: 'sparkles' as const },
+    { value: 'Morning', label: 'Mattina', icon: 'sun' as const },
+    { value: 'Evening', label: 'Sera', icon: 'moon' as const },
+    { value: 'Weekly', label: 'Settimanale', icon: 'sparkles' as const },
   ];
 
   const morningProducts = seedProducts['Routine – Morning'] || [];
@@ -57,9 +57,9 @@ const Today = () => {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h1 className="text-2xl font-bold text-foreground mb-1">
-                  Good morning, <span className="text-primary font-anton">Lorenzo</span> ✨
+                  Buongiorno, <span className="text-primary font-anton">Lorenzo</span> ✨
                 </h1>
-                <p className="text-muted-foreground text-sm">Ready to glow today?</p>
+                <p className="text-muted-foreground text-sm">Pronto a splendere oggi?</p>
               </div>
               <button 
                 className="min-w-[48px] min-h-[48px] bg-card/90 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-card transition-all active:scale-95 shadow-lg border border-border/50 hover:shadow-xl hover:border-primary/20"
@@ -77,19 +77,19 @@ const Today = () => {
       {/* Daily Progress */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Today's Progress</h2>
-          <span className="text-sm text-muted-foreground">Day {useDayStore.getState().selectedDay}</span>
+          <h2 className="text-xl font-semibold">Progressi di Oggi</h2>
+          <span className="text-sm text-muted-foreground">Giorno {useDayStore.getState().selectedDay}</span>
         </div>
         
         <div className="space-y-3">
-          <ChecklistItem task="Morning Routine" icon="sun" />
-          <ChecklistItem task="Evening Routine" icon="moon" />
+          <ChecklistItem task="Routine Mattutina" icon="sun" />
+          <ChecklistItem task="Routine Serale" icon="moon" />
         </div>
       </div>
 
       {/* Skin Diary - Simplified */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">How does your skin feel?</h2>
+        <h2 className="text-xl font-semibold mb-4">Come si sente la tua pelle?</h2>
         <DiaryCard />
       </div>
 
@@ -109,8 +109,8 @@ const Today = () => {
           
           <div className="flex items-center justify-between relative z-10">
             <div className="flex-1">
-              <h3 className="text-lg font-anton font-bold mb-2 text-foreground">Discover Your Perfect Routine</h3>
-              <p className="text-sm text-muted-foreground font-space-grotesk">Personalized skincare recommendations based on your skin profile</p>
+              <h3 className="text-lg font-anton font-bold mb-2 text-foreground">Scopri la Tua Routine Perfetta</h3>
+              <p className="text-sm text-muted-foreground font-space-grotesk">Raccomandazioni di skincare personalizzate basate sul tuo profilo cutaneo</p>
             </div>
             <div className="text-2xl ml-4 animate-brand-pulse">✨</div>
           </div>
@@ -120,12 +120,12 @@ const Today = () => {
       {/* Quick Product Preview */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Today's Picks</h2>
+          <h2 className="text-xl font-semibold">Scelte di Oggi</h2>
           <button 
             className="text-primary font-medium hover:underline min-h-[44px] px-2"
             onClick={() => navigate('/routine-for-you')}
           >
-            View all
+            Vedi tutto
           </button>
         </div>
 
@@ -148,7 +148,7 @@ const Today = () => {
 
       {/* AI Assistant - Simplified */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Ask Dermaself AI</h2>
+        <h2 className="text-xl font-semibold mb-4">Chiedi all'AI di Dermaself</h2>
         <AskBar onSubmit={handleChatOpen} />
       </div>
 

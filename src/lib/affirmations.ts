@@ -1,12 +1,12 @@
 export const AFFIRMATIONS = [
-  "Small steps add up. Your skin is healing.",
-  "You're more than your pores. Be kind to you.",
-  "Consistency beats intensity. Keep it gentle.",
-  "Hydration is a habit, not a moment.",
-  "Your routine is a promise you keep to yourself.",
-  "Progress, not perfection. You're glowing from within.",
-  "Every day is a fresh start for your skin.",
-  "Self-care isn't selfish. You deserve this moment.",
-  "Your skin tells a story of resilience and care.",
-  "Gentle touches, loving choices. You're worth it."
+  "Piccoli passi si sommano. La tua pelle sta guarendo.",
+  "Sei più dei tuoi pori. Sii gentile con te stesso.",
+  "La costanza batte l'intensità. Mantienila delicata.",
+  "L'idratazione è un'abitudine, non un momento.",
+  "La tua routine è una promessa che mantieni a te stesso.",
+  "Progresso, non perfezione. Stai brillando dall'interno.",
+  "Ogni giorno è un nuovo inizio per la tua pelle.",
+  "Prendersi cura di sé non è egoismo. Meriti questo momento.",
+  "La tua pelle racconta una storia di resilienza e cura.",
+  "Tocchi gentili, scelte amorevoli. Ne vali la pena."
 ];

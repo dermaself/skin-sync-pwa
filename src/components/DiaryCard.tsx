@@ -6,11 +6,11 @@ import { useHaptic } from '@/hooks/use-haptic';
 type MoodType = 'bad' | 'not_great' | 'okay' | 'good' | 'awesome';
 
 const moods: { type: MoodType; emoji: string; label: string }[] = [
-  { type: 'bad', emoji: '😞', label: 'Bad' },
-  { type: 'not_great', emoji: '😕', label: 'Not great' },
-  { type: 'okay', emoji: '😐', label: 'Okay' },
-  { type: 'good', emoji: '😊', label: 'Good' },
-  { type: 'awesome', emoji: '😄', label: 'Awesome' },
+  { type: 'bad', emoji: '😞', label: 'Male' },
+  { type: 'not_great', emoji: '😕', label: 'Non benissimo' },
+  { type: 'okay', emoji: '😐', label: 'Ok' },
+  { type: 'good', emoji: '😊', label: 'Bene' },
+  { type: 'awesome', emoji: '😄', label: 'Fantastico' },
 ];
 
 export const DiaryCard = () => {
@@ -28,7 +28,7 @@ export const DiaryCard = () => {
     <div className="space-y-6">
       {/* Mood selector */}
       <div className="dermaself-card">
-        <h3 className="font-semibold text-center mb-6">How does your skin feel today?</h3>
+        <h3 className="font-semibold text-center mb-6">Come si sente la tua pelle oggi?</h3>
         
         <div className="grid grid-cols-5 gap-2 sm:gap-3">
           {moods.map((mood) => (
@@ -55,7 +55,7 @@ export const DiaryCard = () => {
       {/* K-Beauty routine CTA */}
       <div className="dermaself-card flex items-center gap-4">
         <div className="flex-1">
-          <h3 className="font-semibold">Try a Tailored K-Beauty Routine</h3>
+          <h3 className="font-semibold">Prova una Routine K-Beauty Su Misura</h3>
         </div>
         <div className="text-2xl">😊</div>
       </div>

@@ -137,13 +137,13 @@ const Insights = () => {
 
   return (
     <div className="mobile-main mobile-container animate-fade-in pt-12">
-      <h1 className="text-3xl font-anton font-bold mb-8 text-foreground">Insights</h1>
+      <h1 className="text-3xl font-anton font-bold mb-8 text-foreground">Consigli</h1>
       
       {/* Skincare Academy */}
       <section className="mb-8">
         <div className="mb-4">
-          <h2 className="text-xl font-semibold mb-1">Skincare Academy</h2>
-          <p className="text-muted-foreground">for Wrinkles, Enlarged Pores</p>
+          <h2 className="text-xl font-semibold mb-1">Accademia Skincare</h2>
+          <p className="text-muted-foreground">per Rughe, Pori Dilatati</p>
         </div>
         
       <div className="mobile-scroll-container pb-4 -mx-4 px-4">
@@ -184,8 +184,8 @@ const Insights = () => {
       {/* Massages for your focus area */}
       <section className="mb-8">
         <div className="mb-4">
-          <h2 className="text-xl font-semibold mb-1">Massages for your focus area</h2>
-          <p className="text-muted-foreground">Simple steps to sculpted face</p>
+          <h2 className="text-xl font-semibold mb-1">Massaggi per la tua area focale</h2>
+          <p className="text-muted-foreground">Semplici passi per un viso scolpito</p>
         </div>
         
         <div className="mobile-scroll-container pb-4 -mx-4 px-4">
@@ -218,8 +218,8 @@ const Insights = () => {
       {/* Handcrafted Skincare Guides */}
       <section className="mb-8">
         <div className="mb-4">
-          <h2 className="text-xl font-semibold mb-1">Handcrafted Skincare Guides</h2>
-          <p className="text-muted-foreground">by Dermaself Medical Team</p>
+          <h2 className="text-xl font-semibold mb-1">Guide Skincare Artigianali</h2>
+          <p className="text-muted-foreground">del Team Medico Dermaself</p>
         </div>
         
         <div className="mobile-scroll-container pb-4 -mx-4 px-4">
@@ -271,32 +271,32 @@ const Insights = () => {
       {/* Step-by-Step Skincare Application Guides */}
       <section className="mb-8">
         <div className="mb-6">
-          <h2 className="text-xl font-semibold">Step-by-Step Skincare Application Guides</h2>
+          <h2 className="text-xl font-semibold">Guide Applicazione Skincare Passo-Passo</h2>
         </div>
         
         <div className="dermaself-card p-0 overflow-hidden border border-border/50">
           <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/10 relative overflow-hidden">
             <img 
               src="/images/skincare-tutorial.jpg" 
-              alt="Skincare Application Guide"
+              alt="Guida Applicazione Skincare"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
               <div className="text-left">
                 <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
-                  Master Your Daily Skincare Routine
+                  Padroneggia la Tua Routine Skincare Quotidiana
                 </h3>
                 <p className="text-white/90 text-base mb-3">
-                  Learn proper application techniques for optimal results
+                  Impara le tecniche di applicazione corrette per risultati ottimali
                 </p>
                 <div className="flex items-center gap-3 text-white/80">
                   <div className="flex items-center gap-1">
                     <Clock size={14} />
-                    <span className="text-sm">15 min tutorial</span>
+                    <span className="text-sm">Tutorial di 15 min</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <BookOpen size={14} />
-                    <span className="text-sm">Step-by-step guide</span>
+                    <span className="text-sm">Guida passo-passo</span>
                   </div>
                 </div>
               </div>
@@ -309,7 +309,7 @@ const Insights = () => {
               className="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 text-base font-semibold rounded-xl"
             >
               <Play size={18} className="mr-2" />
-              Watch & Learn
+              Guarda e Impara
             </Button>
           </div>
         </div>
@@ -318,7 +318,7 @@ const Insights = () => {
       <VideoPlayer 
         isOpen={isVideoPlayerOpen}
         onClose={() => setIsVideoPlayerOpen(false)}
-        title="Skincare Application Tutorial"
+        title="Tutorial Applicazione Skincare"
       />
 
       <StoriesViewer
