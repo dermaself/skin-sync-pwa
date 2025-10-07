@@ -52,7 +52,7 @@ export const DayPills = () => {
               </span>
               
               {/* Completion badge */}
-              {hasFullCompletions && !isSelected && (
+              {hasFullCompletions && (
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center shadow-md">
                   <Check size={10} className="text-primary-foreground" />
                 </div>
