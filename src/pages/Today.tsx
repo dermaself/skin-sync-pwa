@@ -17,6 +17,7 @@ import { AffirmationCard } from '@/components/AffirmationCard';
 import { ChatbotUI } from '@/components/ChatbotUI';
 import { seedProducts } from '@/lib/seed';
 import type { Product } from '@/lib/seed';
+import { dailyRoutines } from '@/lib/routines';
 
 const Today = () => {
   const navigate = useNavigate();
@@ -40,41 +41,6 @@ const Today = () => {
   const formattedDate = format(selectedDate, 'EEEE d MMMM', { locale: it });
 
   const morningProducts = seedProducts['Routine – Morning'] || [];
-
-  // Different routines for each day of the week
-  const dailyRoutines: Record<number, Array<{ task: string; icon?: 'sun' | 'moon' }>> = {
-    1: [
-      { task: 'Routine Mattutina', icon: 'sun' },
-      { task: 'Routine Serale', icon: 'moon' },
-    ],
-    2: [
-      { task: 'Routine Mattutina', icon: 'sun' },
-      { task: 'Routine Serale', icon: 'moon' },
-      { task: 'Maschera Idratante' },
-    ],
-    3: [
-      { task: 'Routine Mattutina', icon: 'sun' },
-      { task: 'Routine Serale', icon: 'moon' },
-    ],
-    4: [
-      { task: 'Routine Mattutina', icon: 'sun' },
-      { task: 'Routine Serale', icon: 'moon' },
-      { task: 'Esfoliazione Delicata' },
-    ],
-    5: [
-      { task: 'Routine Mattutina', icon: 'sun' },
-      { task: 'Routine Serale', icon: 'moon' },
-    ],
-    6: [
-      { task: 'Routine Mattutina', icon: 'sun' },
-      { task: 'Trattamento Viso Settimanale' },
-    ],
-    7: [
-      { task: 'Routine Serale', icon: 'moon' },
-      { task: 'Relax & Self-Care' },
-    ],
-  };
-
   const currentDayRoutines = dailyRoutines[selectedDay] || dailyRoutines[1];
 
   const handleProductClick = (product: Product) => {

@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
 import { format, addDays, startOfWeek } from 'date-fns';
 import { it } from 'date-fns/locale';
+import { dailyRoutines } from '@/lib/routines';
 
 export const DayPills = () => {
   const { selectedDay, setSelectedDay, completed } = useDayStore();
@@ -21,8 +22,9 @@ export const DayPills = () => {
         {days.map((date, index) => {
           const dayNumber = index + 1; // Maps to 1-7 in the store
           const isSelected = dayNumber === selectedDay;
-          const isCompleted = completed[dayNumber] && completed[dayNumber].length > 0;
-          const hasFullCompletions = completed[dayNumber] && completed[dayNumber].length >= 2;
+          const dayRoutines = dailyRoutines[dayNumber] || [];
+          const completedTasks = completed[dayNumber] || [];
+          const hasFullCompletions = dayRoutines.length > 0 && completedTasks.length === dayRoutines.length;
           const dayInitial = format(date, 'EEEEE', { locale: it }).toUpperCase();
           const dateNumber = format(date, 'd');
 
@@ -44,7 +46,7 @@ export const DayPills = () => {
               </span>
               <span className={cn(
                 "text-lg font-bold",
-                isSelected ? "text-background" : isCompleted ? "text-primary" : "text-foreground"
+                isSelected ? "text-background" : hasFullCompletions ? "text-primary" : "text-foreground"
               )}>
                 {dateNumber}
               </span>
