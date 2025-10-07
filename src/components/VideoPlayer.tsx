@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, Play, Pause, SkipBack, SkipForward, Volume2, RotateCcw, RotateCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -7,6 +7,7 @@ export interface VideoStep {
   id: string;
   title: string;
   description: string;
+  duration?: string;
   videoUrl?: string;
 }
 
@@ -20,6 +21,8 @@ interface VideoPlayerProps {
 const VideoPlayer = ({ isOpen, onClose, playlist, initialStepIndex = 0 }: VideoPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(initialStepIndex);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration] = useState(92); // Mock duration in seconds
 
   if (!isOpen || playlist.length === 0) return null;
 
@@ -35,6 +38,7 @@ const VideoPlayer = ({ isOpen, onClose, playlist, initialStepIndex = 0 }: VideoP
     if (canGoPrevious) {
       setCurrentStepIndex(currentStepIndex - 1);
       setIsPlaying(false);
+      setCurrentTime(0);
     }
   };
 
@@ -42,111 +46,186 @@ const VideoPlayer = ({ isOpen, onClose, playlist, initialStepIndex = 0 }: VideoP
     if (canGoNext) {
       setCurrentStepIndex(currentStepIndex + 1);
       setIsPlaying(false);
+      setCurrentTime(0);
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 bg-black/95 flex flex-col animate-fade-in">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-white/10">
-        <div className="flex-1">
-          <h2 className="text-white text-lg font-bold">{currentStep.title}</h2>
-          <p className="text-white/60 text-sm mt-1">{currentStep.description}</p>
-        </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onClose}
-          className="text-white hover:bg-white/20 flex-shrink-0"
-        >
-          <X size={24} />
-        </Button>
-      </div>
+  const handleSkipBackward = () => {
+    setCurrentTime(Math.max(0, currentTime - 5));
+  };
 
-      {/* Video Area */}
-      <div className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-6xl">
-          <div className="relative aspect-video bg-gray-900 rounded-lg overflow-hidden">
-            {/* Placeholder for video - replace with actual video element when needed */}
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-900 to-blue-900">
-              <div className="text-center text-white">
-                <div className="mb-4">
-                  <Button
-                    onClick={handlePlay}
-                    size="icon"
-                    className="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full w-16 h-16"
-                  >
-                    {isPlaying ? <Pause size={32} /> : <Play size={32} />}
-                  </Button>
-                </div>
-                <p className="text-lg opacity-80">{currentStep.title}</p>
-              </div>
-            </div>
-            
-            {/* Uncomment and use when you have actual video URLs */}
-            {/* {currentStep.videoUrl && (
-              <video
-                className="w-full h-full object-cover"
-                controls
-                autoPlay={isPlaying}
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-              >
-                <source src={currentStep.videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            )} */}
+  const handleSkipForward = () => {
+    setCurrentTime(Math.min(duration, currentTime + 5));
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  };
+
+  const progressPercentage = (currentTime / duration) * 100;
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black flex flex-col animate-fade-in">
+      {/* Header with gradient overlay */}
+      <div className="relative p-6 pb-8">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent pointer-events-none" />
+        
+        <div className="relative flex items-start justify-between">
+          <div className="flex-1">
+            <h1 className="text-white text-2xl font-bold mb-1">
+              {currentStep.description}
+            </h1>
+            <p className="text-white/60 text-base">
+              Step {currentStepIndex + 1} of {playlist.length}
+            </p>
+          </div>
+          
+          <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:bg-white/20"
+              aria-label="Volume"
+            >
+              <Volume2 size={24} />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onClose}
+              className="text-white hover:bg-white/20"
+            >
+              <X size={28} />
+            </Button>
           </div>
         </div>
       </div>
 
-      {/* Navigation Controls */}
-      <div className="p-4 border-t border-white/10">
-        <div className="max-w-6xl mx-auto">
-          {/* Step indicators */}
-          <div className="flex justify-center gap-2 mb-4">
+      {/* Video Area */}
+      <div className="flex-1 flex items-center justify-center">
+        <div className="w-full h-full">
+          <div className="relative w-full h-full bg-gray-900">
+            {/* Placeholder for video */}
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-900 to-blue-900">
+              <div className="text-center text-white">
+                <p className="text-lg opacity-80">{currentStep.title}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Controls */}
+      <div className="relative px-4 pb-8 pt-4">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
+        
+        <div className="relative space-y-4">
+          {/* Horizontal Playlist */}
+          <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide">
             {playlist.map((step, index) => (
               <button
                 key={step.id}
                 onClick={() => {
                   setCurrentStepIndex(index);
                   setIsPlaying(false);
+                  setCurrentTime(0);
                 }}
                 className={cn(
-                  "w-2 h-2 rounded-full transition-all",
-                  index === currentStepIndex 
-                    ? "bg-primary w-8" 
-                    : "bg-white/30 hover:bg-white/50"
+                  "flex-shrink-0 w-[200px] snap-center rounded-2xl p-4 text-left transition-all",
+                  index === currentStepIndex
+                    ? "bg-white text-black"
+                    : "bg-white/20 text-white/60 hover:bg-white/30"
                 )}
-                aria-label={`Go to step ${index + 1}: ${step.title}`}
-              />
+              >
+                <h3 className={cn(
+                  "font-semibold text-base mb-1",
+                  index === currentStepIndex ? "text-black" : "text-white"
+                )}>
+                  {step.title}
+                </h3>
+                <p className={cn(
+                  "text-sm",
+                  index === currentStepIndex ? "text-primary" : "text-white/50"
+                )}>
+                  {step.duration || '1 min'}
+                </p>
+              </button>
             ))}
           </div>
 
-          {/* Previous/Next buttons */}
-          <div className="flex items-center justify-between">
+          {/* Progress Bar */}
+          <div className="space-y-2">
+            <div className="relative h-1 bg-white/20 rounded-full overflow-hidden">
+              <div 
+                className="absolute inset-y-0 left-0 bg-white rounded-full transition-all"
+                style={{ width: `${progressPercentage}%` }}
+              />
+              <input
+                type="range"
+                min="0"
+                max={duration}
+                value={currentTime}
+                onChange={(e) => setCurrentTime(Number(e.target.value))}
+                className="absolute inset-0 w-full opacity-0 cursor-pointer"
+              />
+            </div>
+            
+            <div className="flex justify-between text-white/60 text-xs">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
+          </div>
+
+          {/* Playback Controls */}
+          <div className="flex items-center justify-center gap-4">
             <Button
               variant="ghost"
+              size="icon"
               onClick={handlePrevious}
               disabled={!canGoPrevious}
-              className="text-white hover:bg-white/20 disabled:opacity-30"
+              className="text-white hover:bg-white/20 disabled:opacity-30 h-12 w-12"
             >
-              <ChevronLeft size={20} />
-              <span className="ml-2">Precedente</span>
+              <SkipBack size={24} />
             </Button>
-
-            <span className="text-white/60 text-sm">
-              {currentStepIndex + 1} / {playlist.length}
-            </span>
 
             <Button
               variant="ghost"
+              size="icon"
+              onClick={handleSkipBackward}
+              className="text-white hover:bg-white/20 h-12 w-12"
+            >
+              <RotateCcw size={20} />
+              <span className="absolute text-[10px] font-bold">5</span>
+            </Button>
+
+            <Button
+              size="icon"
+              onClick={handlePlay}
+              className="bg-white hover:bg-white/90 text-black h-16 w-16 rounded-full"
+            >
+              {isPlaying ? <Pause size={28} fill="black" /> : <Play size={28} fill="black" />}
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleSkipForward}
+              className="text-white hover:bg-white/20 h-12 w-12"
+            >
+              <RotateCw size={20} />
+              <span className="absolute text-[10px] font-bold">5</span>
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={handleNext}
               disabled={!canGoNext}
-              className="text-white hover:bg-white/20 disabled:opacity-30"
+              className="text-white hover:bg-white/20 disabled:opacity-30 h-12 w-12"
             >
-              <span className="mr-2">Successivo</span>
-              <ChevronRight size={20} />
+              <SkipForward size={24} />
             </Button>
           </div>
         </div>

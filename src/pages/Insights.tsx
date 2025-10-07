@@ -319,11 +319,11 @@ const Insights = () => {
         isOpen={isVideoPlayerOpen}
         onClose={() => setIsVideoPlayerOpen(false)}
         playlist={[
-          { id: '1', title: 'Applicazione Cleanser', description: 'Come detergere correttamente il viso' },
-          { id: '2', title: 'Applicazione Tonico', description: 'Tecnica per applicare il tonico' },
-          { id: '3', title: 'Applicazione Siero', description: 'Come stendere il siero sul viso' },
-          { id: '4', title: 'Applicazione Crema', description: 'Tecnica per la crema idratante' },
-          { id: '5', title: 'Applicazione SPF', description: 'Come applicare la protezione solare' },
+          { id: '1', title: 'Cleanser', description: 'Tutorial Applicazione Skincare', duration: '1 min, 30 sec' },
+          { id: '2', title: 'Toner', description: 'Tutorial Applicazione Skincare', duration: '45 sec' },
+          { id: '3', title: 'Serum', description: 'Tutorial Applicazione Skincare', duration: '1 min, 15 sec' },
+          { id: '4', title: 'Moisturizer', description: 'Tutorial Applicazione Skincare', duration: '1 min' },
+          { id: '5', title: 'SPF', description: 'Tutorial Applicazione Skincare', duration: '1 min, 20 sec' },
         ]}
       />
 
