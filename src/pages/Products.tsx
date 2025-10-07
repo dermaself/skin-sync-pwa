@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import { Search, QrCode, Heart, Package, RefreshCw } from 'lucide-react';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductDetailSheet } from '@/components/ProductDetailSheet';
+import { SubscriptionSheet } from '@/components/SubscriptionSheet';
 import { getAllSections } from '@/lib/services/catalog';
 import { seedProducts } from '@/lib/seed';
 import type { Product } from '@/lib/seed';
@@ -13,6 +14,7 @@ const Products = () => {
   const { data: sections, isLoading } = useSWR('all-sections', getAllSections);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isSubscriptionSheetOpen, setIsSubscriptionSheetOpen] = useState(false);
 
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
@@ -85,7 +87,10 @@ const Products = () => {
               </div>
             </div>
 
-            <div className="dermaself-card text-center cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[100px] flex flex-col justify-center flex-shrink-0 w-[140px]">
+            <div 
+              className="dermaself-card text-center cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[100px] flex flex-col justify-center flex-shrink-0 w-[140px]"
+              onClick={() => setIsSubscriptionSheetOpen(true)}
+            >
               <div className="flex flex-col items-center gap-2">
                 <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center">
                   <RefreshCw size={20} className="text-secondary" />
@@ -96,6 +101,11 @@ const Products = () => {
           </div>
         </div>
       </div>
+
+      <SubscriptionSheet
+        isOpen={isSubscriptionSheetOpen}
+        onClose={() => setIsSubscriptionSheetOpen(false)}
+      />
 
       <ProductDetailSheet
         product={selectedProduct}
