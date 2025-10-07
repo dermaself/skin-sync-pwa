@@ -1,4 +1,4 @@
-import { User, Bell, Globe, Shield, Info } from 'lucide-react';
+import { User, Bell, Globe, Shield, Info, Crown } from 'lucide-react';
 
 const Me = () => {
   return (
@@ -14,6 +14,28 @@ const Me = () => {
           <h3 className="font-semibold text-lg">Lorenzo</h3>
           <p className="text-muted-foreground text-sm">Appassionato di skincare</p>
         </div>
+      </div>
+
+      {/* Subscription Section */}
+      <div className="mb-6">
+        <button 
+          className="dermaself-card w-full flex items-center justify-between border-2 border-primary/30 p-4 hover:border-primary/50 transition-all active:scale-[0.98]"
+          onClick={() => {
+            // TODO: Navigate to subscription management
+            console.log('Manage subscription clicked');
+          }}
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+              <Crown size={20} className="text-primary" />
+            </div>
+            <div className="text-left">
+              <span className="font-semibold block">Gestisci Abbonamento</span>
+              <span className="text-sm text-muted-foreground">Night Cream & App Premium</span>
+            </div>
+          </div>
+          <div className="text-primary text-sm font-medium">→</div>
+        </button>
       </div>
 
       {/* Settings */}
