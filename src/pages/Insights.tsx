@@ -318,7 +318,13 @@ const Insights = () => {
       <VideoPlayer 
         isOpen={isVideoPlayerOpen}
         onClose={() => setIsVideoPlayerOpen(false)}
-        title="Tutorial Applicazione Skincare"
+        playlist={[
+          { id: '1', title: 'Applicazione Cleanser', description: 'Come detergere correttamente il viso' },
+          { id: '2', title: 'Applicazione Tonico', description: 'Tecnica per applicare il tonico' },
+          { id: '3', title: 'Applicazione Siero', description: 'Come stendere il siero sul viso' },
+          { id: '4', title: 'Applicazione Crema', description: 'Tecnica per la crema idratante' },
+          { id: '5', title: 'Applicazione SPF', description: 'Come applicare la protezione solare' },
+        ]}
       />
 
       <StoriesViewer
