@@ -67,7 +67,7 @@ const VideoPlayer = ({ isOpen, onClose, playlist, initialStepIndex = 0 }: VideoP
   const progressPercentage = (currentTime / duration) * 100;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black flex flex-col animate-fade-in">
+    <div className="fixed inset-0 z-[9999] bg-black flex flex-col animate-fade-in">
       {/* Header with gradient overlay */}
       <div className="relative p-6 pb-8">
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent pointer-events-none" />
