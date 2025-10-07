@@ -100,7 +100,7 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[90vh] rounded-t-3xl">
+      <SheetContent side="bottom" className="h-[90vh] rounded-t-3xl overflow-hidden">
         <SheetHeader className="relative pb-4">
           <button 
             onClick={onClose}
@@ -112,7 +112,7 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
           <SheetTitle className="text-center text-2xl">Diario Pelle</SheetTitle>
         </SheetHeader>
 
-        <div className="overflow-y-auto h-full pb-32">
+        <div className="overflow-y-auto overflow-x-hidden h-full pb-32 px-1">
           {/* Stats Summary */}
           <div className="grid grid-cols-3 gap-3 mb-6">
             <div className="dermaself-card text-center p-4">
@@ -156,14 +156,14 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
           </div>
 
           {/* Calendar */}
-          <div className="dermaself-card mb-6">
+          <div className="dermaself-card mb-6 overflow-hidden">
             <Calendar
               mode="single"
               selected={selectedDate}
               onSelect={setSelectedDate}
               modifiers={modifiers}
               modifiersClassNames={modifiersClassNames}
-              className="w-full"
+              className="w-full max-w-full"
               locale={it}
             />
           </div>
@@ -186,7 +186,7 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
 
           {/* Selected Day Details */}
           {selectedDate && (
-            <div className="space-y-4">
+            <div className="space-y-4 max-w-full overflow-hidden">
               <h3 className="text-lg font-semibold">
                 {format(selectedDate, 'EEEE d MMMM yyyy', { locale: it })}
               </h3>
@@ -229,7 +229,7 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
                   <img 
                     src={selectedEntry.photo} 
                     alt="Skin photo" 
-                    className="w-full rounded-xl object-cover aspect-square"
+                    className="w-full max-w-full rounded-xl object-cover aspect-square"
                   />
                 </div>
               )}
