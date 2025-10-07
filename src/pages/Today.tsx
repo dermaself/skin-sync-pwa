@@ -159,7 +159,7 @@ const Today = () => {
 
       {/* AI Assistant - Simplified */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Chiedi all'AI di Dermaself</h2>
+        <h2 className="text-xl font-semibold mb-4">Chatta con l'AI di Dermaself</h2>
         <AskBar onSubmit={handleChatOpen} />
       </div>
 
