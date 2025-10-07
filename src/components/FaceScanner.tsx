@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { X, HelpCircle, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useDiaryStore } from '@/store/diaryStore';
+import { format } from 'date-fns';
 
 type ScanPhase = 'positioning' | 'detection' | 'scanning' | 'processing' | 'results';
 
@@ -19,6 +21,8 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [scanSaved, setScanSaved] = useState(false);
+  const { addScan } = useDiaryStore();
 
   // Mock skin analysis data
   const skinAnalysis: SkinAnalysis[] = [
@@ -122,6 +126,19 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
       return () => clearInterval(interval);
     }
   }, [phase]);
+
+  // Save scan to diary when results are shown
+  useEffect(() => {
+    if (phase === 'results' && capturedImage && !scanSaved) {
+      const today = format(new Date(), 'yyyy-MM-dd');
+      addScan(today, {
+        type: 'face',
+        image: capturedImage,
+        timestamp: Date.now()
+      });
+      setScanSaved(true);
+    }
+  }, [phase, capturedImage, scanSaved, addScan]);
 
   const filteredAnalysis = selectedFilter === 'All' 
     ? skinAnalysis 

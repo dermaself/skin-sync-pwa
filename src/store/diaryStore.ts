@@ -3,12 +3,20 @@ import { persist } from 'zustand/middleware';
 
 type MoodType = 'bad' | 'not_great' | 'okay' | 'good' | 'awesome';
 
+interface ScanEntry {
+  type: 'face' | 'cosmetic';
+  image: string; // base64 or URL
+  timestamp: number;
+  productName?: string; // For cosmetic scans
+}
+
 interface DiaryEntry {
   mood?: MoodType;
   photo?: string; // base64 or URL
   routinesCompleted?: number;
   totalRoutines?: number;
   notes?: string;
+  scans?: ScanEntry[];
 }
 
 interface DiaryStore {
@@ -19,6 +27,7 @@ interface DiaryStore {
   setEntry: (date: string, entry: DiaryEntry) => void;
   getEntry: (date: string) => DiaryEntry | undefined;
   getDatesWithEntries: () => string[];
+  addScan: (date: string, scan: ScanEntry) => void;
 }
 
 export const useDiaryStore = create<DiaryStore>()(
@@ -59,7 +68,16 @@ export const useDiaryStore = create<DiaryStore>()(
       getDatesWithEntries: () => {
         const state = get();
         return Object.keys(state.entries);
-      }
+      },
+      addScan: (date, scan) => set((state) => ({
+        entries: {
+          ...state.entries,
+          [date]: {
+            ...state.entries[date],
+            scans: [...(state.entries[date]?.scans || []), scan]
+          }
+        }
+      }))
     }),
     {
       name: 'diary-store'

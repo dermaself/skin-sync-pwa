@@ -86,6 +86,11 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
     withEntry: (date: Date) => {
       const dateStr = format(date, 'yyyy-MM-dd');
       return datesWithEntries.includes(dateStr);
+    },
+    withScan: (date: Date) => {
+      const dateStr = format(date, 'yyyy-MM-dd');
+      const entry = getEntry(dateStr);
+      return entry?.scans && entry.scans.length > 0;
     }
   };
 
@@ -93,6 +98,26 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
     completed: 'bg-primary text-primary-foreground hover:bg-primary/90 font-semibold',
     partial: 'bg-primary/30 text-foreground hover:bg-primary/40 ring-2 ring-primary/50',
     withEntry: 'ring-2 ring-primary/20',
+  };
+
+  // Dynamic styles for days with scans (background image)
+  const modifiersStyles = {
+    withScan: (date: Date) => {
+      const dateStr = format(date, 'yyyy-MM-dd');
+      const entry = getEntry(dateStr);
+      const latestScan = entry?.scans?.[entry.scans.length - 1];
+      
+      if (latestScan) {
+        return {
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${latestScan.image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          color: 'white',
+          fontWeight: 'bold'
+        };
+      }
+      return {};
+    }
   };
 
   const selectedEntry = selectedDate ? getEntry(format(selectedDate, 'yyyy-MM-dd')) : undefined;
@@ -163,6 +188,7 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
               onSelect={setSelectedDate}
               modifiers={modifiers}
               modifiersClassNames={modifiersClassNames}
+              modifiersStyles={modifiersStyles}
               className="w-full max-w-full"
               locale={it}
             />
@@ -218,6 +244,28 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
                     <span className="text-sm font-medium">
                       {selectedCompletion.routinesCompleted}/{selectedCompletion.totalRoutines}
                     </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Scans */}
+              {selectedEntry?.scans && selectedEntry.scans.length > 0 && (
+                <div className="dermaself-card">
+                  <h4 className="text-sm font-medium mb-3">Scansioni</h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    {selectedEntry.scans.map((scan, index) => (
+                      <div key={index} className="space-y-2">
+                        <img 
+                          src={scan.image} 
+                          alt={scan.type === 'face' ? 'Scansione viso' : 'Scansione cosmetico'} 
+                          className="w-full aspect-square rounded-xl object-cover"
+                        />
+                        <div className="text-xs text-muted-foreground">
+                          {scan.type === 'face' ? '👤 Viso' : '🧴 Cosmetico'}
+                          {scan.productName && ` - ${scan.productName}`}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
