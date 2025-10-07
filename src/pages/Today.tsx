@@ -131,7 +131,7 @@ const Today = () => {
       {/* Quick Product Preview */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Scelte di Oggi</h2>
+          <h2 className="text-xl font-semibold">I tuoi Prodotti</h2>
           <button 
             className="text-primary font-medium hover:underline min-h-[44px] px-2"
             onClick={() => navigate('/routine-for-you')}
@@ -145,8 +145,8 @@ const Today = () => {
           isOpen={isSheetOpen}
           onOpenChange={setIsSheetOpen}
         >
-          <div className="grid grid-cols-2 gap-4">
-            {morningProducts.slice(0, 2).map((product) => (
+          <div className="grid grid-cols-3 gap-3">
+            {morningProducts.slice(0, 3).map((product) => (
               <ProductCard 
                 key={product.id}
                 product={product} 
