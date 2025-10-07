@@ -53,43 +53,45 @@ const Products = () => {
         </div>
 
         {/* Modern category tiles */}
-        <div className="grid grid-cols-4 gap-2 mb-8">
-          <div 
-            className="dermaself-card text-center cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[80px] flex flex-col justify-center px-2"
-            onClick={() => navigate('/routine-for-you')}
-          >
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
-                <Package size={18} className="text-primary" />
+        <div className="mobile-scroll-container pb-4 -mx-4 px-4 mb-8">
+          <div className="flex gap-3">
+            <div 
+              className="dermaself-card text-center cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[100px] flex flex-col justify-center flex-shrink-0 w-[140px]"
+              onClick={() => navigate('/routine-for-you')}
+            >
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                  <Package size={20} className="text-primary" />
+                </div>
+                <span className="font-medium text-xs leading-tight">Routine per te</span>
               </div>
-              <span className="font-medium text-[10px] leading-tight">Routine per te</span>
             </div>
-          </div>
-          
-          <div className="dermaself-card text-center min-h-[80px] flex flex-col justify-center px-2">
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-10 h-10 bg-emerald-fit/10 rounded-xl flex items-center justify-center">
-                <Package size={18} className="text-emerald-fit" />
+            
+            <div className="dermaself-card text-center min-h-[100px] flex flex-col justify-center flex-shrink-0 w-[140px]">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 bg-emerald-fit/10 rounded-xl flex items-center justify-center">
+                  <Package size={20} className="text-emerald-fit" />
+                </div>
+                <span className="font-medium text-xs leading-tight">La Mia Mensola</span>
               </div>
-              <span className="font-medium text-[10px] leading-tight">La Mia Mensola</span>
             </div>
-          </div>
-          
-          <div className="dermaself-card text-center min-h-[80px] flex flex-col justify-center px-2">
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-10 h-10 bg-pink-500/10 rounded-xl flex items-center justify-center">
-                <Heart size={18} className="text-pink-500" />
+            
+            <div className="dermaself-card text-center min-h-[100px] flex flex-col justify-center flex-shrink-0 w-[140px]">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 bg-pink-500/10 rounded-xl flex items-center justify-center">
+                  <Heart size={20} className="text-pink-500" />
+                </div>
+                <span className="font-medium text-xs leading-tight">Lista Desideri</span>
               </div>
-              <span className="font-medium text-[10px] leading-tight">Lista Desideri</span>
             </div>
-          </div>
 
-          <div className="dermaself-card text-center cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[80px] flex flex-col justify-center px-2">
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center">
-                <RefreshCw size={18} className="text-secondary" />
+            <div className="dermaself-card text-center cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[100px] flex flex-col justify-center flex-shrink-0 w-[140px]">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center">
+                  <RefreshCw size={20} className="text-secondary" />
+                </div>
+                <span className="font-medium text-xs leading-tight">Night Cream</span>
               </div>
-              <span className="font-medium text-[10px] leading-tight">Night Cream</span>
             </div>
           </div>
         </div>
