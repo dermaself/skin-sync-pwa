@@ -52,13 +52,6 @@ export const DiaryCard = () => {
         </div>
       </div>
 
-      {/* K-Beauty routine CTA */}
-      <div className="dermaself-card flex items-center gap-4">
-        <div className="flex-1">
-          <h3 className="font-semibold">Prova una Routine K-Beauty Su Misura</h3>
-        </div>
-        <div className="text-2xl">😊</div>
-      </div>
     </div>
   );
 };
