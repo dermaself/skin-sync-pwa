@@ -16,13 +16,13 @@ const NewScan = () => {
     },
     {
       id: 'cosmetics',
-      title: 'Cosmetics & Food',
-      description: 'See if a skincare product, food, beverage, or supplement fits you',
+      title: 'Cosmetics',
+      description: 'See if a skincare product or supplement fits you',
       image: '🥗',
       scansLeft: 2,
       action: () => {
         // TODO: Implement cosmetics scanner
-        alert('Cosmetics & Food scanner coming soon!');
+        alert('Cosmetics scanner coming soon!');
       }
     }
   ];
