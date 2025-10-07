@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Gift } from 'lucide-react';
 import { useDayStore } from '@/store/dayStore';
 import { DayPills } from '@/components/DayPills';
+import { format, addDays, startOfWeek } from 'date-fns';
+import { it } from 'date-fns/locale';
 import { ChecklistItem } from '@/components/ChecklistItem';
 import { DiaryCard } from '@/components/DiaryCard';
 import { SectionHeader } from '@/components/SectionHeader';
@@ -18,6 +20,7 @@ import type { Product } from '@/lib/seed';
 
 const Today = () => {
   const navigate = useNavigate();
+  const { selectedDay } = useDayStore();
   const [selectedRoutine, setSelectedRoutine] = useState('Morning');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -29,6 +32,12 @@ const Today = () => {
     { value: 'Evening', label: 'Sera', icon: 'moon' as const },
     { value: 'Weekly', label: 'Settimanale', icon: 'sparkles' as const },
   ];
+
+  // Calculate the selected date based on the day number (1-7 maps to Mon-Sun)
+  const today = new Date();
+  const weekStart = startOfWeek(today, { weekStartsOn: 1 });
+  const selectedDate = addDays(weekStart, selectedDay - 1);
+  const formattedDate = format(selectedDate, 'EEEE d MMMM', { locale: it });
 
   const morningProducts = seedProducts['Routine – Morning'] || [];
 
@@ -77,8 +86,8 @@ const Today = () => {
       {/* Daily Progress */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Progressi di Oggi</h2>
-          <span className="text-sm text-muted-foreground">Giorno {useDayStore.getState().selectedDay}</span>
+          <h2 className="text-xl font-semibold">Progressi</h2>
+          <span className="text-sm text-muted-foreground capitalize">{formattedDate}</span>
         </div>
         
         <div className="space-y-3">
