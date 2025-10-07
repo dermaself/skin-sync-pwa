@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Gift } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { useDayStore } from '@/store/dayStore';
 import { DayPills } from '@/components/DayPills';
 import { format, addDays, startOfWeek } from 'date-fns';
@@ -15,6 +15,7 @@ import { SuggestionChips } from '@/components/SuggestionChips';
 import { AskBar } from '@/components/AskBar';
 import { AffirmationCard } from '@/components/AffirmationCard';
 import { ChatbotUI } from '@/components/ChatbotUI';
+import { DiaryHistorySheet } from '@/components/DiaryHistorySheet';
 import { seedProducts } from '@/lib/seed';
 import type { Product } from '@/lib/seed';
 import { dailyRoutines } from '@/lib/routines';
@@ -27,6 +28,7 @@ const Today = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [initialMessage, setInitialMessage] = useState<string>('');
+  const [isDiaryHistoryOpen, setIsDiaryHistoryOpen] = useState(false);
   
   const routineOptions = [
     { value: 'Morning', label: 'Mattina', icon: 'sun' as const },
@@ -74,9 +76,10 @@ const Today = () => {
               </div>
               <button 
                 className="min-w-[48px] min-h-[48px] bg-card/90 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-card transition-all active:scale-95 shadow-lg border border-border/50 hover:shadow-xl hover:border-primary/20"
-                aria-label="Daily rewards and achievements"
+                aria-label="Diario pelle e storico"
+                onClick={() => setIsDiaryHistoryOpen(true)}
               >
-                <Gift size={20} className="text-primary" />
+                <Calendar size={20} className="text-primary" />
               </button>
             </div>
 
@@ -170,6 +173,12 @@ const Today = () => {
           onOpenChange={setChatOpen}
           initialMessage={initialMessage}
           trigger={<></>}
+        />
+
+        {/* Diary History Sheet */}
+        <DiaryHistorySheet 
+          isOpen={isDiaryHistoryOpen}
+          onClose={() => setIsDiaryHistoryOpen(false)}
         />
       </div>
     </div>
