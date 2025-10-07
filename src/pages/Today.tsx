@@ -16,9 +16,53 @@ import { AskBar } from '@/components/AskBar';
 import { AffirmationCard } from '@/components/AffirmationCard';
 import { ChatbotUI } from '@/components/ChatbotUI';
 import { DiaryHistorySheet } from '@/components/DiaryHistorySheet';
+import VideoPlayer, { type VideoStep } from '@/components/VideoPlayer';
 import { seedProducts } from '@/lib/seed';
 import type { Product } from '@/lib/seed';
 import { dailyRoutines } from '@/lib/routines';
+
+// Video tutorials mapping for each routine type
+const routineVideos: Record<string, VideoStep[]> = {
+  'Routine Mattutina': [
+    { id: '1', title: 'Step 1: Detersione', description: 'Come detergere il viso al mattino' },
+    { id: '2', title: 'Step 2: Tonico', description: 'Applicazione del tonico' },
+    { id: '3', title: 'Step 3: Siero', description: 'Come applicare il siero' },
+    { id: '4', title: 'Step 4: Idratante', description: 'Applicazione della crema idratante' },
+    { id: '5', title: 'Step 5: Protezione solare', description: 'Come applicare la protezione solare' },
+  ],
+  'Routine Serale': [
+    { id: '1', title: 'Step 1: Struccaggio', description: 'Come rimuovere il trucco' },
+    { id: '2', title: 'Step 2: Detersione', description: 'Doppia detersione serale' },
+    { id: '3', title: 'Step 3: Esfoliazione', description: 'Esfoliazione delicata (se necessaria)' },
+    { id: '4', title: 'Step 4: Siero', description: 'Applicazione siero notturno' },
+    { id: '5', title: 'Step 5: Crema notte', description: 'Come applicare la crema notte' },
+  ],
+  'Maschera Idratante': [
+    { id: '1', title: 'Preparazione', description: 'Preparare la pelle per la maschera' },
+    { id: '2', title: 'Applicazione', description: 'Come applicare la maschera idratante' },
+    { id: '3', title: 'Tempo di posa', description: 'Quanto tempo lasciare in posa' },
+    { id: '4', title: 'Rimozione', description: 'Come rimuovere la maschera' },
+  ],
+  'Esfoliazione Delicata': [
+    { id: '1', title: 'Preparazione', description: 'Preparare la pelle per l\'esfoliazione' },
+    { id: '2', title: 'Applicazione', description: 'Come esfoliare delicatamente' },
+    { id: '3', title: 'Massaggio', description: 'Tecnica di massaggio per l\'esfoliazione' },
+    { id: '4', title: 'Risciacquo', description: 'Come risciacquare correttamente' },
+  ],
+  'Trattamento Viso Settimanale': [
+    { id: '1', title: 'Preparazione', description: 'Preparare la pelle per il trattamento' },
+    { id: '2', title: 'Esfoliazione', description: 'Esfoliazione profonda settimanale' },
+    { id: '3', title: 'Maschera', description: 'Applicazione maschera purificante' },
+    { id: '4', title: 'Siero intensivo', description: 'Applicazione siero trattamento' },
+    { id: '5', title: 'Finalizzazione', description: 'Come concludere il trattamento' },
+  ],
+  'Relax & Self-Care': [
+    { id: '1', title: 'Massaggio viso', description: 'Tecniche di auto-massaggio facciale' },
+    { id: '2', title: 'Maschera rilassante', description: 'Applicazione maschera per relax' },
+    { id: '3', title: 'Contorno occhi', description: 'Cura speciale del contorno occhi' },
+    { id: '4', title: 'Meditazione', description: 'Momento di mindfulness' },
+  ],
+};
 
 const Today = () => {
   const navigate = useNavigate();
@@ -29,6 +73,8 @@ const Today = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [initialMessage, setInitialMessage] = useState<string>('');
   const [isDiaryHistoryOpen, setIsDiaryHistoryOpen] = useState(false);
+  const [isVideoPlayerOpen, setIsVideoPlayerOpen] = useState(false);
+  const [currentVideoPlaylist, setCurrentVideoPlaylist] = useState<VideoStep[]>([]);
   
   const routineOptions = [
     { value: 'Morning', label: 'Mattina', icon: 'sun' as const },
@@ -55,6 +101,14 @@ const Today = () => {
       setInitialMessage(message);
     }
     setChatOpen(true);
+  };
+
+  const handleVideoOpen = (task: string) => {
+    const playlist = routineVideos[task] || [];
+    if (playlist.length > 0) {
+      setCurrentVideoPlaylist(playlist);
+      setIsVideoPlayerOpen(true);
+    }
   };
 
   return (
@@ -100,7 +154,8 @@ const Today = () => {
             <ChecklistItem 
               key={`${selectedDay}-${routine.task}-${index}`}
               task={routine.task} 
-              icon={routine.icon} 
+              icon={routine.icon}
+              onVideoClick={() => handleVideoOpen(routine.task)}
             />
           ))}
         </div>
@@ -179,6 +234,13 @@ const Today = () => {
         <DiaryHistorySheet 
           isOpen={isDiaryHistoryOpen}
           onClose={() => setIsDiaryHistoryOpen(false)}
+        />
+
+        {/* Video Player */}
+        <VideoPlayer
+          isOpen={isVideoPlayerOpen}
+          onClose={() => setIsVideoPlayerOpen(false)}
+          playlist={currentVideoPlaylist}
         />
       </div>
     </div>
