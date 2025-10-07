@@ -1,6 +1,10 @@
 import { User, Bell, Globe, Shield, Info, Crown } from 'lucide-react';
+import { useState } from 'react';
+import { SubscriptionSheet } from '@/components/SubscriptionSheet';
 
 const Me = () => {
+  const [isSubscriptionSheetOpen, setIsSubscriptionSheetOpen] = useState(false);
+  
   return (
     <div className="mobile-main mobile-container animate-fade-in pt-12">
       <h1 className="text-3xl font-obviously font-bold mb-8 text-foreground">Lorenzo</h1>
@@ -20,10 +24,7 @@ const Me = () => {
       <div className="mb-6">
         <button 
           className="dermaself-card w-full flex items-center justify-between border-2 border-primary/30 p-4 hover:border-primary/50 transition-all active:scale-[0.98]"
-          onClick={() => {
-            // TODO: Navigate to subscription management
-            console.log('Manage subscription clicked');
-          }}
+          onClick={() => setIsSubscriptionSheetOpen(true)}
         >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
@@ -76,6 +77,11 @@ const Me = () => {
       <div className="mt-8 text-center">
         <p className="text-muted-foreground text-sm">Versione 1.0.0</p>
       </div>
+
+      <SubscriptionSheet 
+        isOpen={isSubscriptionSheetOpen}
+        onClose={() => setIsSubscriptionSheetOpen(false)}
+      />
     </div>
   );
 };
