@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
-import { Search, QrCode, Heart, Package } from 'lucide-react';
+import { Search, QrCode, Heart, Package, RefreshCw } from 'lucide-react';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductDetailSheet } from '@/components/ProductDetailSheet';
 import { getAllSections } from '@/lib/services/catalog';
@@ -53,34 +53,43 @@ const Products = () => {
         </div>
 
         {/* Modern category tiles */}
-        <div className="grid grid-cols-3 gap-3 mb-8">
+        <div className="grid grid-cols-4 gap-2 mb-8">
           <div 
-            className="dermaself-card text-center cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[80px] flex flex-col justify-center"
+            className="dermaself-card text-center cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[80px] flex flex-col justify-center px-2"
             onClick={() => navigate('/routine-for-you')}
           >
             <div className="flex flex-col items-center gap-2">
               <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
                 <Package size={18} className="text-primary" />
               </div>
-              <span className="font-medium text-xs">Routine per te</span>
+              <span className="font-medium text-[10px] leading-tight">Routine per te</span>
             </div>
           </div>
           
-          <div className="dermaself-card text-center min-h-[80px] flex flex-col justify-center">
+          <div className="dermaself-card text-center min-h-[80px] flex flex-col justify-center px-2">
             <div className="flex flex-col items-center gap-2">
               <div className="w-10 h-10 bg-emerald-fit/10 rounded-xl flex items-center justify-center">
                 <Package size={18} className="text-emerald-fit" />
               </div>
-              <span className="font-medium text-xs">La Mia Mensola</span>
+              <span className="font-medium text-[10px] leading-tight">La Mia Mensola</span>
             </div>
           </div>
           
-          <div className="dermaself-card text-center min-h-[80px] flex flex-col justify-center">
+          <div className="dermaself-card text-center min-h-[80px] flex flex-col justify-center px-2">
             <div className="flex flex-col items-center gap-2">
               <div className="w-10 h-10 bg-pink-500/10 rounded-xl flex items-center justify-center">
                 <Heart size={18} className="text-pink-500" />
               </div>
-              <span className="font-medium text-xs">Lista Desideri</span>
+              <span className="font-medium text-[10px] leading-tight">Lista Desideri</span>
+            </div>
+          </div>
+
+          <div className="dermaself-card text-center cursor-pointer hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[80px] flex flex-col justify-center px-2">
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center">
+                <RefreshCw size={18} className="text-secondary" />
+              </div>
+              <span className="font-medium text-[10px] leading-tight">Night Cream</span>
             </div>
           </div>
         </div>
