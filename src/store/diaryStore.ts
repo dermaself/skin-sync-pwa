@@ -1,5 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import faceScan1 from '@/assets/face-scan-1.jpg';
+import faceScan2 from '@/assets/face-scan-2.jpg';
+import faceScan3 from '@/assets/face-scan-3.jpg';
+import faceScan4 from '@/assets/face-scan-4.jpg';
 
 type MoodType = 'bad' | 'not_great' | 'okay' | 'good' | 'awesome';
 
@@ -44,7 +48,7 @@ export const useDiaryStore = create<DiaryStore>()(
           scans: [
             {
               type: 'face',
-              image: '/images/today_1.png',
+              image: faceScan1,
               timestamp: new Date('2025-01-05T09:30:00').getTime()
             }
           ]
@@ -70,7 +74,7 @@ export const useDiaryStore = create<DiaryStore>()(
           scans: [
             {
               type: 'face',
-              image: '/images/today_2.png',
+              image: faceScan2,
               timestamp: new Date('2025-01-03T08:00:00').getTime()
             },
             {
@@ -89,7 +93,7 @@ export const useDiaryStore = create<DiaryStore>()(
           scans: [
             {
               type: 'face',
-              image: '/images/today_3.png',
+              image: faceScan3,
               timestamp: new Date('2025-01-02T09:45:00').getTime()
             }
           ]
@@ -101,7 +105,7 @@ export const useDiaryStore = create<DiaryStore>()(
           scans: [
             {
               type: 'face',
-              image: '/images/today_4.png',
+              image: faceScan4,
               timestamp: new Date('2025-01-01T10:00:00').getTime()
             },
             {
