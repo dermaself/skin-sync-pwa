@@ -39,7 +39,90 @@ export const useDiaryStore = create<DiaryStore>()(
     (set, get) => ({
       moods: {},
       entries: {
-        // Example entries with scans
+        // October 2025 examples
+        '2025-10-20': {
+          mood: 'awesome',
+          routinesCompleted: 4,
+          totalRoutines: 4,
+          notes: 'Ottima giornata per la pelle!',
+          scans: [
+            {
+              type: 'face',
+              image: faceScan1,
+              timestamp: new Date('2025-10-20T08:30:00').getTime()
+            },
+            {
+              type: 'cosmetic',
+              image: '/images/products/lrp-toleriane.png',
+              timestamp: new Date('2025-10-20T21:00:00').getTime(),
+              productName: 'La Roche-Posay Toleriane'
+            }
+          ]
+        },
+        '2025-10-15': {
+          mood: 'good',
+          routinesCompleted: 3,
+          totalRoutines: 4,
+          scans: [
+            {
+              type: 'face',
+              image: faceScan2,
+              timestamp: new Date('2025-10-15T09:00:00').getTime()
+            }
+          ]
+        },
+        '2025-10-10': {
+          mood: 'okay',
+          routinesCompleted: 2,
+          totalRoutines: 4,
+          notes: 'Pelle un po\' secca oggi',
+          scans: [
+            {
+              type: 'cosmetic',
+              image: '/images/products/pai-rosehip.png',
+              timestamp: new Date('2025-10-10T20:00:00').getTime(),
+              productName: 'Pai Rosehip Oil'
+            },
+            {
+              type: 'cosmetic',
+              image: '/images/products/naturium-mandelic.png',
+              timestamp: new Date('2025-10-10T20:15:00').getTime(),
+              productName: 'Naturium Mandelic Acid'
+            }
+          ]
+        },
+        '2025-10-05': {
+          mood: 'good',
+          routinesCompleted: 3,
+          totalRoutines: 4,
+          scans: [
+            {
+              type: 'face',
+              image: faceScan3,
+              timestamp: new Date('2025-10-05T08:45:00').getTime()
+            },
+            {
+              type: 'cosmetic',
+              image: '/images/products/ren-aha-tonic.png',
+              timestamp: new Date('2025-10-05T21:30:00').getTime(),
+              productName: 'REN AHA Tonic'
+            }
+          ]
+        },
+        '2025-10-01': {
+          mood: 'awesome',
+          routinesCompleted: 4,
+          totalRoutines: 4,
+          notes: 'Inizio mese fantastico!',
+          scans: [
+            {
+              type: 'face',
+              image: faceScan4,
+              timestamp: new Date('2025-10-01T09:15:00').getTime()
+            }
+          ]
+        },
+        // January 2025 examples
         '2025-01-05': {
           mood: 'good',
           routinesCompleted: 3,
