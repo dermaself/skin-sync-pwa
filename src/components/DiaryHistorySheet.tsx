@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { X } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Calendar } from '@/components/ui/calendar';
 import { useDiaryStore } from '@/store/diaryStore';
@@ -127,13 +126,6 @@ export const DiaryHistorySheet = ({ isOpen, onClose }: DiaryHistorySheetProps) =
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent side="bottom" className="h-[90vh] rounded-t-3xl overflow-hidden">
         <SheetHeader className="relative pb-4">
-          <button 
-            onClick={onClose}
-            className="absolute left-0 top-0 p-2 hover:bg-muted rounded-lg transition-colors"
-            aria-label="Close"
-          >
-            <X size={24} />
-          </button>
           <SheetTitle className="text-center text-2xl">Diario Pelle</SheetTitle>
         </SheetHeader>
 
