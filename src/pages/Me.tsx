@@ -1,9 +1,11 @@
-import { User, Bell, Globe, Shield, Info, Crown } from 'lucide-react';
+import { User, Bell, Globe, Shield, Info, Crown, BookHeart } from 'lucide-react';
 import { useState } from 'react';
 import { SubscriptionSheet } from '@/components/SubscriptionSheet';
+import { DiaryHistorySheet } from '@/components/DiaryHistorySheet';
 
 const Me = () => {
   const [isSubscriptionSheetOpen, setIsSubscriptionSheetOpen] = useState(false);
+  const [isDiaryHistoryOpen, setIsDiaryHistoryOpen] = useState(false);
   
   return (
     <div className="mobile-main mobile-container animate-fade-in pt-12">
@@ -41,6 +43,17 @@ const Me = () => {
 
       {/* Settings */}
       <div className="space-y-3">
+        <button 
+          className="dermaself-card w-full flex items-center justify-between border border-border/50 p-4 hover:border-primary/20 transition-all active:scale-[0.98]"
+          onClick={() => setIsDiaryHistoryOpen(true)}
+        >
+          <div className="flex items-center gap-3">
+            <BookHeart size={20} className="text-muted-foreground" />
+            <span className="font-medium">Diario della Pelle</span>
+          </div>
+          <span className="text-primary text-sm font-medium">→</span>
+        </button>
+
         <div className="dermaself-card flex items-center justify-between border border-border/50 p-4">
           <div className="flex items-center gap-3">
             <Bell size={20} className="text-muted-foreground" />
@@ -81,6 +94,11 @@ const Me = () => {
       <SubscriptionSheet 
         isOpen={isSubscriptionSheetOpen}
         onClose={() => setIsSubscriptionSheetOpen(false)}
+      />
+
+      <DiaryHistorySheet 
+        isOpen={isDiaryHistoryOpen}
+        onClose={() => setIsDiaryHistoryOpen(false)}
       />
     </div>
   );
