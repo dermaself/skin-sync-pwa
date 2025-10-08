@@ -178,7 +178,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
 
   if (phase === 'results') {
     return (
-      <div className="fixed inset-0 bg-black z-50 flex flex-col">
+      <div className="fixed inset-0 bg-black z-[9999] flex flex-col">
         {/* Header */}
         <div className="flex justify-between items-center p-4 text-white">
           <span className="text-sm opacity-60">CeraVe</span>
@@ -261,7 +261,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
     const processingSteps = ['Analysing scan results...', 'Building a scan report...'];
     
     return (
-      <div className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center">
+      <div className="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center">
         {/* Multiple face angles in circle */}
         <div className="relative w-full max-w-80 h-80 mb-8 mx-auto">
           {/* Center face - larger */}
@@ -317,7 +317,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black z-50">
+    <div className="fixed inset-0 bg-black z-[9999]">
       {/* Video Background - Always visible */}
       <video
         ref={videoRef}
