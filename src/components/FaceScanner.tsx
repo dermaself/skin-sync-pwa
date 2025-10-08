@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useDiaryStore } from '@/store/diaryStore';
 import { format } from 'date-fns';
 
-type ScanPhase = 'positioning' | 'detection' | 'scanning' | 'processing' | 'results';
+type ScanPhase = 'positioning' | 'countdown' | 'capturing' | 'processing' | 'results';
 
 interface SkinAnalysis {
   type: 'freckles' | 'wrinkles' | 'pores';
@@ -14,13 +14,17 @@ interface SkinAnalysis {
 
 const FaceScanner = ({ onClose }: { onClose: () => void }) => {
   const [phase, setPhase] = useState<ScanPhase>('positioning');
-  const [scanProgress, setScanProgress] = useState(0);
+  const [faceDetected, setFaceDetected] = useState(false);
+  const [faceCentered, setFaceCentered] = useState(false);
+  const [countdown, setCountdown] = useState(3);
+  const [captureProgress, setCaptureProgress] = useState(0);
   const [processingStep, setProcessingStep] = useState(0);
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [lightingOk, setLightingOk] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [capturedFrames, setCapturedFrames] = useState<string[]>([]);
   const [scanSaved, setScanSaved] = useState(false);
   const { addScan } = useDiaryStore();
 
@@ -53,7 +57,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
       }
     };
 
-    if (phase === 'positioning' || phase === 'detection') {
+    if (phase === 'positioning') {
       startCamera();
     }
 
@@ -65,48 +69,74 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
     };
   }, [phase]);
 
-  const handleStart = () => {
-    if (phase === 'detection') {
-      setPhase('scanning');
-      
-      // Simulate scanning progress
-      const interval = setInterval(() => {
-        setScanProgress(prev => {
-          if (prev >= 100) {
-            clearInterval(interval);
-            // Capture image before moving to processing
-            captureImage();
-            setPhase('processing');
-            return 100;
-          }
-          return prev + 2;
-        });
-      }, 100);
-    }
-  };
-
-  const captureImage = () => {
-    if (videoRef.current && canvasRef.current) {
-      const canvas = canvasRef.current;
-      const video = videoRef.current;
-      const ctx = canvas.getContext('2d');
-      
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      
-      if (ctx) {
-        ctx.drawImage(video, 0, 0);
-        const imageData = canvas.toDataURL('image/jpeg', 0.8);
-        setCapturedImage(imageData);
-      }
-    }
-  };
-
+  // Simulate face detection
   useEffect(() => {
     if (phase === 'positioning' && lightingOk) {
-      setTimeout(() => setPhase('detection'), 1500);
+      // Simulate detecting a face after 1.5s
+      setTimeout(() => setFaceDetected(true), 1500);
+      
+      // Simulate face being centered after 3s
+      setTimeout(() => setFaceCentered(true), 3000);
     }
   }, [phase, lightingOk]);
+
+  // Auto-start countdown when face is centered
+  useEffect(() => {
+    if (faceCentered && phase === 'positioning') {
+      setPhase('countdown');
+    }
+  }, [faceCentered, phase]);
+
+  // Countdown timer
+  useEffect(() => {
+    if (phase === 'countdown') {
+      if (countdown > 0) {
+        const timer = setTimeout(() => setCountdown(prev => prev - 1), 1000);
+        return () => clearTimeout(timer);
+      } else {
+        setPhase('capturing');
+      }
+    }
+  }, [phase, countdown]);
+
+  // Multi-frame capture
+  useEffect(() => {
+    if (phase === 'capturing') {
+      const frames: string[] = [];
+      let frameCount = 0;
+      const maxFrames = 5;
+      
+      const captureInterval = setInterval(() => {
+        if (videoRef.current && canvasRef.current) {
+          const canvas = canvasRef.current;
+          const video = videoRef.current;
+          const ctx = canvas.getContext('2d');
+          
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          
+          if (ctx) {
+            ctx.drawImage(video, 0, 0);
+            const imageData = canvas.toDataURL('image/jpeg', 0.9);
+            frames.push(imageData);
+            frameCount++;
+            setCaptureProgress((frameCount / maxFrames) * 100);
+            
+            if (frameCount >= maxFrames) {
+              clearInterval(captureInterval);
+              setCapturedFrames(frames);
+              // Select "best" frame (middle one for simplicity)
+              setCapturedImage(frames[Math.floor(frames.length / 2)]);
+              setPhase('processing');
+            }
+          }
+        }
+      }, 200); // Capture every 200ms
+      
+      return () => clearInterval(captureInterval);
+    }
+  }, [phase]);
+
 
   useEffect(() => {
     if (phase === 'processing') {
@@ -322,115 +352,169 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
 
       {/* Face Detection Overlay */}
       {phase === 'positioning' && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-full max-w-72 h-96 border-2 border-white/50 rounded-3xl" />
-        </div>
+        <>
+          {/* Dark overlay with oval cutout */}
+          <div className="absolute inset-0">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <mask id="faceOvalMask">
+                  <rect width="100" height="100" fill="white" />
+                  {faceCentered ? (
+                    // Oval cutout when face is centered
+                    <ellipse 
+                      cx="50" 
+                      cy="50" 
+                      rx="35" 
+                      ry="45" 
+                      fill="black"
+                    />
+                  ) : (
+                    // Rectangular cutout when face not detected or not centered
+                    <rect 
+                      x="25" 
+                      y="15" 
+                      width="50" 
+                      height="70" 
+                      rx="8" 
+                      fill="black"
+                    />
+                  )}
+                </mask>
+              </defs>
+              <rect 
+                width="100" 
+                height="100" 
+                fill="black" 
+                opacity="0.6" 
+                mask="url(#faceOvalMask)"
+              />
+            </svg>
+          </div>
+
+          {/* Guide frame */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div 
+              className={`transition-all duration-700 ease-in-out ${
+                faceCentered 
+                  ? 'w-[280px] h-[360px] border-[3px] border-white rounded-[50%]' 
+                  : 'w-[280px] h-[400px] border-2 border-white/50 rounded-3xl'
+              }`}
+            />
+          </div>
+
+          {/* Instruction text */}
+          {!faceDetected && (
+            <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full">
+              <span className="text-white text-sm font-medium">
+                Position your face in the frame
+              </span>
+            </div>
+          )}
+          {faceDetected && !faceCentered && (
+            <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full">
+              <span className="text-white text-sm font-medium">
+                Center your face
+              </span>
+            </div>
+          )}
+        </>
       )}
 
-      {phase === 'detection' && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-full max-w-72 h-96">
-            {/* Face outline */}
-            <div className="w-full h-full border-2 border-white rounded-full" />
-            
-            {/* Grid overlay on forehead area */}
-            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-32 h-16">
-              <svg className="w-full h-full" viewBox="0 0 100 50">
-                {/* Grid lines */}
-                {[0, 10, 20, 30, 40, 50].map(y => (
-                  <line key={y} x1="0" y1={y} x2="100" y2={y} stroke="white" strokeWidth="0.5" />
-                ))}
-                {[0, 20, 40, 60, 80, 100].map(x => (
-                  <line key={x} x1={x} y1="0" x2={x} y2="50" stroke="white" strokeWidth="0.5" />
-                ))}
+      {/* Countdown Phase */}
+      {phase === 'countdown' && (
+        <>
+          {/* Dark overlay with oval cutout */}
+          <div className="absolute inset-0">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <mask id="countdownMask">
+                  <rect width="100" height="100" fill="white" />
+                  <ellipse cx="50" cy="50" rx="35" ry="45" fill="black" />
+                </mask>
+              </defs>
+              <rect 
+                width="100" 
+                height="100" 
+                fill="black" 
+                opacity="0.6" 
+                mask="url(#countdownMask)"
+              />
+            </svg>
+          </div>
+
+          {/* Oval frame */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-[280px] h-[360px] border-[3px] border-white rounded-[50%]" />
+          </div>
+
+          {/* Countdown number */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-white text-8xl font-bold animate-pulse">
+              {countdown}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Capturing Phase */}
+      {phase === 'capturing' && (
+        <>
+          {/* Dark overlay with oval cutout */}
+          <div className="absolute inset-0">
+            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <mask id="capturingMask">
+                  <rect width="100" height="100" fill="white" />
+                  <ellipse cx="50" cy="50" rx="35" ry="45" fill="black" />
+                </mask>
+              </defs>
+              <rect 
+                width="100" 
+                height="100" 
+                fill="black" 
+                opacity="0.6" 
+                mask="url(#capturingMask)"
+              />
+            </svg>
+          </div>
+
+          {/* Oval frame with progress */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative w-[280px] h-[360px]">
+              <svg className="absolute inset-0 w-full h-full transform -rotate-90">
+                <ellipse
+                  cx="140"
+                  cy="180"
+                  rx="140"
+                  ry="180"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="3"
+                  opacity="0.3"
+                />
+                <ellipse
+                  cx="140"
+                  cy="180"
+                  rx="140"
+                  ry="180"
+                  fill="none"
+                  stroke="#10B981"
+                  strokeWidth="4"
+                  strokeDasharray={`${2 * Math.PI * 160}`}
+                  strokeDashoffset={`${2 * Math.PI * 160 * (1 - captureProgress / 100)}`}
+                  className="transition-all duration-200"
+                />
               </svg>
             </div>
           </div>
-        </div>
-      )}
 
-      {phase === 'scanning' && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-full max-w-72 h-72 mx-auto">
-            {/* Circular progress */}
-            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-              {/* Background circle */}
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="none"
-                stroke="white"
-                strokeWidth="1"
-                opacity="0.3"
-              />
-              {/* Progress circle */}
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="none"
-                stroke="#10B981"
-                strokeWidth="2"
-                strokeDasharray={`${2 * Math.PI * 45}`}
-                strokeDashoffset={`${2 * Math.PI * 45 * (1 - scanProgress / 100)}`}
-                className="transition-all duration-100"
-              />
-              {/* Progress indicators */}
-              {Array.from({ length: 72 }, (_, i) => {
-                const angle = (i * 5) * (Math.PI / 180);
-                const x1 = 50 + 44 * Math.cos(angle);
-                const y1 = 50 + 44 * Math.sin(angle);
-                const x2 = 50 + 46 * Math.cos(angle);
-                const y2 = 50 + 46 * Math.sin(angle);
-                const isActive = i <= (scanProgress / 100) * 72;
-                
-                return (
-                  <line
-                    key={i}
-                    x1={x1}
-                    y1={y1}
-                    x2={x2}
-                    y2={y2}
-                    stroke={isActive ? "#10B981" : "white"}
-                    strokeWidth="1"
-                    opacity={isActive ? 1 : 0.3}
-                  />
-                );
-              })}
-            </svg>
-            
-            {/* Face in center */}
-            <div className="absolute inset-4 rounded-full overflow-hidden bg-white/10 backdrop-blur-sm">
-              <video
-                className="w-full h-full object-cover"
-                ref={videoRef}
-                playsInline
-                muted
-              />
-            </div>
-          </div>
-          
           {/* Instruction */}
           <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full">
             <span className="text-white text-sm font-medium">
-              Move your head slowly to complete the circle
+              Capturing your skin...
             </span>
           </div>
-        </div>
-      )}
-
-      {/* Start Button */}
-      {phase === 'detection' && (
-        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
-          <Button
-            onClick={handleStart}
-            size="lg"
-            className="w-20 h-20 rounded-full bg-white text-black hover:bg-white/90 text-lg font-medium"
-          >
-            Start
-          </Button>
-        </div>
+        </>
       )}
     </div>
   );
