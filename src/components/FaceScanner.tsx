@@ -201,7 +201,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
 
         {/* Main Image */}
         <div className="flex-1 flex items-center justify-center px-4">
-          <div className="relative w-full max-w-80 h-96 rounded-3xl overflow-hidden bg-gray-200">
+          <div className="relative w-full max-w-80 aspect-[4/5] rounded-3xl overflow-hidden bg-muted shadow-2xl">
             {capturedImage ? (
               <>
                 <img 
@@ -213,19 +213,20 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
                 {filteredAnalysis.map((analysis, index) => (
                   <div
                     key={index}
-                    className="absolute w-2 h-2 rounded-full animate-pulse"
+                    className="absolute w-3 h-3 rounded-full animate-pulse shadow-lg"
                     style={{
                       backgroundColor: analysis.color,
                       left: `${analysis.position.x}%`,
                       top: `${analysis.position.y}%`,
                       transform: 'translate(-50%, -50%)',
+                      boxShadow: `0 0 12px ${analysis.color}`,
                     }}
                   />
                 ))}
               </>
             ) : (
-              <div className="w-full h-full bg-gray-300 flex items-center justify-center">
-                <span className="text-gray-500">No image captured</span>
+              <div className="w-full h-full bg-muted flex items-center justify-center">
+                <span className="text-muted-foreground">No image captured</span>
               </div>
             )}
           </div>
@@ -263,8 +264,8 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
       <div className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center">
         {/* Multiple face angles in circle */}
         <div className="relative w-full max-w-80 h-80 mb-8 mx-auto">
-          {/* Center face */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-32 rounded-2xl overflow-hidden bg-gray-200">
+          {/* Center face - larger */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-40 rounded-2xl overflow-hidden bg-muted shadow-lg">
             {capturedImage && (
               <img src={capturedImage} alt="Center face" className="w-full h-full object-cover" />
             )}
@@ -280,17 +281,19 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
             return (
               <div
                 key={index}
-                className="absolute w-16 h-20 rounded-xl overflow-hidden bg-gray-200"
+                className="absolute w-20 h-24 rounded-xl overflow-hidden bg-muted shadow-md"
                 style={{
-                  left: `calc(50% + ${x}px - 32px)`,
-                  top: `calc(50% + ${y}px - 40px)`,
+                  left: `calc(50% + ${x}px - 40px)`,
+                  top: `calc(50% + ${y}px - 48px)`,
                 }}
               >
                 {capturedImage && (
                   <img src={capturedImage} alt={`Face ${index}`} className="w-full h-full object-cover" />
                 )}
-                <div className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
-                  <div className="w-2 h-2 text-white">✓</div>
+                <div className="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center shadow-sm">
+                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
                 </div>
               </div>
             );
@@ -298,11 +301,11 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
         </div>
 
         {/* Processing Text */}
-        <div className="text-white text-center">
-          <div className="text-lg font-medium mb-2">
+        <div className="text-white text-center px-4">
+          <div className="text-lg font-medium mb-4">
             {processingSteps[Math.min(processingStep, processingSteps.length - 1)]}
           </div>
-          <div className="w-full max-w-64 h-1 bg-white/20 rounded-full overflow-hidden">
+          <div className="w-full max-w-64 h-1.5 bg-white/20 rounded-full overflow-hidden mx-auto">
             <div 
               className="h-full bg-white rounded-full transition-all duration-500"
               style={{ width: `${(processingStep + 1) * 50}%` }}
@@ -315,17 +318,18 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <div className="fixed inset-0 bg-black z-50">
-      {/* Video Background */}
+      {/* Video Background - Always visible */}
       <video
         ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover z-0"
         playsInline
         muted
+        autoPlay
       />
       <canvas ref={canvasRef} className="hidden" />
       
       {/* Header Controls */}
-      <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
+      <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-20">
         <button 
           className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white"
           aria-label="Help and instructions"
@@ -353,8 +357,8 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
       {/* Face Detection Overlay */}
       {phase === 'positioning' && (
         <>
-          {/* Dark overlay with oval cutout */}
-          <div className="absolute inset-0">
+          {/* Dark overlay with oval cutout - z-10 to be above video */}
+          <div className="absolute inset-0 z-10 pointer-events-none">
             <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
               <defs>
                 <mask id="faceOvalMask">
@@ -392,11 +396,11 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
           </div>
 
           {/* Guide frame */}
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
             <div 
               className={`transition-all duration-700 ease-in-out ${
                 faceCentered 
-                  ? 'w-[280px] h-[360px] border-[3px] border-white rounded-[50%]' 
+                  ? 'w-[280px] h-[360px] border-[3px] border-white rounded-[50%] shadow-lg' 
                   : 'w-[280px] h-[400px] border-2 border-white/50 rounded-3xl'
               }`}
             />
@@ -404,14 +408,14 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
 
           {/* Instruction text */}
           {!faceDetected && (
-            <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full">
+            <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full z-10">
               <span className="text-white text-sm font-medium">
                 Position your face in the frame
               </span>
             </div>
           )}
           {faceDetected && !faceCentered && (
-            <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full">
+            <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full z-10">
               <span className="text-white text-sm font-medium">
                 Center your face
               </span>
@@ -423,8 +427,8 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
       {/* Countdown Phase */}
       {phase === 'countdown' && (
         <>
-          {/* Dark overlay with oval cutout */}
-          <div className="absolute inset-0">
+          {/* Dark overlay with oval cutout - z-10 to be above video */}
+          <div className="absolute inset-0 z-10 pointer-events-none">
             <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
               <defs>
                 <mask id="countdownMask">
@@ -443,13 +447,13 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
           </div>
 
           {/* Oval frame */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-[280px] h-[360px] border-[3px] border-white rounded-[50%]" />
+          <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+            <div className="w-[280px] h-[360px] border-[3px] border-white rounded-[50%] shadow-lg" />
           </div>
 
           {/* Countdown number */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-white text-8xl font-bold animate-pulse">
+          <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+            <div className="text-white text-8xl font-bold animate-pulse drop-shadow-lg">
               {countdown}
             </div>
           </div>
@@ -459,8 +463,8 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
       {/* Capturing Phase */}
       {phase === 'capturing' && (
         <>
-          {/* Dark overlay with oval cutout */}
-          <div className="absolute inset-0">
+          {/* Dark overlay with oval cutout - z-10 to be above video */}
+          <div className="absolute inset-0 z-10 pointer-events-none">
             <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
               <defs>
                 <mask id="capturingMask">
@@ -479,7 +483,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
           </div>
 
           {/* Oval frame with progress */}
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
             <div className="relative w-[280px] h-[360px]">
               <svg className="absolute inset-0 w-full h-full transform -rotate-90">
                 <ellipse
@@ -509,7 +513,7 @@ const FaceScanner = ({ onClose }: { onClose: () => void }) => {
           </div>
 
           {/* Instruction */}
-          <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full">
+          <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-black/50 backdrop-blur-sm rounded-full z-10">
             <span className="text-white text-sm font-medium">
               Capturing your skin...
             </span>
