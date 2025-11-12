@@ -43,7 +43,7 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
       category: 'Treatment',
       price: 16.70,
       currency: 'EUR',
-      retailer: 'amazon',
+      retailer: 'dolcegabbana',
       fitPct: 92,
       imageUrl: '/images/products/ordinary-rosehip.png'
     },
@@ -54,7 +54,7 @@ export const ProductDetailSheet = ({ product, isOpen, onOpenChange, children }: 
       category: 'Treatment',
       price: 23.99,
       currency: 'EUR',
-      retailer: 'amazon',
+      retailer: 'dolcegabbana',
       fitPct: 88,
       imageUrl: '/images/products/pai-rosehip.png'
     }

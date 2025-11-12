@@ -22,9 +22,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        'obviously': ['Obviously', 'sans-serif'], // Brand display font
-        'space-grotesk': ['Space Grotesk', 'sans-serif'], // Brand body font
-        'sans': ['Space Grotesk', 'system-ui', 'sans-serif'], // Default sans fallback
+        'display': ['Playfair Display', 'serif'], // D&G luxury serif for headings
+        'sans': ['Inter', 'Helvetica Neue', 'system-ui', 'sans-serif'], // Clean sans for body
+        'serif': ['Playfair Display', 'Georgia', 'serif'], // Serif fallback
       },
       colors: {
         border: "hsl(var(--border))",
@@ -37,6 +37,13 @@ export default {
           foreground: "hsl(var(--primary-foreground))",
           glow: "hsl(var(--primary-glow))",
         },
+        gold: {
+          main: "hsl(var(--gold-main))",
+          light: "hsl(var(--gold-light))",
+        },
+        champagne: "hsl(var(--champagne-glow))",
+        "pink-resin": "hsl(var(--pink-resin))",
+        "black-lava": "hsl(var(--black-lava))",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -61,11 +68,6 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Brand-specific colors from official Dermaself guidelines
-        "violet-fit": "hsl(var(--violet-fit))", // Confident Purple
-        "emerald-fit": "hsl(var(--emerald-fit))", // Look-at-me Green  
-        "lilac-fit": "hsl(var(--lilac-fit))", // Friendly Lilac
-        "gray-fit": "hsl(var(--gray-fit))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -79,8 +81,8 @@ export default {
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "var(--radius-sm)",
+        sm: "var(--radius-sm)",
       },
       keyframes: {
         "accordion-down": {

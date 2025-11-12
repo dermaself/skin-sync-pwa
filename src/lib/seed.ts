@@ -6,294 +6,241 @@ export type Product = {
   fitPct: number;
   price: number;
   currency: "EUR" | "GBP";
-  retailer: "amazon";
+  retailer: "dolcegabbana";
   imageUrl: string;
 };
 
 export const seedProducts: Record<string, Product[]> = {
-  "Acne-Safe PHA Serums": [
+  "Rituale Oro - Gold Peptides Collection": [
     { 
-      id: "ren-aha-tonic", 
-      brand: "REN Clean Skincare", 
-      name: "Ready Steady Glow Daily AHA Tonic", 
-      category: "Toning & Exfoliating", 
+      id: "dg-gold-face-cream", 
+      brand: "Dolce&Gabbana", 
+      name: "Gold Peptides Face Cream", 
+      category: "Treatment & Moisturizing", 
+      fitPct: 98, 
+      price: 245.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/cerave-pm.png" 
+    },
+    { 
+      id: "dg-gold-eye-serum", 
+      brand: "Dolce&Gabbana", 
+      name: "Gold Peptides Eye Serum", 
+      category: "Treatment", 
       fitPct: 97, 
-      price: 21.90, 
+      price: 195.00, 
       currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/ren-aha-tonic.png" 
-    },
-    { 
-      id: "nat-mandelic-12", 
-      brand: "Naturium", 
-      name: "Mandelic Topical Acid 12%", 
-      category: "Treatment", 
-      fitPct: 90, 
-      price: 42.49, 
-      currency: "EUR", 
-      retailer: "amazon", 
+      retailer: "dolcegabbana", 
       imageUrl: "/images/products/naturium-mandelic.png" 
     },
     { 
-      id: "paula-choice-bha", 
-      brand: "Paula's Choice", 
-      name: "Skin Perfecting 2% BHA Liquid Exfoliant", 
-      category: "Toning & Exfoliating", 
+      id: "dg-gold-face-serum", 
+      brand: "Dolce&Gabbana", 
+      name: "Gold Peptides Face Serum", 
+      category: "Treatment", 
+      fitPct: 99, 
+      price: 215.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/ren-aha-tonic.png" 
+    },
+    { 
+      id: "dg-gold-mask", 
+      brand: "Dolce&Gabbana", 
+      name: "Gold Peptides Mask", 
+      category: "Treatment", 
+      fitPct: 96, 
+      price: 165.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/pai-rosehip.png" 
+    }
+  ],
+  "Luminosità - Glow & Radiance": [
+    { 
+      id: "dg-glow-ceramide", 
+      brand: "Dolce&Gabbana", 
+      name: "Glow Bounce Ceramide Cream", 
+      category: "Moisturizing", 
+      fitPct: 95, 
+      price: 185.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/lrp-toleriane.png" 
+    },
+    { 
+      id: "dg-icy-lemon-balm", 
+      brand: "Dolce&Gabbana", 
+      name: "Icy Touch Lemon Balm", 
+      category: "Treatment & Moisturizing", 
       fitPct: 94, 
-      price: 28.50, 
+      price: 65.00, 
       currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/ren-aha-tonic.png" 
-    },
-    { 
-      id: "inkey-list-pha", 
-      brand: "The INKEY List", 
-      name: "PHA Exfoliating Toner", 
-      category: "Toning & Exfoliating", 
-      fitPct: 88, 
-      price: 15.99, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/naturium-mandelic.png" 
-    },
-    { 
-      id: "cosrx-aha-bha", 
-      brand: "COSRX", 
-      name: "AHA/BHA Clarifying Treatment Toner", 
-      category: "Toning & Exfoliating", 
-      fitPct: 86, 
-      price: 18.20, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/ren-aha-tonic.png" 
-    }
-  ],
-  "Acne-Safe Ceramides for Fall": [
-    { 
-      id: "cerave-pm", 
-      brand: "CeraVe", 
-      name: "CeraVe PM Facial Moisturizing Lotion", 
-      category: "Treatment & Moisturizing", 
-      fitPct: 91, 
-      price: 43.50, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/cerave-pm.png" 
-    },
-    { 
-      id: "lrp-toleriane", 
-      brand: "La Roche-Posay", 
-      name: "Toleriane Double Repair Face Moisturizer", 
-      category: "Moisturizing", 
-      fitPct: 91, 
-      price: 39.95, 
-      currency: "GBP", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/lrp-toleriane.png" 
-    },
-    { 
-      id: "cerave-daily", 
-      brand: "CeraVe", 
-      name: "Daily Moisturizing Lotion", 
-      category: "Moisturizing", 
-      fitPct: 89, 
-      price: 24.99, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/cerave-pm.png" 
-    },
-    { 
-      id: "vanicream-moisturizer", 
-      brand: "Vanicream", 
-      name: "Moisturizing Skin Cream", 
-      category: "Moisturizing", 
-      fitPct: 87, 
-      price: 19.50, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/lrp-toleriane.png" 
-    },
-    { 
-      id: "aveeno-oat-gel", 
-      brand: "Aveeno", 
-      name: "Calm + Restore Oat Gel Moisturizer", 
-      category: "Moisturizing", 
-      fitPct: 85, 
-      price: 16.75, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/cerave-pm.png" 
-    }
-  ],
-  "Acne-Safe Rosehip Oil Blends": [
-    { 
-      id: "pai-rosehip", 
-      brand: "Pai Skincare", 
-      name: "Rosehip BioRegenerate Oil", 
-      category: "Treatment & Moisturizing", 
-      fitPct: 81, 
-      price: 37.35, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/pai-rosehip.png" 
-    },
-    { 
-      id: "ordinary-rosehip", 
-      brand: "The Ordinary", 
-      name: "100% Organic Cold-Pressed Rose Hip Seed Oil", 
-      category: "Treatment & Moisturizing", 
-      fitPct: 79, 
-      price: 9.99, 
-      currency: "EUR", 
-      retailer: "amazon", 
+      retailer: "dolcegabbana", 
       imageUrl: "/images/products/ordinary-rosehip.png" 
     },
     { 
-      id: "trilogy-rosehip", 
-      brand: "Trilogy", 
-      name: "Certified Organic Rosehip Oil", 
-      category: "Treatment & Moisturizing", 
-      fitPct: 83, 
-      price: 29.90, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/pai-rosehip.png" 
-    },
-    { 
-      id: "radha-rosehip", 
-      brand: "Radha Beauty", 
-      name: "Rosehip Seed Oil", 
-      category: "Treatment & Moisturizing", 
-      fitPct: 77, 
-      price: 14.50, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/ordinary-rosehip.png" 
-    },
-    { 
-      id: "leven-rose-rosehip", 
-      brand: "Leven Rose", 
-      name: "Pure Cold Pressed Rosehip Seed Oil", 
-      category: "Treatment & Moisturizing", 
-      fitPct: 75, 
-      price: 22.99, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/pai-rosehip.png" 
-    }
-  ],
-  "Acne-Safe Squalane Cleansers": [
-    { 
-      id: "pacifica-sea-foam", 
-      brand: "Pacifica", 
-      name: "Sea Foam Complete Face Wash", 
-      category: "Cleansing", 
-      fitPct: 88, 
-      price: 21.95, 
-      currency: "GBP", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/pacifica-sea-foam.png" 
-    },
-    { 
-      id: "drunk-slaai", 
-      brand: "Drunk Elephant", 
-      name: "Slaai™ Makeup-Melting Butter Cleanser", 
-      category: "Makeup Remover", 
-      fitPct: 84, 
-      price: 51.63, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/drunk-slaai.png" 
-    },
-    { 
-      id: "ordinary-squalane-cleanser", 
-      brand: "The Ordinary", 
-      name: "Squalane Cleanser", 
-      category: "Cleansing", 
-      fitPct: 86, 
-      price: 8.20, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/pacifica-sea-foam.png" 
-    },
-    { 
-      id: "inkey-oat-cleanser", 
-      brand: "The INKEY List", 
-      name: "Oat Cleansing Balm", 
-      category: "Cleansing", 
-      fitPct: 82, 
-      price: 11.99, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/drunk-slaai.png" 
-    },
-    { 
-      id: "good-molecules-cleanser", 
-      brand: "Good Molecules", 
-      name: "Cleansing Balm", 
-      category: "Cleansing", 
-      fitPct: 80, 
-      price: 16.50, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/pacifica-sea-foam.png" 
-    }
-  ],
-  "Routine – Morning": [
-    { 
-      id: "fab-cleanser", 
-      brand: "First Aid Beauty", 
-      name: "Pure Skin Face Cleanser", 
-      category: "Cleansing", 
-      fitPct: 93, 
-      price: 20.00, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/fab-cleanser.png" 
-    },
-    { 
-      id: "pixi-milky-tonic", 
-      brand: "Pixi", 
-      name: "Milky Tonic", 
-      category: "Toning & Exfoliating", 
-      fitPct: 90, 
-      price: 12.00, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/pixi-milky.png" 
-    },
-    { 
-      id: "cerave-foaming-cleanser", 
-      brand: "CeraVe", 
-      name: "Foaming Facial Cleanser", 
-      category: "Cleansing", 
-      fitPct: 91, 
-      price: 13.50, 
-      currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/fab-cleanser.png" 
-    },
-    { 
-      id: "lrp-vitamin-c", 
-      brand: "La Roche-Posay", 
-      name: "Pure Vitamin C Face Serum", 
+      id: "dg-illuminating-primer", 
+      brand: "Dolce&Gabbana", 
+      name: "Illuminating Primer Serum", 
       category: "Treatment", 
-      fitPct: 88, 
-      price: 34.99, 
+      fitPct: 93, 
+      price: 125.00, 
       currency: "EUR", 
-      retailer: "amazon", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/pixi-milky.png" 
+    }
+  ],
+  "Idratazione Profonda - Deep Hydration": [
+    { 
+      id: "dg-hydrating-essence", 
+      brand: "Dolce&Gabbana", 
+      name: "Mediterranean Hydrating Essence", 
+      category: "Treatment", 
+      fitPct: 92, 
+      price: 145.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/pacifica-sea-foam.png" 
+    },
+    { 
+      id: "dg-moisture-shield", 
+      brand: "Dolce&Gabbana", 
+      name: "Moisture Shield Cream", 
+      category: "Moisturizing", 
+      fitPct: 94, 
+      price: 195.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/drunk-slaai.png" 
+    },
+    { 
+      id: "dg-aqua-gel", 
+      brand: "Dolce&Gabbana", 
+      name: "Aqua Fresh Gel Moisturizer", 
+      category: "Moisturizing", 
+      fitPct: 91, 
+      price: 155.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/cerave-pm.png" 
+    }
+  ],
+  "Pulizia Delicata - Gentle Cleansing": [
+    { 
+      id: "dg-silk-cleanser", 
+      brand: "Dolce&Gabbana", 
+      name: "Silk Velvet Cleansing Balm", 
+      category: "Cleansing", 
+      fitPct: 90, 
+      price: 95.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/fab-cleanser.png" 
+    },
+    { 
+      id: "dg-micellar-water", 
+      brand: "Dolce&Gabbana", 
+      name: "Rosa Micellar Water", 
+      category: "Cleansing", 
+      fitPct: 89, 
+      price: 75.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/pacifica-sea-foam.png" 
+    },
+    { 
+      id: "dg-foam-cleanser", 
+      brand: "Dolce&Gabbana", 
+      name: "Mediterranean Foam Cleanser", 
+      category: "Cleansing", 
+      fitPct: 88, 
+      price: 85.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/fab-cleanser.png" 
+    }
+  ],
+  "Routine – Mattina": [
+    { 
+      id: "dg-morning-cleanser", 
+      brand: "Dolce&Gabbana", 
+      name: "Mediterranean Foam Cleanser", 
+      category: "Cleansing", 
+      fitPct: 88, 
+      price: 85.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/fab-cleanser.png" 
+    },
+    { 
+      id: "dg-morning-serum", 
+      brand: "Dolce&Gabbana", 
+      name: "Gold Peptides Face Serum", 
+      category: "Treatment", 
+      fitPct: 99, 
+      price: 215.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/ren-aha-tonic.png" 
+    },
+    { 
+      id: "dg-morning-cream", 
+      brand: "Dolce&Gabbana", 
+      name: "Glow Bounce Ceramide Cream", 
+      category: "Moisturizing", 
+      fitPct: 95, 
+      price: 185.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/lrp-toleriane.png" 
+    }
+  ],
+  "Routine – Sera": [
+    { 
+      id: "dg-evening-balm", 
+      brand: "Dolce&Gabbana", 
+      name: "Silk Velvet Cleansing Balm", 
+      category: "Cleansing", 
+      fitPct: 90, 
+      price: 95.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/drunk-slaai.png" 
+    },
+    { 
+      id: "dg-evening-essence", 
+      brand: "Dolce&Gabbana", 
+      name: "Mediterranean Hydrating Essence", 
+      category: "Treatment", 
+      fitPct: 92, 
+      price: 145.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
       imageUrl: "/images/products/pixi-milky.png" 
     },
     { 
-      id: "neutrogena-hydrogel", 
-      brand: "Neutrogena", 
-      name: "Hydro Boost Water Gel", 
-      category: "Moisturizing", 
-      fitPct: 85, 
-      price: 18.75, 
+      id: "dg-evening-face-cream", 
+      brand: "Dolce&Gabbana", 
+      name: "Gold Peptides Face Cream", 
+      category: "Treatment & Moisturizing", 
+      fitPct: 98, 
+      price: 245.00, 
       currency: "EUR", 
-      retailer: "amazon", 
-      imageUrl: "/images/products/fab-cleanser.png" 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/cerave-pm.png" 
+    },
+    { 
+      id: "dg-evening-eye-serum", 
+      brand: "Dolce&Gabbana", 
+      name: "Gold Peptides Eye Serum", 
+      category: "Treatment", 
+      fitPct: 97, 
+      price: 195.00, 
+      currency: "EUR", 
+      retailer: "dolcegabbana", 
+      imageUrl: "/images/products/naturium-mandelic.png" 
     }
   ]
 };

@@ -375,7 +375,7 @@ const RoutineForYou = () => {
       category: 'Treatment',
       price: parseFloat(step.product.price.replace('$', '')),
       currency: 'EUR',
-      retailer: 'amazon',
+      retailer: 'dolcegabbana',
       fitPct: step.product.fitPct,
       imageUrl: step.product.image,
     } as Product;
@@ -391,7 +391,7 @@ const RoutineForYou = () => {
       category: 'Treatment',
       price: parseFloat(alt.price.replace('$', '')),
       currency: 'EUR',
-      retailer: 'amazon',
+      retailer: 'dolcegabbana',
       fitPct: alt.fitPct,
       imageUrl: alt.image,
     } as Product;
