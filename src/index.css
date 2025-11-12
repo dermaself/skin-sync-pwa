@@ -2,88 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Obviously';
-  src: url('/fonts/ObviouslyDemo-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Obviously';
-  src: url('/fonts/ObviouslyDemo-Medium.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Obviously';
-  src: url('/fonts/ObviouslyDemo-Bold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Dermaself Brand Identity - Official color system
-Based on the official Dermaself brand guidelines with authentic colors.
+/* Dolce&Gabbana AI Beauty - Official Design System
+Inspired by luxury minimalism, Mediterranean warmth, and scientific precision.
 All colors use HSL format for consistency and accessibility.
 */
 
 :root {
-  /* Base Colors - Clean and modern */
-  --background: 0 0% 98%;
-  --foreground: 0 0% 20%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 20%;
+  /* D&G Beauty Core Colors */
+  --gold-main: 38 44% 49%;              /* #B68C45 - Main gold */
+  --gold-light: 42 68% 69%;             /* #E7C87A - Light gold for gradients */
+  --champagne-glow: 25 65% 91%;         /* #F9E5D4 - Champagne glow */
+  --pink-resin: 14 65% 89%;             /* #F7D7D0 - Pink resin */
+  --white-frosted: 0 0% 100%;           /* White with opacity in usage */
+  --black-lava: 20 9% 16%;              /* #2B2725 - Black lava */
+  
+  /* Base Semantic Colors */
+  --background: 25 65% 91%;             /* Champagne glow as base */
+  --foreground: 20 9% 16%;              /* Black lava for text */
+  --card: 0 0% 100%;                    /* White gloss */
+  --card-foreground: 20 9% 16%;
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 20%;
+  --popover-foreground: 20 9% 16%;
 
-  /* Primary - Confident Purple #6E4AE9 */
-  --primary: 260 81% 60%;
-  --primary-foreground: 0 0% 100%;
-  --primary-glow: 254 73% 78%;
+  /* Primary - Gold */
+  --primary: 38 44% 49%;                /* Gold main */
+  --primary-foreground: 0 0% 100%;      /* White on gold */
+  --primary-glow: 42 68% 69%;           /* Gold light for hover/glow */
   
-  /* Secondary - Friendly Lilac #AE9AF2 */
-  --secondary: 254 73% 78%;
-  --secondary-foreground: 0 0% 20%;
+  /* Secondary - Pink Resin */
+  --secondary: 14 65% 89%;              /* Pink resin */
+  --secondary-foreground: 20 9% 16%;    /* Black lava text */
   
-  /* Accent - Look-at-me Green #9BFFBF */
-  --accent: 144 100% 80%;
-  --accent-foreground: 0 0% 20%;
+  /* Accent - Champagne */
+  --accent: 25 65% 91%;                 /* Champagne glow */
+  --accent-foreground: 38 44% 49%;      /* Gold text on champagne */
   
   /* Muted backgrounds */
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 45%;
+  --muted: 25 65% 95%;                  /* Lighter champagne */
+  --muted-foreground: 20 9% 40%;        /* Lighter black lava */
   
   /* Border and inputs */
-  --border: 0 0% 90%;
-  --input: 0 0% 90%;
-  --ring: 260 81% 60%;
+  --border: 38 44% 49%;                 /* Gold border */
+  --input: 0 0% 100%;                   /* White frosted for inputs */
+  --ring: 38 44% 49%;                   /* Gold focus ring */
   
   /* Destructive */
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
   
-  /* Brand-specific colors for fit percentages */
-  --violet-fit: 260 81% 60%;
-  --emerald-fit: 144 100% 80%;
-  --lilac-fit: 254 73% 78%;
-  --gray-fit: 0 0% 45%;
-  
   /* Sidebar theming */
   --sidebar-background: 0 0% 100%;
-  --sidebar-foreground: 0 0% 20%;
-  --sidebar-primary: 260 81% 60%;
+  --sidebar-foreground: 20 9% 16%;
+  --sidebar-primary: 38 44% 49%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 0 0% 96%;
-  --sidebar-accent-foreground: 0 0% 20%;
-  --sidebar-border: 0 0% 90%;
-  --sidebar-ring: 260 81% 60%;
+  --sidebar-accent: 25 65% 91%;
+  --sidebar-accent-foreground: 38 44% 49%;
+  --sidebar-border: 38 44% 85%;
+  --sidebar-ring: 38 44% 49%;
 
-  /* Border radius */
-  --radius: 1rem;
+  /* Border radius - D&G style */
+  --radius: 0.75rem;                    /* 12px for cards */
+  --radius-sm: 0.375rem;                /* 6px for buttons */
 }
 
 @layer base {
@@ -99,7 +78,7 @@ All colors use HSL format for consistency and accessibility.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
     overflow-x: hidden;
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
@@ -121,51 +100,68 @@ All colors use HSL format for consistency and accessibility.
 }
 
 @layer components {
-  .dermaself-card {
-    @apply bg-card text-card-foreground rounded-2xl p-4;
-    box-shadow: 0 1px 3px 0 hsl(260 81% 60% / 0.1), 0 1px 2px -1px hsl(260 81% 60% / 0.1);
-    border: 1px solid hsl(0 0% 90% / 0.6);
+  /* D&G Beauty Card Styles */
+  .dg-beauty-card {
+    @apply bg-card text-card-foreground p-6;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid hsl(38 44% 49% / 0.15);
     background: hsl(0 0% 100%);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
   }
 
-  .dermaself-card:hover {
-    box-shadow: 0 10px 25px -3px hsl(260 81% 60% / 0.15), 0 4px 6px -2px hsl(260 81% 60% / 0.1);
-    border-color: hsl(260 81% 60% / 0.2);
+  .dg-beauty-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 8px hsl(38 44% 49% / 0.4);
   }
 
-  .fit-pill-violet {
-    @apply text-white px-3 py-1.5 rounded-full text-xs font-bold min-h-[28px] flex items-center shadow-sm;
-    background: hsl(260 81% 60%);
+  /* Fit Pills - Gold Theme */
+  .fit-pill-gold {
+    @apply text-white px-3 py-1.5 rounded-md text-xs font-medium min-h-[28px] flex items-center;
+    background: linear-gradient(90deg, hsl(38 44% 49%), hsl(42 68% 69%));
+    box-shadow: 0 2px 6px hsl(38 44% 49% / 0.4);
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
-  .fit-pill-emerald {
-    @apply px-3 py-1.5 rounded-full text-xs font-bold min-h-[28px] flex items-center shadow-sm;
-    background: hsl(144 100% 80%);
-    color: hsl(0 0% 9%);
+  .fit-pill-champagne {
+    @apply px-3 py-1.5 rounded-md text-xs font-medium min-h-[28px] flex items-center;
+    background: hsl(25 65% 91%);
+    color: hsl(38 44% 49%);
+    border-radius: 6px;
+    border: 1px solid hsl(38 44% 49%);
   }
 
-  .fit-pill-lilac {
-    @apply text-white px-3 py-1.5 rounded-full text-xs font-bold min-h-[28px] flex items-center shadow-sm;
-    background: hsl(254 73% 78%);
+  .fit-pill-pink {
+    @apply px-3 py-1.5 rounded-md text-xs font-medium min-h-[28px] flex items-center;
+    background: hsl(14 65% 89%);
+    color: hsl(20 9% 16%);
+    border-radius: 6px;
   }
 
   .fit-pill-gray {
-    @apply text-white px-3 py-1.5 rounded-full text-xs font-bold min-h-[28px] flex items-center shadow-sm;
-    background: hsl(0 0% 45%);
+    @apply text-white px-3 py-1.5 rounded-md text-xs font-medium min-h-[28px] flex items-center;
+    background: hsl(20 9% 40%);
+    border-radius: 6px;
   }
 
   .price-pill {
-    @apply px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-sm;
-    background: hsl(144 100% 80%);
-    color: hsl(0 0% 9%);
+    @apply px-4 py-2 rounded-md font-medium flex items-center gap-2;
+    background: linear-gradient(90deg, hsl(38 44% 49%), hsl(42 68% 69%));
+    color: hsl(0 0% 100%);
+    box-shadow: 0 2px 6px hsl(38 44% 49% / 0.4);
+    border-radius: 6px;
   }
 
   .category-chip {
-    @apply px-3 py-1 rounded-full text-xs font-medium border shadow-sm;
-    background: hsl(0 0% 96%);
-    color: hsl(0 0% 45%);
-    border-color: hsl(0 0% 90%);
+    @apply px-3 py-1 rounded-md text-xs font-normal border;
+    background: transparent;
+    color: hsl(38 44% 49%);
+    border-color: hsl(38 44% 49%);
+    border-radius: 6px;
   }
 
   .day-pill {
@@ -173,56 +169,59 @@ All colors use HSL format for consistency and accessibility.
     width: clamp(40px, 11vw, 48px);
     height: clamp(40px, 11vw, 48px);
     padding: 0.25rem;
+    font-family: 'Inter', sans-serif;
   }
 
   .day-pill.selected {
     @apply text-white;
-    background: hsl(260 81% 60%);
+    background: linear-gradient(90deg, hsl(38 44% 49%), hsl(42 68% 69%));
   }
 
   .day-pill.completed {
     @apply text-white;
-    background: hsl(260 81% 60%);
+    background: hsl(38 44% 49%);
   }
 
   .day-pill.inactive {
     @apply text-muted-foreground;
-    background: hsl(0 0% 96%);
+    background: hsl(25 65% 95%);
   }
 
   .floating-smiley {
     @apply fixed right-4 min-w-[56px] min-h-[56px] bg-white rounded-full flex items-center justify-center text-2xl active:scale-95 transition-transform z-40;
     bottom: calc(5rem + env(safe-area-inset-bottom));
-    box-shadow: 0 10px 25px -3px hsl(260 81% 60% / 0.15), 0 4px 6px -2px hsl(260 81% 60% / 0.1);
+    box-shadow: 0 0 8px hsl(38 44% 49% / 0.4);
   }
 
+  /* D&G Gradients */
   .gradient-splash {
-    background: linear-gradient(135deg, hsl(260 81% 60%) 0%, hsl(254 73% 78%) 50%, hsl(144 100% 80%) 100%);
+    background: linear-gradient(90deg, hsl(38 44% 49%) 0%, hsl(42 68% 69%) 100%);
     position: relative;
   }
 
   .gradient-header {
-    background: linear-gradient(135deg, hsl(260 81% 60% / 0.08) 0%, hsl(254 73% 78% / 0.05) 100%);
+    background: radial-gradient(circle at 30% 20%, hsl(0 0% 100% / 0.6), transparent 40%), 
+                linear-gradient(120deg, hsl(25 65% 91%), hsl(25 65% 94%));
     position: relative;
   }
 
   .gradient-affirmation {
-    background: linear-gradient(135deg, hsl(260 81% 60% / 0.12) 0%, hsl(254 73% 78% / 0.08) 100%);
+    background: linear-gradient(135deg, hsl(25 65% 91%), hsl(14 65% 89%));
   }
 
   .gradient-card {
-    background: linear-gradient(135deg, hsl(254 73% 78% / 0.03) 0%, hsl(144 100% 80% / 0.02) 100%);
+    background: linear-gradient(135deg, hsl(25 65% 95%) 0%, hsl(14 65% 92%) 100%);
   }
 
   .gradient-accent {
-    background: linear-gradient(135deg, hsl(144 100% 80%) 0%, hsl(254 73% 78%) 100%);
+    background: linear-gradient(90deg, hsl(38 44% 49%), hsl(42 68% 69%));
   }
 
   .bottom-nav {
     @apply fixed bottom-0 left-0 right-0 backdrop-blur-md border-t px-2 py-2 z-50;
     background: linear-gradient(180deg, hsl(0 0% 100% / 0.95) 0%, hsl(0 0% 100% / 0.98) 100%);
-    border-color: hsl(0 0% 90% / 0.8);
-    box-shadow: 0 -4px 20px -2px hsl(260 81% 60% / 0.1), 0 -1px 0 0 hsl(0 0% 90% / 0.5);
+    border-color: hsl(38 44% 49% / 0.2);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
     will-change: transform;
     backface-visibility: hidden;
     padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
@@ -236,12 +235,13 @@ All colors use HSL format for consistency and accessibility.
 
   .section-header {
     @apply flex items-center gap-4 mb-6;
+    font-family: 'Playfair Display', serif;
   }
 
   .section-header::before,
   .section-header::after {
     @apply flex-1 h-px content-[''];
-    background: hsl(0 0% 90%);
+    background: hsl(38 44% 49% / 0.3);
   }
 }
 
