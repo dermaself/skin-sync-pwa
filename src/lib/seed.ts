@@ -21,7 +21,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 245.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/cerave-pm.png" 
+      imageUrl: "/images/products/dg-gold-face-cream.jpg" 
     },
     { 
       id: "dg-gold-eye-serum", 
@@ -32,7 +32,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 195.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/naturium-mandelic.png" 
+      imageUrl: "/images/products/dg-gold-eye-serum.jpg" 
     },
     { 
       id: "dg-gold-face-serum", 
@@ -43,7 +43,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 215.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/ren-aha-tonic.png" 
+      imageUrl: "/images/products/dg-gold-face-serum.jpg" 
     },
     { 
       id: "dg-gold-mask", 
@@ -54,7 +54,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 165.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/pai-rosehip.png" 
+      imageUrl: "/images/products/dg-gold-mask.jpg" 
     }
   ],
   "Luminosità - Glow & Radiance": [
@@ -67,7 +67,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 185.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/lrp-toleriane.png" 
+      imageUrl: "/images/products/dg-glow-ceramide.jpg" 
     },
     { 
       id: "dg-icy-lemon-balm", 
@@ -78,7 +78,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 65.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/ordinary-rosehip.png" 
+      imageUrl: "/images/products/dg-icy-lemon-balm.jpg" 
     },
     { 
       id: "dg-illuminating-primer", 
@@ -89,7 +89,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 125.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/pixi-milky.png" 
+      imageUrl: "/images/products/dg-serum-1.jpg" 
     }
   ],
   "Idratazione Profonda - Deep Hydration": [
@@ -102,7 +102,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 145.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/pacifica-sea-foam.png" 
+      imageUrl: "/images/products/dg-hydrating-essence.jpg" 
     },
     { 
       id: "dg-moisture-shield", 
@@ -113,7 +113,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 195.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/drunk-slaai.png" 
+      imageUrl: "/images/products/dg-booster-1.jpg" 
     },
     { 
       id: "dg-aqua-gel", 
@@ -124,7 +124,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 155.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/cerave-pm.png" 
+      imageUrl: "/images/products/dg-glow-ceramide.jpg" 
     }
   ],
   "Pulizia Delicata - Gentle Cleansing": [
@@ -137,7 +137,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 95.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/fab-cleanser.png" 
+      imageUrl: "/images/products/dg-silk-cleanser.jpg" 
     },
     { 
       id: "dg-micellar-water", 
@@ -148,7 +148,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 75.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/pacifica-sea-foam.png" 
+      imageUrl: "/images/products/dg-hydrating-essence.jpg" 
     },
     { 
       id: "dg-foam-cleanser", 
@@ -159,7 +159,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 85.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/fab-cleanser.png" 
+      imageUrl: "/images/products/dg-silk-cleanser.jpg" 
     }
   ],
   "Routine – Mattina": [
@@ -172,7 +172,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 85.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/fab-cleanser.png" 
+      imageUrl: "/images/products/dg-silk-cleanser.jpg" 
     },
     { 
       id: "dg-morning-serum", 
@@ -183,7 +183,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 215.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/ren-aha-tonic.png" 
+      imageUrl: "/images/products/dg-gold-face-serum.jpg" 
     },
     { 
       id: "dg-morning-cream", 
@@ -194,7 +194,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 185.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/lrp-toleriane.png" 
+      imageUrl: "/images/products/dg-glow-ceramide.jpg" 
     }
   ],
   "Routine – Sera": [
@@ -207,7 +207,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 95.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/drunk-slaai.png" 
+      imageUrl: "/images/products/dg-silk-cleanser.jpg" 
     },
     { 
       id: "dg-evening-essence", 
@@ -218,7 +218,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 145.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/pixi-milky.png" 
+      imageUrl: "/images/products/dg-hydrating-essence.jpg" 
     },
     { 
       id: "dg-evening-face-cream", 
@@ -229,7 +229,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 245.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/cerave-pm.png" 
+      imageUrl: "/images/products/dg-gold-face-cream.jpg" 
     },
     { 
       id: "dg-evening-eye-serum", 
@@ -240,7 +240,7 @@ export const seedProducts: Record<string, Product[]> = {
       price: 195.00, 
       currency: "EUR", 
       retailer: "dolcegabbana", 
-      imageUrl: "/images/products/naturium-mandelic.png" 
+      imageUrl: "/images/products/dg-gold-eye-serum.jpg" 
     }
   ]
 };
