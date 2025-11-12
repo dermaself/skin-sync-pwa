@@ -412,9 +412,21 @@ const RoutineForYou = () => {
 
     const starCount = Math.max(1, Math.min(5, Math.round(step.product.fitPct / 20)));
 
+    // Assign different card styles based on step type for visual distinction
+    const getCardStyle = () => {
+      if (routineType === 'morning') {
+        return step.step === 1 ? 'dg-card-champagne' : step.step === 2 ? 'dg-card-gold-accent' : 'dg-card-white-frost';
+      } else if (routineType === 'evening') {
+        return step.step % 2 === 0 ? 'dg-card-pink' : 'dg-card-gold-accent';
+      } else {
+        // weekly
+        return step.step <= 3 ? 'dg-card-champagne' : step.step <= 5 ? 'dg-card-gold-accent' : 'dg-card-pink';
+      }
+    };
+
     return (
       <div key={stepKey} className="mb-8">
-        <div className="dermaself-card">
+        <div className={getCardStyle()}>
           {/* Header */}
           <div className="flex items-start gap-4 mb-3">
             <div className="flex-shrink-0 w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-semibold">

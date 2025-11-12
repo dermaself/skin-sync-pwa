@@ -100,7 +100,7 @@ All colors use HSL format for consistency and accessibility.
 }
 
 @layer components {
-  /* D&G Beauty Card Styles */
+  /* D&G Beauty Card Styles - Default */
   .dg-beauty-card {
     @apply bg-card text-card-foreground p-6;
     border-radius: 12px;
@@ -113,6 +113,67 @@ All colors use HSL format for consistency and accessibility.
   .dg-beauty-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 0 8px hsl(38 44% 49% / 0.4);
+  }
+
+  /* Card Variant - Champagne Glow */
+  .dg-card-champagne {
+    @apply p-6;
+    border-radius: 12px;
+    background: hsl(29 65% 92%);
+    border: 2px solid hsl(38 44% 49% / 0.3);
+    box-shadow: 0 4px 12px rgba(182, 140, 69, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .dg-card-champagne:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(182, 140, 69, 0.25);
+  }
+
+  /* Card Variant - Gold Accent */
+  .dg-card-gold-accent {
+    @apply p-6;
+    border-radius: 12px;
+    background: hsl(0 0% 100%);
+    border: 2px solid hsl(38 44% 49% / 0.4);
+    box-shadow: 0 3px 10px rgba(182, 140, 69, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .dg-card-gold-accent:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(182, 140, 69, 0.3);
+  }
+
+  /* Card Variant - Pink Resin */
+  .dg-card-pink {
+    @apply p-6;
+    border-radius: 12px;
+    background: hsl(7 68% 90%);
+    border: 2px solid hsl(7 68% 75% / 0.3);
+    box-shadow: 0 2px 8px rgba(247, 215, 208, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .dg-card-pink:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(247, 215, 208, 0.4);
+  }
+
+  /* Card Variant - White Frost */
+  .dg-card-white-frost {
+    @apply p-6;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(4px);
+    border: 2px solid hsl(38 44% 49% / 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+  }
+
+  .dg-card-white-frost:hover {
+    transform: translateY(-4px);
+    border-color: hsl(38 44% 49% / 0.4);
   }
 
   /* Fit Pills - Gold Theme */
